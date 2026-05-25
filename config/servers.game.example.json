@@ -1,0 +1,43 @@
+[
+  {
+    "name": "My Project Zomboid Server",
+    "folder": "C:\\PZServer",
+    "process": "ProjectZomboid64.exe",
+    "disk_threshold_gb": 10,
+    "network_checks": [
+      {
+        "name": "PZ Game Port",
+        "host": "127.0.0.1",
+        "port": 16261,
+        "timeout_ms": 2000
+      }
+    ],
+    "log_checks": [
+      {
+        "name": "PZ console log",
+        "path": "C:\\PZServer\\Logs\\console.txt",
+        "max_age_minutes": 30
+      }
+    ],
+    "resource_checks": [
+      {
+        "name": "PZ process resources",
+        "process": "ProjectZomboid64.exe",
+        "max_memory_mb": 8192,
+        "max_cpu_percent": 95,
+        "sample_ms": 1000
+      }
+    ],
+    "notes": "FAKE placeholder paths — copy to servers.local.json and edit before use"
+  },
+  {
+    "name": "My Minecraft Server",
+    "folder": "D:\\MinecraftServer",
+    "process": "java.exe",
+    "disk_threshold_gb": 5,
+    "network_checks": [],
+    "log_checks": [],
+    "resource_checks": [],
+    "notes": "FAKE placeholder path — copy to servers.local.json and edit before use"
+  }
+]

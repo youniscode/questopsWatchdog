@@ -1,0 +1,9 @@
+[
+  {
+    "name": "Local Windows Server",
+    "folder": "C:\\Windows",
+    "process": "powershell.exe",
+    "disk_threshold_gb": 1,
+    "notes": "Safe local demo — C:\\Windows always exists, powershell.exe always runs, low disk threshold ensures free space check passes"
+  }
+]

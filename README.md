@@ -1,0 +1,644 @@
+# QuestOps Watchdog
+
+A Windows-first local audit and monitoring tool for survival game server owners.
+
+It checks that your game servers are running, their folders exist, and enough disk space is available — then writes a JSON report you can inspect or forward.
+
+---
+
+## Who it is for
+
+- Self-hosted **Project Zomboid** server operators
+- Self-hosted **Minecraft** server operators
+- Anyone running multiple game servers on Windows who wants a lightweight, no-dependency health check
+
+## Current MVP status
+
+**v0.4.8 — Scheduled scan + Discord alert workflow + network/log/resource checks + improved alerts + config validation + client-ready audit package + HTML audit report export + audit results bundle + release hygiene**
+
+Run a single command to scan your servers and receive a Discord alert if anything failed. Use the Task Scheduler installer to run automatically on a recurring interval.
+
+### What it currently checks
+
+| Check | Method |
+|-------|--------|
+| Folder exists | `Test-Path -PathType Container` |
+| Free disk space | `Get-PSDrive`, compared against config threshold |
+| Process running | `Get-Process` by name |
+| TCP port reachability | .NET `TcpClient.BeginConnect` / `EndConnect` with timeout (optional per server) |
+| Log file freshness | `Get-Item LastWriteTime` compared against `max_age_minutes` (optional per server) |
+| Process CPU & memory | `TotalProcessorTime` sampled over `sample_ms`, `WorkingSet64` summed across matching processes (optional per server) |
+
+## Requirements
+
+- **Windows** (7/8/10/11, Server 2012+)
+- **PowerShell 5.1** (comes with Windows; no install needed)
+- No modules, no npm, no Python, no databases
+
+## Config validation
+
+Run the config validator to check your config file structure before scanning:
+
+```powershell
+# Validate the default safe demo config
+powershell -NoProfile -ExecutionPolicy Bypass -File scripts\validate_questops_config.ps1
+
+# Validate the game server template
+powershell -NoProfile -ExecutionPolicy Bypass -File scripts\validate_questops_config.ps1 -ConfigPath config\servers.game.example.json
+```
+
+The validator checks JSON syntax, required fields, types, and ranges — but not runtime availability (folder/process/port existence).
+
+### Config file roles
+
+There are three config files in the repository:
+
+| File | Role | Default path? | Notes |
+|------|------|---------------|-------|
+| `config/servers.example.json` | Safe local demo | **Yes** — default in all scripts | Uses `C:\Windows` / `powershell.exe` / 1 GB threshold. Always passes on any Windows machine. |
+| `config/servers.game.example.json` | Game server template | No — must pass via `-ConfigPath` | Real-looking config with **fake placeholder paths**. Copy to `servers.local.json` and edit. |
+| `config/servers.local.json` | Your real config | No — must pass via `-ConfigPath` | Gitignored by `config/*.local.json`. Never committed. |
+
+Exit codes: **0** = valid, **2** = file not found, **3** = invalid JSON or structure.
+
+## Client-ready audit package
+
+Create a clean zip package safe to share with clients. Secrets, local configs, reports, logs, and development files are excluded.
+
+```powershell
+# Create the package
+powershell -NoProfile -ExecutionPolicy Bypass -File scripts\export_questops_audit_package.ps1 -Force
+```
+
+The package is written to `dist\questops-watchdog-audit-package-YYYYMMDD-HHMMSS.zip`.
+
+### What is included (25 files)
+
+- **Version & changelog:** VERSION, CHANGELOG.md
+- **Documentation:** README.md, docs/PROJECTMAP.md, docs/ROADMAP.md, docs/AGENT_RULES.md, docs/TASKS.md, docs/CLIENT_AUDIT_GUIDE.md, docs/CLIENT_HANDOFF_CHECKLIST.md, docs/RELEASE_NOTES_v0.4.8.md
+- **Scripts:** questops_scan.ps1, questops_run.ps1, questops_discord_alert.ps1, validate_questops_config.ps1, install_questops_task.ps1, uninstall_questops_task.ps1, export_questops_audit_package.ps1, export_questops_html_report.ps1, export_questops_audit_results.ps1
+- **Configs:** servers.example.json, servers.game.example.json
+- **Placeholders:** reports/.gitkeep, reports/history/.gitkeep, logs/.gitkeep, state/.gitkeep
+
+### What is excluded
+
+- `.git/`, `.env`, `.env.*`
+- `config/*.local.json`, `config/*private*.json`, `config/*secret*.json`
+- `reports/*.json`, `reports/history/*.json`
+- `logs/*.log`, `state/*`
+- `tmp/`, `temp/`, `*.tmp`, `*.bak`
+- `dist/` (old packages), `*.zip`
+- Any file containing a hardcoded Discord webhook URL
+
+A preflight safety scan runs before the zip is created. If a Discord webhook URL is detected in any included file, the export fails with exit code 3.
+
+### Export exit codes
+
+| Code | Meaning |
+|------|---------|
+| 0 | Package created successfully |
+| 1 | Package creation failed (or file exists without -Force) |
+| 2 | Required source file missing |
+| 3 | Safety scan failed — secrets detected in included files |
+
+## HTML audit report export
+
+After running a scan, you can export the JSON report as a standalone HTML file suitable for client delivery or print-to-PDF.
+
+```powershell
+# Export HTML report (default: reports\latest-health-report.html)
+powershell -NoProfile -ExecutionPolicy Bypass -File scripts\export_questops_html_report.ps1
+
+# Custom input/output paths
+powershell -NoProfile -ExecutionPolicy Bypass -File scripts\export_questops_html_report.ps1 -ReportPath reports\custom-report.json -OutputPath reports\audit.html
+
+# Open in browser after generation
+powershell -NoProfile -ExecutionPolicy Bypass -File scripts\export_questops_html_report.ps1 -Open
+```
+
+The HTML report is a self-contained file with inline CSS only — no JavaScript, no external dependencies, no CDN. It is safe to share with clients and can be printed to PDF from any browser.
+
+### Exit codes
+
+| Code | Meaning |
+|------|---------|
+| 0 | HTML report created successfully |
+| 2 | JSON report file not found |
+| 3 | JSON report is malformed |
+| 4 | HTML report write failed |
+
+### Notes
+
+- Generated `.html` reports are gitignored (`reports/*`) and are **not** included in the client audit package.
+- The generated HTML does **not** contain any environment variables, webhook URLs, or secrets — only the scan result data.
+- Custom `-OutputPath` values outside `reports/` are not protected by `.gitignore`.
+
+## Audit results bundle
+
+After the client runs a scan and generates the HTML report, create a **results bundle** — a zip containing the JSON report, HTML report, and optionally the config and run log — to send back for a paid/manual audit.
+
+This is different from the **client-ready audit package** (which packages the *tool* to send *to* a client). The audit results bundle packages the *outputs* to send *back*.
+
+```powershell
+# Create an audit results bundle (default paths)
+powershell -NoProfile -ExecutionPolicy Bypass -File scripts\export_questops_audit_results.ps1
+
+# Overwrite existing package
+powershell -NoProfile -ExecutionPolicy Bypass -File scripts\export_questops_audit_results.ps1 -Force
+```
+
+The bundle is written to `dist\questops-watchdog-audit-results-YYYYMMDD-HHMMSS.zip`.
+
+By default it includes:
+- `reports/latest-health-report.json`
+- `reports/latest-health-report.html`
+- `audit-results-manifest.json` (generated at export time)
+
+If the HTML file does not exist, the script automatically generates it using `export_questops_html_report.ps1`.
+
+### Optional config and log
+
+Include the client's config and run log (both safety-scanned before packaging):
+
+```powershell
+powershell -NoProfile -ExecutionPolicy Bypass -File scripts\export_questops_audit_results.ps1 -IncludeConfig -IncludeLog -Force
+```
+
+If the config or log file is missing, a warning is recorded in the manifest but the bundle is still created (with whatever files are available).
+
+### Safety scan
+
+Before creating the zip, all included files are scanned for:
+- Discord webhook URLs (`discord.com/api/webhooks`)
+- Discord webhook env var references (`QUESTOPS_DISCORD_WEBHOOK_URL=`)
+- Strings resembling `"password"`, `"token"`, `"secret"`
+
+If any are detected, the export fails with exit code 3 and lists the offending file paths and risk categories. The secret values are never printed.
+
+### Exit codes
+
+| Code | Meaning |
+|------|---------|
+| 0 | Audit results package created |
+| 1 | Package creation failed (or file exists without `-Force`) |
+| 2 | Required report or HTML missing |
+| 3 | Safety scan failed or HTML generation failed |
+| 4 | Invalid output path |
+
+## Release build
+
+QuestOps Watchdog includes a repeatable release build script that runs all validation steps, exports the tool package and audit results bundle, generates SHA256 checksums, and writes a release manifest — all without committing or tagging.
+
+```powershell
+powershell -NoProfile -ExecutionPolicy Bypass -File scripts\build_questops_client_release.ps1 -AllowDirty -Force
+```
+
+The output is written to `dist\questops-watchdog-v<VERSION>\` containing:
+- The latest client tool package zip and its `.sha256` checksum
+- The latest audit results bundle zip and its `.sha256` checksum
+- `release-manifest.json` with version, timestamps, git info, checksums, and warnings
+
+The build script reads the version from `VERSION` in the project root. Git commit and tagging remain manual — see `docs/RELEASE_CHECKLIST.md` for the exact commands.
+
+### Build script exit codes
+
+| Code | Meaning |
+|------|---------|
+| 0 | Release build completed |
+| 1 | Release build failed |
+| 2 | Required file or script missing |
+| 3 | Validation or safety check failed |
+| 4 | Dirty git working tree and `-AllowDirty` not used |
+
+## How to run a normal scan
+
+```powershell
+powershell -NoProfile -ExecutionPolicy Bypass -File scripts\questops_scan.ps1
+```
+
+The report is written to `reports/latest-health-report.json`. Warnings appear in the console. The final exit code is 0 (all pass) or 1 (any failure).
+
+To suppress warnings and capture only the report object:
+
+```powershell
+$report = & "scripts\questops_scan.ps1"
+$report.overall_pass
+$report.results | Format-Table server_name, passed
+```
+
+To see verbose progress:
+
+```powershell
+powershell -NoProfile -ExecutionPolicy Bypass -File scripts\questops_scan.ps1 -Verbose
+```
+
+## How to test missing config handling
+
+```powershell
+& "scripts\questops_scan.ps1" -ConfigPath "C:\nonexistent.json"
+```
+
+Expected: exit code **2**. A structured error object is emitted.
+
+## How to test malformed config handling
+
+```powershell
+Set-Content "$env:TEMP\bad.json" -Value "this is not json" -Force
+& "scripts\questops_scan.ps1" -ConfigPath "$env:TEMP\bad.json"
+```
+
+Expected: exit code **3**. Error object includes JSON parse error detail.
+
+## How to use custom report paths
+
+Specify a folder (writes `latest-health-report.json` inside):
+```powershell
+& "scripts\questops_scan.ps1" -ReportPath "C:\MyReports"
+```
+
+Or a specific `.json` file:
+```powershell
+& "scripts\questops_scan.ps1" -ReportPath "$env:TEMP\my-custom-report.json"
+```
+
+The parent folder is created automatically if it does not exist.
+
+## Network reachability checks (v0.4)
+
+You can optionally configure TCP port reachability checks per server. If a configured port is unreachable, the server is marked as failed.
+
+### Example config with network_checks
+
+```json
+{
+  "name": "My Project Zomboid Server",
+  "folder": "C:\\PZServer",
+  "process": "ProjectZomboid64.exe",
+  "disk_threshold_gb": 10,
+  "network_checks": [
+    {
+      "name": "PZ Game Port",
+      "host": "127.0.0.1",
+      "port": 16261,
+      "timeout_ms": 2000
+    }
+  ],
+  "notes": "Example with TCP port check"
+}
+```
+
+### Behavior
+
+| Scenario | network_checks | network_ok | Server passed |
+|----------|---------------|------------|---------------|
+| No `network_checks` key | `[]` (empty array) | `true` | unaffected |
+| Empty `network_checks` array | `[]` | `true` | unaffected |
+| All TCP ports reachable | populated | `true` | depends on other checks |
+| Any TCP port unreachable | populated | `false` | `passed = false` |
+
+### Validation
+
+```powershell
+# Run scan with game server template
+powershell -NoProfile -ExecutionPolicy Bypass -File scripts\questops_scan.ps1 -ConfigPath config\servers.game.example.json
+
+# Inspect network fields
+$report = Get-Content reports\latest-health-report.json -Raw | ConvertFrom-Json
+$report.results | Select-Object server_name, network_ok, passed
+$report.results | ForEach-Object { $_.network_checks }
+```
+
+**Note:** the game server template uses fake placeholder paths — results depend on whether you have matching folders/processes/ports. For a guaranteed pass, use the default `servers.example.json` (safe local demo).
+
+## Log staleness checks (v0.4.1)
+
+You can optionally configure log file freshness checks per server. If a configured log file is missing or has not been updated within the allowed age, the server is marked as failed.
+
+### Example config with log_checks
+
+```json
+{
+  "name": "My Project Zomboid Server",
+  "folder": "C:\\PZServer",
+  "process": "ProjectZomboid64.exe",
+  "disk_threshold_gb": 10,
+  "log_checks": [
+    {
+      "name": "PZ console log",
+      "path": "C:\\PZServer\\Logs\\console.txt",
+      "max_age_minutes": 30
+    }
+  ],
+  "notes": "Example with log freshness check"
+}
+```
+
+### Behavior
+
+| Scenario | log_checks | logs_ok | Server passed |
+|----------|-----------|---------|---------------|
+| No `log_checks` key | `[]` (empty array) | `true` | unaffected |
+| Empty `log_checks` array | `[]` | `true` | unaffected |
+| All log files exist and are fresh | populated | `true` | depends on other checks |
+| Any log file missing or stale | populated | `false` | `passed = false` |
+
+### Validation
+
+```powershell
+# Run scan with game server template
+powershell -NoProfile -ExecutionPolicy Bypass -File scripts\questops_scan.ps1 -ConfigPath config\servers.game.example.json
+
+# Inspect log fields
+$report = Get-Content reports\latest-health-report.json -Raw | ConvertFrom-Json
+$report.results | Select-Object server_name, logs_ok, network_ok, passed
+$report.results | ForEach-Object { $_.log_checks }
+```
+
+**Note:** the game server template uses fake placeholder paths — results depend on whether you have matching log files. For a guaranteed pass, use the default `servers.example.json` (safe local demo).
+
+## Process CPU and memory checks (v0.4.2)
+
+You can optionally configure process resource checks per server. If a configured process exceeds the memory or CPU threshold, the server is marked as failed.
+
+CPU is measured by sampling `TotalProcessorTime` over `sample_ms` milliseconds. The delta is divided by the sampling duration and logical CPU count to produce a percentage. Measurement may vary between runs.
+
+### Example config with resource_checks
+
+```json
+{
+  "name": "My Project Zomboid Server",
+  "folder": "C:\\PZServer",
+  "process": "ProjectZomboid64.exe",
+  "disk_threshold_gb": 10,
+  "resource_checks": [
+    {
+      "name": "PZ process resources",
+      "process": "ProjectZomboid64.exe",
+      "max_memory_mb": 8192,
+      "max_cpu_percent": 95,
+      "sample_ms": 1000
+    }
+  ],
+  "notes": "Example with process resource checks"
+}
+```
+
+### Rules
+
+| Situation | memory_ok | cpu_ok | passed |
+|-----------|-----------|--------|--------|
+| Process not running | `false` | `false` | `false` |
+| `max_memory_mb` missing or ≤ 0 | `true` (informational) | — | depends on CPU |
+| `max_cpu_percent` missing or ≤ 0 | — | `true` (informational) | depends on memory |
+| Within thresholds | `true` | `true` | `true` |
+| Exceeds threshold | `false` / `false` | `false` / `false` | `false` |
+
+### Behavior
+
+| Scenario | resource_checks | resources_ok | Server passed |
+|----------|----------------|-------------|---------------|
+| No `resource_checks` key | `[]` (empty array) | `true` | unaffected |
+| Empty `resource_checks` array | `[]` | `true` | unaffected |
+| All processes within limits | populated | `true` | depends on other checks |
+| Any process missing or over limit | populated | `false` | `passed = false` |
+
+### Validation
+
+```powershell
+# Run scan with game server template
+powershell -NoProfile -ExecutionPolicy Bypass -File scripts\questops_scan.ps1 -ConfigPath config\servers.game.example.json
+
+# Inspect resource fields
+$report = Get-Content reports\latest-health-report.json -Raw | ConvertFrom-Json
+$report.results | Select-Object server_name, resources_ok, logs_ok, network_ok, passed
+$report.results | ForEach-Object { $_.resource_checks }
+$report.results | ForEach-Object { $_.resource_checks | Format-List * }
+```
+
+**Note:** the game server template uses fake placeholder paths — resource checks require the actual process to be running. For a guaranteed pass, use the default `servers.example.json` (safe local demo).
+
+## How to run scan + alert in one command
+
+The `questops_run.ps1` wrapper runs the health scan and then sends a Discord alert if any checks failed — all in one step.
+
+### Normal scan + alert
+```powershell
+powershell -NoProfile -ExecutionPolicy Bypass -File scripts\questops_run.ps1
+```
+
+### Scan only (skip alert)
+```powershell
+powershell -NoProfile -ExecutionPolicy Bypass -File scripts\questops_run.ps1 -NoAlert
+```
+
+### Scan + force alert
+```powershell
+powershell -NoProfile -ExecutionPolicy Bypass -File scripts\questops_run.ps1 -ForceAlert
+```
+
+### Custom paths
+```powershell
+powershell -NoProfile -ExecutionPolicy Bypass -File scripts\questops_run.ps1 -ConfigPath config\my-servers.json -ReportPath reports\my-report.json
+```
+
+Exit codes match the standalone scripts: 0 = pass, 1 = checks failed, 2–4 = config/report/alert errors.
+
+### Logs and report history
+
+Each run of `questops_run.ps1` writes:
+
+| Output | Location | Description |
+|--------|----------|-------------|
+| Latest report | `reports\latest-health-report.json` | Overwritten each run (same as before) |
+| Timestamped copy | `reports\history\questops-health-YYYYMMDD-HHMMSS.json` | Snapshot saved after every scan |
+| Run log | `logs\questops-run.log` | Appended with timestamps, run events, and results |
+
+The run log tracks: run start, scan start/exit, alert skipped/sent/failed, report copy, retention cleanup, and run finish. Webhook URLs and secrets are never logged.
+
+#### Retention
+
+- Only the newest **20** timestamped reports are kept by default.
+- Use `-KeepReports <N>` to change the limit (e.g. `-KeepReports 50`).
+- Use `-NoRetention` to skip cleanup entirely.
+- `reports\latest-health-report.json` is never deleted by retention.
+- The `-KeepLogs` parameter is reserved for future log rotation (not yet implemented).
+
+Examples:
+```powershell
+# Keep only 3 historical reports
+powershell -NoProfile -ExecutionPolicy Bypass -File scripts\questops_run.ps1 -NoAlert -KeepReports 3
+
+# Skip alert and skip retention cleanup
+powershell -NoProfile -ExecutionPolicy Bypass -File scripts\questops_run.ps1 -NoAlert -NoRetention
+```
+
+Generated reports and logs are gitignored. The `reports/`, `reports/history/`, and `logs/` directories will contain only `.gitkeep` placeholders in the repository.
+
+## How to set up Discord alerting
+
+### Alert message contents
+
+When a scan fails, the Discord alert now includes:
+- Scan timestamp and overall status
+- Total/passed/failed server counts
+- Per-server breakdown of failed categories:
+  - `folder`, `disk`, `process` — basic checks
+  - `network (host:port)` — failed TCP port reachability checks
+  - `logs (check name)` — missing or stale log files
+  - `resources (process mem cpu)` — process resource threshold breaches
+- Report file path for full details
+
+If a message exceeds Discord's 2000 character limit, it is safely truncated with a note pointing to the JSON report. Alerts are sent as plain text.
+
+### 1. Set the webhook URL (current session only)
+
+```powershell
+$env:QUESTOPS_DISCORD_WEBHOOK_URL = "https://discord.com/api/webhooks/your_webhook_id/your_webhook_token"
+```
+
+**Never commit this URL.** It exists only in the current PowerShell session. To persist it, use a gitignored script or Windows environment variables (not a file in the repo).
+
+### 2. Run a scan, then send an alert
+
+```powershell
+# Step 1: run the scan
+powershell -NoProfile -ExecutionPolicy Bypass -File scripts\questops_scan.ps1
+
+# Step 2: send alert only if checks failed
+powershell -NoProfile -ExecutionPolicy Bypass -File scripts\questops_discord_alert.ps1
+```
+
+### 3. Send a forced test alert
+
+```powershell
+powershell -NoProfile -ExecutionPolicy Bypass -File scripts\questops_discord_alert.ps1 -Force
+```
+
+This sends an alert regardless of whether the report passed or failed. The message will be clearly marked as `(FORCED TEST)`.
+
+### 4. Use a custom report path
+
+```powershell
+powershell -NoProfile -ExecutionPolicy Bypass -File scripts\questops_discord_alert.ps1 -ReportPath "C:\path\to\report.json"
+```
+
+## Scheduled execution
+
+The Task Scheduler installer creates a recurring task that runs `questops_run.ps1` automatically.
+
+### Install (scan only, every 15 minutes)
+
+```powershell
+powershell -NoProfile -ExecutionPolicy Bypass -File scripts\install_questops_task.ps1 -NoAlert -Force
+```
+
+This runs the scan only (no Discord alert). For alerting, set the `QUESTOPS_DISCORD_WEBHOOK_URL` environment variable for the current Windows user before installing.
+
+### Dry run (preview without creating)
+
+```powershell
+powershell -NoProfile -ExecutionPolicy Bypass -File scripts\install_questops_task.ps1 -WhatIf
+```
+
+### Custom interval
+
+```powershell
+powershell -NoProfile -ExecutionPolicy Bypass -File scripts\install_questops_task.ps1 -IntervalMinutes 30 -Force
+```
+
+### Inspect the task
+
+```powershell
+Get-ScheduledTask -TaskName "QuestOps Watchdog"
+```
+
+### Run the task manually
+
+```powershell
+Start-ScheduledTask -TaskName "QuestOps Watchdog"
+```
+
+### Check the last result
+
+```powershell
+Get-ScheduledTaskInfo -TaskName "QuestOps Watchdog"
+```
+
+### Uninstall
+
+```powershell
+powershell -NoProfile -ExecutionPolicy Bypass -File scripts\uninstall_questops_task.ps1 -Force
+```
+
+### Important notes
+
+- The task runs under **your current user account** without storing a password (S4U logon).
+- If you use Discord alerting, the `QUESTOPS_DISCORD_WEBHOOK_URL` environment variable must be set **persistently** for that user (via System Environment Variables or a startup script). A session-only `$env:VAR` will not persist across scheduled task runs.
+- Install with `-NoAlert` to avoid the webhook dependency entirely.
+
+## Current limitations
+
+1. **Windows only** — PowerShell 5.1 scripts cannot run on Linux or macOS.
+2. **Task runs as current user** — the scheduled task uses S4U logon without stored passwords. Env vars like `QUESTOPS_DISCORD_WEBHOOK_URL` must be set at system or user level, not session-only.
+3. **Single drive assumption** — disk check reads `PSDrive.Root`; mapped drives may not work.
+4. **Process name matching** — uses exact process name; renamed/wrapped processes may be missed.
+5. **Not a service** — runs in a console window.
+6. **Discord only** — no email, SMS, or other alert channels yet.
+
+## Roadmap
+
+| Version | Focus |
+|---------|-------|
+| v0.1 | Local health scan **(shipped)** |
+| v0.2 | Discord webhook alerting **(shipped)** |
+| v0.2.1 | Integrated scan + alert workflow **(shipped)** |
+| v0.3 | Scheduled execution (Task Scheduler) **(shipped)** |
+| v0.4 | Network reachability checks **(shipped)** |
+| v0.4.1 | Log staleness checks **(shipped)** |
+| v0.4.2 | Process CPU and memory usage **(shipped)** |
+| v0.4.3 | Alert message improvements **(shipped)** |
+| v0.4.4 | Config validation and safer examples **(shipped)** |
+| v0.4.5 | First client-ready audit package **(shipped)** |
+| v0.4.6 | HTML audit report export **(shipped)** |
+| v0.4.7 | HTML report package integration polish **(shipped)** |
+| v0.4.8 | Release hygiene and first tagged client build **(shipped)** |
+| v0.4.9 | Paid audit offer kit and landing copy |
+| v0.5 | HTML dashboard |
+
+Full details in `docs/ROADMAP.md`.
+
+## Repository hygiene
+
+The project root `.gitignore` protects sensitive and generated content from accidental commits:
+
+| What is ignored | Why |
+|----------------|-----|
+| `.env`, `*.secret.json`, `*secrets*.json` | API tokens, webhook URLs, passwords |
+| `config/*.local.json`, `config/*private*.json` | Machine-specific overrides |
+| `reports/*` (except `.gitkeep`) | Generated scan output — ephemeral (includes `reports/history/*`) |
+| `logs/*` (except `.gitkeep`) | Runtime logs |
+| `state/*` (except `.gitkeep`) | Future runtime state |
+| `*.tmp`, `*.bak`, `tmp/`, `temp/` | Temporary / editor junk |
+| `dist/`, `out/`, `release/` | Build artifacts (exported packages go here) |
+| `.DS_Store`, `Thumbs.db`, `.vscode/`, `.idea/` | OS / editor metadata |
+
+**Secrets must never be committed.** Use environment variables (e.g. `$env:QUESTOPS_DISCORD_WEBHOOK_URL`) or gitignored local config files only.
+
+## Safety / security notes
+
+- This tool runs **locally only**. It does not phone home, collect telemetry, or send data anywhere.
+- No credentials, tokens, or secrets are stored anywhere in the repository.
+- Secrets must come from environment variables (e.g. `$env:QUESTOPS_DISCORD_WEBHOOK_URL`) only. Never commit webhook URLs.
+- The scan script reads a JSON file and writes a JSON file. It does not execute arbitrary code from config.
+- The default `config/servers.example.json` is a safe local demo and will always pass. For real server monitoring, copy `config/servers.game.example.json` to `config/servers.local.json` and edit the paths.
+- Always review your config file before running — validate it first with `scripts\validate_questops_config.ps1`.
+
+---
+
+## Agent maintenance notice
+
+This project is maintained with AI coding agents.
+
+**Agents must read the README and PROJECTMAP before making edits.**
+**Agents must update documentation after each edit so the repository remains understandable and safe to modify.**
+**Agent rules** are defined in `docs/AGENT_RULES.md` and `docs/PROJECTMAP.md`.

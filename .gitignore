@@ -1,0 +1,45 @@
+# Environment / secrets
+.env
+.env.*
+!.env.example
+*.secret.json
+*.secrets.json
+*secret*.json
+*secrets*.json
+
+# Local configs
+config/*.local.json
+config/*local*.json
+config/*private*.json
+
+# Generated reports
+reports/*
+!reports/.gitkeep
+!reports/history/
+reports/history/*
+!reports/history/.gitkeep
+
+# Logs and runtime state
+logs/*
+!logs/.gitkeep
+state/*
+!state/.gitkeep
+
+# Temp files
+tmp/
+temp/
+*.tmp
+*.bak
+
+# Build / package output
+dist/
+out/
+release/
+*.zip
+
+# OS / editor files
+.DS_Store
+Thumbs.db
+Desktop.ini
+.vscode/
+.idea/
