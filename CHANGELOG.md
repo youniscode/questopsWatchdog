@@ -1,5 +1,20 @@
 # QuestOps Watchdog — Changelog
 
+## v0.4.9 — Paid audit offer kit and landing copy
+
+- Added `docs/business/` folder with 7 business documentation files:
+  - `PAID_AUDIT_OFFER.md` — pricing, scope, what's included
+  - `LANDING_PAGE_COPY.md` — landing page copy draft
+  - `OUTREACH_MESSAGES.md` — message templates for outreach
+  - `SAMPLE_CLIENT_PROPOSAL.md` — customizable proposal template
+  - `SAMPLE_AUDIT_SUMMARY.md` — fictional audit summary sample
+  - `GITHUB_README_POSITIONING.md` — GitHub positioning guidance
+  - `PRICING_NOTES.md` — pricing rationale and strategy notes
+- Updated README with "Commercial audit offer" section linking to business docs
+- Updated client tool package to 31 files (includes 6 business docs — excluding internal-only GITHUB_README_POSITIONING.md)
+- Updated PROJECTMAP, TASKS, ROADMAP, CLIENT_HANDOFF_CHECKLIST, RELEASE_CHECKLIST
+- VERSION bumped to 0.4.9 for release consistency
+
 ## v0.4.8 — Release hygiene and first tagged client build
 
 - Added `VERSION` file with current version number

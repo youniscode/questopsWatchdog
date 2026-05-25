@@ -65,8 +65,14 @@
 | Done   | - Git status check: fail on dirty unless -AllowDirty |
 | Done   | - Update export_questops_audit_package.ps1 to include VERSION, CHANGELOG, RELEASE_NOTES (25 files) |
 | Done   | - Update all docs (README, PROJECTMAP, CLIENT docs, TASKS, ROADMAP) |
+| Done   | v0.4.9 - Paid audit offer kit and landing copy |
+| Done   | - Create docs/business/ with PAID_AUDIT_OFFER.md, LANDING_PAGE_COPY.md, OUTREACH_MESSAGES.md |
+| Done   | - Create SAMPLE_CLIENT_PROPOSAL.md, SAMPLE_AUDIT_SUMMARY.md, GITHUB_README_POSITIONING.md, PRICING_NOTES.md |
+| Done   | - Update export_questops_audit_package.ps1 to include business docs (31 files) |
+| Done   | - Update README with Commercial audit offer section |
+| Done   | - Update PROJECTMAP, TASKS, ROADMAP, CHANGELOG, CLIENT_HANDOFF_CHECKLIST, RELEASE_CHECKLIST |
 
 ## Upcoming
 
-- v0.4.9 - Paid audit offer kit and landing copy
+- v0.4.10 - Public GitHub polish and issue templates
 - v0.5 - HTML dashboard

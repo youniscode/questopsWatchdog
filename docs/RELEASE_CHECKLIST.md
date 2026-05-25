@@ -10,7 +10,7 @@ Use this checklist when preparing a new release.
 - [ ] `CHANGELOG.md` has an entry for the new version
 - [ ] `docs/RELEASE_NOTES_v*.md` exists and is up to date
 - [ ] All doc version references (README, PROJECTMAP, ROADMAP, TASKS) are updated
-- [ ] Client package file counts are consistent everywhere (25 for v0.4.8)
+- [ ] Client package file counts are consistent everywhere (31 for v0.4.9)
 
 ## Validation commands
 
@@ -55,23 +55,23 @@ $entries | Where-Object {
     $_.FullName -match 'latest-health-report\.json|latest-health-report\.html|manual-audit-report\.html|audit-results-manifest\.json|release-manifest\.json'
 } | Select-Object FullName
 
-# Confirm version/release notes present
+# Confirm version/release notes/business docs present
 $entries | Where-Object {
-    $_.FullName -match '^VERSION$|^CHANGELOG\.md$|docs/RELEASE_NOTES_v0\.4\.8\.md'
+    $_.FullName -match '^VERSION$|^CHANGELOG\.md$|docs/RELEASE_NOTES_v0\.4\.9\.md|docs/business/'
 } | Select-Object FullName
 ```
 
 Expected:
-- File count = 25
+- File count = 31
 - Generated reports: empty
-- Version/release notes: 3 results
+- Version/release notes/business docs: 10 results
 
 ## Checksum generation
 
 After release build, verify checksums:
 
 ```powershell
-Get-ChildItem dist\questops-watchdog-v0.4.8 -Filter *.sha256 | ForEach-Object {
+Get-ChildItem dist\questops-watchdog-v0.4.9 -Filter *.sha256 | ForEach-Object {
     Get-Content $_.FullName
 }
 ```
@@ -83,10 +83,10 @@ Get-ChildItem dist\questops-watchdog-v0.4.8 -Filter *.sha256 | ForEach-Object {
 git add -A
 
 # Commit
-git commit -m "v0.4.8 - Release hygiene and first tagged client build"
+git commit -m "v0.4.9 - Paid audit offer kit and landing copy"
 
 # Tag
-git tag -a v0.4.8 -m "QuestOps Watchdog v0.4.8 - Release hygiene and first tagged client build"
+git tag -a v0.4.9 -m "QuestOps Watchdog v0.4.9 - Paid audit offer kit and landing copy"
 
 # Push
 git push origin main --tags
@@ -97,8 +97,8 @@ git push origin main --tags
 If a release needs to be rolled back:
 
 1. Revert the commit: `git revert HEAD`
-2. Delete the tag locally: `git tag -d v0.4.8`
-3. Delete the tag remotely: `git push origin :refs/tags/v0.4.8`
-4. Delete the release folder: `Remove-Item -Recurse -Force dist\questops-watchdog-v0.4.8`
+2. Delete the tag locally: `git tag -d v0.4.9`
+3. Delete the tag remotely: `git push origin :refs/tags/v0.4.9`
+4. Delete the release folder: `Remove-Item -Recurse -Force dist\questops-watchdog-v0.4.9`
 5. Update `VERSION` back to the previous version
 6. Re-run the release build

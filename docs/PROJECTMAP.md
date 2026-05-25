@@ -42,8 +42,17 @@ questops-watchdog/
 |   |-- TASKS.md                    # Active task tracking
 |   |-- CLIENT_AUDIT_GUIDE.md       # Client-facing audit instructions
 |   |-- CLIENT_HANDOFF_CHECKLIST.md # Pre/post-delivery checklist
-|   |-- RELEASE_NOTES_v0.4.8.md    # Client-facing release notes
-|   `-- RELEASE_CHECKLIST.md       # Internal pre-release validation checklist
+|   |-- RELEASE_NOTES_v0.4.8.md    # Client-facing release notes (v0.4.8)
+|   |-- RELEASE_NOTES_v0.4.9.md    # Client-facing release notes (v0.4.9)
+|   |-- RELEASE_CHECKLIST.md       # Internal pre-release validation checklist
+|   |-- business/
+|   |   |-- PAID_AUDIT_OFFER.md           # Pricing and scope for paid audits
+|   |   |-- LANDING_PAGE_COPY.md           # Marketing copy reference
+|   |   |-- OUTREACH_MESSAGES.md           # Message templates for outreach
+|   |   |-- SAMPLE_CLIENT_PROPOSAL.md      # Customizable proposal template
+|   |   |-- SAMPLE_AUDIT_SUMMARY.md        # Fictional audit summary sample
+|   |   |-- GITHUB_README_POSITIONING.md   # GitHub positioning guidance
+|   |   `-- PRICING_NOTES.md               # Pricing rationale and strategy
 |-- config/
 |   |-- servers.example.json       # Safe local demo config (default)
 |   |-- servers.game.example.json  # Game server template with fake paths
@@ -97,7 +106,15 @@ questops-watchdog/
 | `docs/CLIENT_AUDIT_GUIDE.md` | Client-facing guide - explains setup, scanning, alerts, scheduled tasks, exit codes, and what to send for an audit. |
 | `docs/CLIENT_HANDOFF_CHECKLIST.md` | Pre/post-delivery checklist - export, verify, security reminders, troubleshooting. |
 | `docs/RELEASE_NOTES_v0.4.8.md` | Client-facing release notes for v0.4.8. |
+| `docs/RELEASE_NOTES_v0.4.9.md` | Client-facing release notes for v0.4.9. |
 | `docs/RELEASE_CHECKLIST.md` | Internal pre-release validation checklist (not included in client tool package). |
+| `docs/business/PAID_AUDIT_OFFER.md` | Paid audit pricing, scope, and what's included. |
+| `docs/business/LANDING_PAGE_COPY.md` | Marketing copy reference for landing page or service announcement. |
+| `docs/business/OUTREACH_MESSAGES.md` | Message templates for reaching out to server owners and communities. |
+| `docs/business/SAMPLE_CLIENT_PROPOSAL.md` | Customizable proposal template for paid audits. |
+| `docs/business/SAMPLE_AUDIT_SUMMARY.md` | Fictional audit summary showing the type of output a client receives. |
+| `docs/business/GITHUB_README_POSITIONING.md` | Repository-facing guidance on positioning the project on GitHub (not in client package). |
+| `docs/business/PRICING_NOTES.md` | Pricing rationale, discounting strategy, and scope expansion notes. |
 | `VERSION` | Current version number string. |
 | `CHANGELOG.md` | Version history with feature summaries per release. |
 | `reports/latest-health-report.json` | Last scan output. Overwritten each run. |
@@ -107,6 +124,7 @@ questops-watchdog/
 | `docs/AGENT_RULES.md` | Mandatory rules for AI coding agents. |
 | `docs/ROADMAP.md` | Feature roadmap (v0.1-v0.5). |
 | `docs/TASKS.md` | Task tracker - update after every change. |
+| `docs/business/` | Business documentation for paid audit offering. |
 | `README.md` | Public-facing project overview and usage. |
 
 ## Config files
@@ -563,7 +581,7 @@ Expected: task removed, exit code 0.
 ```powershell
 powershell -NoProfile -ExecutionPolicy Bypass -File scripts\export_questops_audit_package.ps1 -Force
 ```
-Expected: exits 0. Package written to `dist\questops-watchdog-audit-package-*.zip`. Output shows `success=true`, `included_count=25`.
+Expected: exits 0. Package written to `dist\questops-watchdog-audit-package-*.zip`. Output shows `success=true`, `included_count=31`.
 
 ### List exported packages
 ```powershell
@@ -577,7 +595,7 @@ $zip = Get-ChildItem dist -Filter *.zip | Sort-Object LastWriteTime -Descending 
 Add-Type -AssemblyName System.IO.Compression.FileSystem
 [System.IO.Compression.ZipFile]::OpenRead($zip.FullName).Entries | Select-Object FullName
 ```
-Expected: lists all 25 included files with forward-slash paths.
+Expected: lists all 31 included files with forward-slash paths.
 
 ### Check excluded files are not in zip
 ```powershell
@@ -679,26 +697,26 @@ Expected: no results (empty output).
 ```powershell
 $toolZip = Get-ChildItem dist -Filter "questops-watchdog-audit-package-*.zip" | Sort-Object LastWriteTime -Descending | Select-Object -First 1
 [System.IO.Compression.ZipFile]::OpenRead($toolZip.FullName).Entries | Where-Object {
-    $_.FullName -match '^VERSION$|^CHANGELOG\.md$|docs/RELEASE_NOTES_v0\.4\.8\.md'
+    $_.FullName -match '^VERSION$|^CHANGELOG\.md$|docs/RELEASE_NOTES_v0\.4\.9\.md'
 } | Select-Object FullName
 ```
-Expected: three results (VERSION, CHANGELOG.md, docs/RELEASE_NOTES_v0.4.8.md).
+Expected: three results (VERSION, CHANGELOG.md, docs/RELEASE_NOTES_v0.4.9.md).
 
 ### Run release build
 ```powershell
 powershell -NoProfile -ExecutionPolicy Bypass -File scripts\build_questops_client_release.ps1 -AllowDirty -Force
 ```
-Expected: exits 0. Output shows release path under `dist\questops-watchdog-v0.4.8\`, package and results filenames, SHA256 checksums.
+Expected: exits 0. Output shows release path under `dist\questops-watchdog-v0.4.9\`, package and results filenames, SHA256 checksums.
 
 ### Inspect release output
 ```powershell
-Get-ChildItem dist\questops-watchdog-v0.4.8 -Recurse | Select-Object FullName, Length, LastWriteTime
+Get-ChildItem dist\questops-watchdog-v0.4.9 -Recurse | Select-Object FullName, Length, LastWriteTime
 ```
 Expected: lists package zip, results zip, two .sha256 files, and release-manifest.json.
 
 ### Inspect release manifest
 ```powershell
-Get-Content dist\questops-watchdog-v0.4.8\release-manifest.json -Raw | ConvertFrom-Json
+Get-Content dist\questops-watchdog-v0.4.9\release-manifest.json -Raw | ConvertFrom-Json
 ```
 Expected: valid JSON with product, version, timestamps, checksums, git info, warnings.
 
@@ -726,4 +744,4 @@ These rules bind every AI agent that modifies this repository.
 
 ## Last updated
 
-2026-05-25 - v0.4.8: Added VERSION, CHANGELOG, RELEASE_NOTES, RELEASE_CHECKLIST, build script. Updated docs for release hygiene.
+2026-05-25 - v0.4.9: Finalized release consistency. VERSION 0.4.9, RELEASE_NOTES_v0.4.9.md, package includes v0.4.9 release notes (31 files). GITHUB_README_POSITIONING.md clarified as repo-facing.

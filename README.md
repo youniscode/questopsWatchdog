@@ -14,7 +14,7 @@ It checks that your game servers are running, their folders exist, and enough di
 
 ## Current MVP status
 
-**v0.4.8 — Scheduled scan + Discord alert workflow + network/log/resource checks + improved alerts + config validation + client-ready audit package + HTML audit report export + audit results bundle + release hygiene**
+**v0.4.9 — Scheduled scan + Discord alert workflow + network/log/resource checks + improved alerts + config validation + client-ready audit package + HTML audit report export + audit results bundle + release hygiene + paid audit offer kit**
 
 Run a single command to scan your servers and receive a Discord alert if anything failed. Use the Task Scheduler installer to run automatically on a recurring interval.
 
@@ -72,10 +72,11 @@ powershell -NoProfile -ExecutionPolicy Bypass -File scripts\export_questops_audi
 
 The package is written to `dist\questops-watchdog-audit-package-YYYYMMDD-HHMMSS.zip`.
 
-### What is included (25 files)
+### What is included (31 files)
 
 - **Version & changelog:** VERSION, CHANGELOG.md
-- **Documentation:** README.md, docs/PROJECTMAP.md, docs/ROADMAP.md, docs/AGENT_RULES.md, docs/TASKS.md, docs/CLIENT_AUDIT_GUIDE.md, docs/CLIENT_HANDOFF_CHECKLIST.md, docs/RELEASE_NOTES_v0.4.8.md
+- **Documentation:** README.md, docs/PROJECTMAP.md, docs/ROADMAP.md, docs/AGENT_RULES.md, docs/TASKS.md, docs/CLIENT_AUDIT_GUIDE.md, docs/CLIENT_HANDOFF_CHECKLIST.md, docs/RELEASE_NOTES_v0.4.9.md
+- **Business docs:** docs/business/PAID_AUDIT_OFFER.md, docs/business/LANDING_PAGE_COPY.md, docs/business/OUTREACH_MESSAGES.md, docs/business/SAMPLE_CLIENT_PROPOSAL.md, docs/business/SAMPLE_AUDIT_SUMMARY.md, docs/business/PRICING_NOTES.md
 - **Scripts:** questops_scan.ps1, questops_run.ps1, questops_discord_alert.ps1, validate_questops_config.ps1, install_questops_task.ps1, uninstall_questops_task.ps1, export_questops_audit_package.ps1, export_questops_html_report.ps1, export_questops_audit_results.ps1
 - **Configs:** servers.example.json, servers.game.example.json
 - **Placeholders:** reports/.gitkeep, reports/history/.gitkeep, logs/.gitkeep, state/.gitkeep
@@ -199,6 +200,19 @@ The output is written to `dist\questops-watchdog-v<VERSION>\` containing:
 - `release-manifest.json` with version, timestamps, git info, checksums, and warnings
 
 The build script reads the version from `VERSION` in the project root. Git commit and tagging remain manual — see `docs/RELEASE_CHECKLIST.md` for the exact commands.
+
+## Commercial audit offer
+
+Need a deeper analysis of your server setup? I offer paid manual audits that include config review, security checks, and actionable recommendations.
+
+| Tier | Price | Best for |
+|------|-------|----------|
+| Quick Scan | €49 | Single server, config + report review |
+| Standard Audit | €149 | 1–3 servers, full review + recommendations |
+| Comprehensive Audit | €299 | 4–10 servers, full review + recommendations + call |
+| Enterprise Audit | €499+ | 10+ servers, priority turnaround |
+
+→ [View full audit packages](docs/business/PAID_AUDIT_OFFER.md)
 
 ### Build script exit codes
 
@@ -602,7 +616,7 @@ powershell -NoProfile -ExecutionPolicy Bypass -File scripts\uninstall_questops_t
 | v0.4.6 | HTML audit report export **(shipped)** |
 | v0.4.7 | HTML report package integration polish **(shipped)** |
 | v0.4.8 | Release hygiene and first tagged client build **(shipped)** |
-| v0.4.9 | Paid audit offer kit and landing copy |
+| v0.4.9 | Paid audit offer kit and landing copy **(shipped)** |
 | v0.5 | HTML dashboard |
 
 Full details in `docs/ROADMAP.md`.

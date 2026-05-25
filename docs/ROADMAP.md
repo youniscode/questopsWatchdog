@@ -100,9 +100,17 @@
 - [x] Run all validation steps, copy packages with SHA256 checksums, write `release-manifest.json`
 - [x] Update tool package to include `VERSION`, `CHANGELOG.md`, `RELEASE_NOTES_v0.4.8.md` (25 files)
 
-## v0.4.9 — Paid Audit Offer Kit and Landing Copy
-- [ ] Create documentation for paid audit offering
-- [ ] Landing page copy, pricing, sample report examples
+## v0.4.9 — Paid Audit Offer Kit and Landing Copy (shipped)
+- [x] Create `docs/business/` with 7 business documentation files
+- [x] Landing page copy, pricing tiers, sample report examples
+- [x] Outreach message templates and proposal template
+- [x] GitHub positioning guidance and pricing strategy notes
+- [x] Update tool package to 31 files (6 business docs included)
+
+## v0.4.10 — Public GitHub Polish
+- [ ] Issue templates (bug report, feature request)
+- [ ] Contribution guidelines
+- [ ] License file
 
 ## v0.5 — Dashboard (optional)
 - [ ] Local HTML report viewer
