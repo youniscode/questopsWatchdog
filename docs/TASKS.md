@@ -71,8 +71,15 @@
 | Done   | - Update export_questops_audit_package.ps1 to include business docs (31 files) |
 | Done   | - Update README with Commercial audit offer section |
 | Done   | - Update PROJECTMAP, TASKS, ROADMAP, CHANGELOG, CLIENT_HANDOFF_CHECKLIST, RELEASE_CHECKLIST |
+| Done   | v0.4.10 - Public GitHub polish and issue templates |
+| Done   | - Create .github/ISSUE_TEMPLATE/bug_report.md |
+| Done   | - Create .github/ISSUE_TEMPLATE/feature_request.md |
+| Done   | - Create .github/pull_request_template.md |
+| Done   | - Create SECURITY.md, CONTRIBUTING.md, LICENSE-NOTE.md |
+| Done   | - Update README with GitHub-friendly intro and links |
+| Done   | - Update PROJECTMAP, TASKS, ROADMAP, CHANGELOG |
 
 ## Upcoming
 
-- v0.4.10 - Public GitHub polish and issue templates
+- v0.4.11 - Sample screenshots and demo assets
 - v0.5 - HTML dashboard

@@ -1,8 +1,12 @@
 # QuestOps Watchdog
 
-A Windows-first local audit and monitoring tool for survival game server owners.
+Know your game servers are healthy — before your players tell you.
 
-It checks that your game servers are running, their folders exist, and enough disk space is available — then writes a JSON report you can inspect or forward.
+A lightweight, zero-dependency health monitor for Windows game servers (Project Zomboid, Minecraft, etc.). Checks folder existence, disk space, running processes, network ports, log freshness, and CPU/memory usage — then alerts you on Discord when something fails.
+
+Free, open-source, no cloud, no telemetry.
+
+→ [Security policy](SECURITY.md) · [Contributing guidelines](CONTRIBUTING.md) · [Commercial audit](docs/business/PAID_AUDIT_OFFER.md)
 
 ---
 
@@ -212,7 +216,7 @@ Need a deeper analysis of your server setup? I offer paid manual audits that inc
 | Comprehensive Audit | €299 | 4–10 servers, full review + recommendations + call |
 | Enterprise Audit | €499+ | 10+ servers, priority turnaround |
 
-→ [View full audit packages](docs/business/PAID_AUDIT_OFFER.md)
+→ [View audit packages](docs/business/PAID_AUDIT_OFFER.md) · [Landing page copy](docs/business/LANDING_PAGE_COPY.md)
 
 ### Build script exit codes
 

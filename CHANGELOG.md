@@ -1,5 +1,15 @@
 # QuestOps Watchdog — Changelog
 
+## v0.4.10 — Public GitHub polish and issue templates (unreleased)
+
+- Added `.github/ISSUE_TEMPLATE/bug_report.md` — structured bug report template with environment, sanitized report snippet, and security reminder
+- Added `.github/ISSUE_TEMPLATE/feature_request.md` — feature request template with problem, solution, game type, and scope preference
+- Added `.github/pull_request_template.md` — PR template with validation, PowerShell 5.1 compatibility, docs update, and security checklists
+- Added `SECURITY.md` — security policy with supported versions (v0.4.9+), reporting process, secret handling, and no-telemetry statement
+- Added `CONTRIBUTING.md` — contribution guidelines with setup, coding rules, validation commands, and PR process
+- Added `LICENSE-NOTE.md` — copyright notice with permitted use and commercial restriction; no open-source license yet
+- Updated README with GitHub-friendly intro pitch, quick links to security/contributing/audit docs
+
 ## v0.4.9 — Paid audit offer kit and landing copy
 
 - Added `docs/business/` folder with 7 business documentation files:

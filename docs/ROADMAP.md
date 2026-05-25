@@ -107,10 +107,18 @@
 - [x] GitHub positioning guidance and pricing strategy notes
 - [x] Update tool package to 31 files (6 business docs included)
 
-## v0.4.10 — Public GitHub Polish
-- [ ] Issue templates (bug report, feature request)
-- [ ] Contribution guidelines
-- [ ] License file
+## v0.4.10 — Public GitHub Polish (shipped)
+- [x] Issue templates (bug report, feature request)
+- [x] Pull request template
+- [x] Security policy (SECURITY.md)
+- [x] Contribution guidelines (CONTRIBUTING.md)
+- [x] License note (LICENSE-NOTE.md)
+- [x] README polish with GitHub-friendly intro and links
+
+## v0.4.11 — Sample Screenshots and Demo Assets
+- [ ] Screenshots of scan output, HTML report, Discord alert
+- [ ] Sample configs for common games
+- [ ] Demo video or GIF (optional)
 
 ## v0.5 — Dashboard (optional)
 - [ ] Local HTML report viewer

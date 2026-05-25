@@ -32,9 +32,17 @@ PowerShell 5.1 script --reads--> config/servers.example.json
 
 ```
 questops-watchdog/
+|-- .github/
+|   |-- ISSUE_TEMPLATE/
+|   |   |-- bug_report.md            # Bug report template
+|   |   `-- feature_request.md       # Feature request template
+|   `-- pull_request_template.md     # Pull request template
 |-- .gitignore                # Git ignore rules (secrets, reports, logs, temp files)
 |-- VERSION                   # Current version number
 |-- CHANGELOG.md              # Version history
+|-- SECURITY.md               # Security policy
+|-- CONTRIBUTING.md           # Contribution guidelines
+|-- LICENSE-NOTE.md           # License note
 |-- docs/
 |   |-- AGENT_RULES.md              # AI agent coding rules
 |   |-- PROJECTMAP.md               # This file
@@ -89,6 +97,12 @@ questops-watchdog/
 
 | File | Purpose |
 |------|---------|
+| `.github/ISSUE_TEMPLATE/bug_report.md` | Bug report issue template. |
+| `.github/ISSUE_TEMPLATE/feature_request.md` | Feature request issue template. |
+| `.github/pull_request_template.md` | Pull request template with validation and security checklist. |
+| `SECURITY.md` | Security policy - supported versions, reporting, secret handling. |
+| `CONTRIBUTING.md` | Contribution guidelines - setup, coding rules, validation, PR process. |
+| `LICENSE-NOTE.md` | License note - copyright, permitted use, no commercial resale without permission. |
 | `.gitignore` | Git ignore rules - protects secrets, reports, logs, local configs, and temp files. |
 | `scripts/questops_scan.ps1` | Main scan script. Reads config, runs checks, writes report. |
 | `scripts/questops_run.ps1` | Orchestrator - runs scan then Discord alert in one command. Passes `-ConfigPath`, `-ReportPath`, `-NoAlert`, `-ForceAlert`. |
@@ -744,4 +758,4 @@ These rules bind every AI agent that modifies this repository.
 
 ## Last updated
 
-2026-05-25 - v0.4.9: Finalized release consistency. VERSION 0.4.9, RELEASE_NOTES_v0.4.9.md, package includes v0.4.9 release notes (31 files). GITHUB_README_POSITIONING.md clarified as repo-facing.
+2026-05-25 - v0.4.10: Added .github/ (issue templates, PR template), SECURITY.md, CONTRIBUTING.md, LICENSE-NOTE.md. Updated README with GitHub-friendly intro and links. Updated all docs.
