@@ -1,5 +1,19 @@
 # QuestOps Watchdog — Changelog
 
+## v0.4.15 — Outreach launch checklist and first beta audit workflow (unreleased)
+
+- Created `docs/launch/` with 7 internal workflow docs:
+  - `OUTREACH_LAUNCH_CHECKLIST.md` — readiness checklist with platform rules, daily limits, success criteria
+  - `FIRST_BETA_AUDIT_WORKFLOW.md` — end-to-end process from qualifying server owners to delivering results
+  - `BETA_AUDIT_INTAKE_FORM.md` — copy/paste intake form for gathering server details
+  - `BETA_AUDIT_DELIVERY_TEMPLATE.md` — structured delivery message for audit findings
+  - `OUTREACH_TRACKER_TEMPLATE.md` — markdown table for manual outreach tracking
+  - `BETA_FEEDBACK_FORM.md` — copy/paste form for collecting beta feedback
+  - `LAUNCH_MESSAGE_PACK.md` — refined message templates for Discord, forums, follow-ups
+- Updated README with "Launch / beta audit workflow" section linking to all 7 docs
+- Updated PROJECTMAP, TASKS, ROADMAP, CHANGELOG
+- VERSION unchanged (0.4.9) — `docs/launch/` excluded from export script (internal-only)
+
 ## v0.4.14 — Screenshot placeholder references and README layout polish (unreleased)
 
 - Added `docs/assets/placeholders/` folder with 6 placeholder docs:

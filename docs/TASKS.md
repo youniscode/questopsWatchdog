@@ -110,8 +110,16 @@
 | Done   | - Polish README layout (Screenshots near Demo, milestone v0.4.14, placeholders section) |
 | Done   | - Update docs/assets/README.md with placeholders section |
 | Done   | - Update export script and package count to 52 files |
+| Done   | v0.4.15 - Outreach launch checklist and first beta audit workflow |
+| Done   | - Create docs/launch/ with 7 internal launch docs |
+| Done   | - Create OUTREACH_LAUNCH_CHECKLIST.md — readiness checklist, platform rules, daily limits, success criteria |
+| Done   | - Create FIRST_BETA_AUDIT_WORKFLOW.md — end-to-end process from qualifying to delivery |
+| Done   | - Create BETA_AUDIT_INTAKE_FORM.md, BETA_AUDIT_DELIVERY_TEMPLATE.md |
+| Done   | - Create OUTREACH_TRACKER_TEMPLATE.md, BETA_FEEDBACK_FORM.md, LAUNCH_MESSAGE_PACK.md |
+| Done   | - Update README with Launch / beta audit workflow section |
+| Done   | - Update PROJECTMAP, TASKS, ROADMAP, CHANGELOG (VERSION unchanged) |
 
 ## Upcoming
 
-- v0.4.15 - Outreach launch checklist and first beta audit workflow
+- v0.4.16 - First public release page preparation
 - v0.5 - HTML dashboard

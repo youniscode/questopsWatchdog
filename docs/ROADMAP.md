@@ -143,10 +143,16 @@
 - [x] Polish README layout — Screenshots section near Demo, milestone updated, placeholder references added
 - [x] Updated tool package to include placeholder docs (52 files)
 
-## v0.4.15 — Outreach Launch Checklist and First Beta Audit Workflow
-- [ ] Create outreach checklist docs
-- [ ] Define beta audit workflow
+## v0.4.15 — Outreach Launch Checklist and First Beta Audit Workflow (shipped)
+- [x] Create docs/launch/ with 7 internal workflow docs (outreach checklist, beta audit workflow, intake form, delivery template, outreach tracker, feedback form, message pack)
+- [x] Define beta audit workflow from qualification to delivery
+- [x] Prepare message templates for Discord, forums, and follow-ups
 - [ ] First beta audit with real client (if applicable)
+
+## v0.4.16 — First Public Release Page Preparation
+- [ ] Draft first public release announcement
+- [ ] Create release page template
+- [ ] Prepare screenshots and demo assets for release
 
 ## v0.5 — Dashboard (optional)
 - [ ] Local HTML report viewer

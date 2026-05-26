@@ -19,7 +19,7 @@ Free, open-source, no cloud, no telemetry.
 ## Current status
 
 **Current tagged release:** v0.4.9
-**Latest repository milestone:** v0.4.14 — Screenshot placeholder references and README layout polish
+**Latest repository milestone:** v0.4.15 — Outreach launch checklist and first beta audit workflow
 
 Run a single command to scan your servers and receive a Discord alert if anything failed. Use the Task Scheduler installer to run automatically on a recurring interval.
 
@@ -256,6 +256,18 @@ Need a deeper analysis of your server setup? I offer paid manual audits that inc
 | Enterprise Audit | €499+ | 10+ servers, priority turnaround |
 
 → [View audit packages](docs/business/PAID_AUDIT_OFFER.md) · [Landing page copy](docs/business/LANDING_PAGE_COPY.md)
+
+## Launch / beta audit workflow
+
+Internal workflow docs for approaching first beta users, running safe audits, and collecting feedback. These are operator-facing — not required for running scans.
+
+- [Outreach launch checklist](docs/launch/OUTREACH_LAUNCH_CHECKLIST.md) — what must be ready before outreach, posting rules, daily limits, success criteria
+- [First beta audit workflow](docs/launch/FIRST_BETA_AUDIT_WORKFLOW.md) — end-to-end process from qualifying a server owner to delivering audit results
+- [Beta audit intake form](docs/launch/BETA_AUDIT_INTAKE_FORM.md) — copy/paste form for gathering server details before an audit
+- [Audit delivery template](docs/launch/BETA_AUDIT_DELIVERY_TEMPLATE.md) — structured message for delivering audit findings
+- [Outreach tracker template](docs/launch/OUTREACH_TRACKER_TEMPLATE.md) — markdown table for tracking outreach manually
+- [Beta feedback form](docs/launch/BETA_FEEDBACK_FORM.md) — copy/paste form for collecting feedback after an audit
+- [Launch message pack](docs/launch/LAUNCH_MESSAGE_PACK.md) — refined message templates for Discord, forums, and follow-ups
 
 ### Build script exit codes
 
@@ -665,7 +677,8 @@ powershell -NoProfile -ExecutionPolicy Bypass -File scripts\uninstall_questops_t
 | v0.4.12 | Website landing page draft **(shipped)** |
 | v0.4.13 | Real screenshot capture checklist **(shipped)** |
 | v0.4.14 | Screenshot placeholder references and README layout polish **(shipped)** |
-| v0.4.15 | Outreach launch checklist and first beta audit workflow |
+| v0.4.15 | Outreach launch checklist and first beta audit workflow **(shipped)** |
+| v0.4.16 | First public release page preparation |
 | v0.5 | HTML dashboard |
 
 Full details in `docs/ROADMAP.md`.
