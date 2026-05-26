@@ -142,7 +142,14 @@
 | Done   | - Update README with Beta audit reporting section |
 | Done   | - Update PROJECTMAP, TASKS, ROADMAP, CHANGELOG (VERSION unchanged) |
 
+| Done   | v0.4.18 - Public README quick-start polish |
+| Done   | - Restructure README top-level section ordering |
+| Done   | - Add "Try it in 5 minutes" with git clone + HTML export |
+| Done   | - Add "Use it with real servers" 4-step workflow |
+| Done   | - Add "Outputs" summary table |
+| Done   | - Move Demo/Screenshots/Commercial/Safety up to top area |
+| Done   | - Update CHANGELOG, TASKS, ROADMAP, PROJECTMAP |
+
 ## Upcoming
 
-- v0.4.18 - Public README quick-start polish
 - v0.5 - HTML dashboard

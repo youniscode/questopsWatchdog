@@ -10,22 +10,53 @@ Free, open-source, no cloud, no telemetry.
 
 ---
 
-## Who it is for
-
-- Self-hosted **Project Zomboid** server operators
-- Self-hosted **Minecraft** server operators
-- Anyone running multiple game servers on Windows who wants a lightweight, no-dependency health check
-
 ## Current status
 
 **Current tagged release:** v0.4.9
 **Latest repository milestone:** v0.4.18 — Public README quick-start polish
 
-Run a single command to scan your servers and receive a Discord alert if anything failed. Use the Task Scheduler installer to run automatically on a recurring interval.
+The `VERSION` file stays at 0.4.9 until the next tagged release. Repository milestones track unreleased work-in-progress.
 
-The `VERSION` file stays at 0.4.9 until the next tagged release. The repository milestones track unreleased work-in-progress.
+## Try it in 5 minutes
 
-### What it currently checks
+```powershell
+git clone https://github.com/youniscode/questopsWatchdog.git
+cd questopsWatchdog
+powershell -NoProfile -ExecutionPolicy Bypass -File scripts\validate_questops_config.ps1
+powershell -NoProfile -ExecutionPolicy Bypass -File scripts\questops_scan.ps1
+powershell -NoProfile -ExecutionPolicy Bypass -File scripts\export_questops_html_report.ps1
+```
+
+No install, no dependencies. Works on any Windows machine with PowerShell 5.1. The default config uses `C:\Windows` / `powershell.exe` with a 1 GB threshold and always passes — a safe way to confirm everything works.
+
+### What you just did
+
+1. **Validated** the config structure (JSON syntax, required fields, types)
+2. **Scanned** your local machine — checked that `C:\Windows` exists, `powershell.exe` is running, and disk space is above 1 GB
+3. **Exported** a self-contained HTML report to `reports\latest-health-report.html`
+
+The JSON report at `reports\latest-health-report.json` contains the full data. To inspect it:
+
+```powershell
+(Get-Content reports\latest-health-report.json -Raw | ConvertFrom-Json) | Format-List
+```
+
+## Use it with real servers
+
+1. Copy `config\servers.game.example.json` to `config\servers.local.json`
+2. Edit the paths/thresholds to match your actual servers
+3. Validate your local config:
+   ```powershell
+   powershell -NoProfile -ExecutionPolicy Bypass -File scripts\validate_questops_config.ps1 -ConfigPath config\servers.local.json
+   ```
+4. Run a scan with your real config:
+   ```powershell
+   powershell -NoProfile -ExecutionPolicy Bypass -File scripts\questops_scan.ps1 -ConfigPath config\servers.local.json
+   ```
+
+Three config files exist in the repository — see [Config file roles](#config-file-roles) for details. Your `servers.local.json` is gitignored and never committed.
+
+## What it checks
 
 | Check | Method |
 |-------|--------|
@@ -36,28 +67,76 @@ The `VERSION` file stays at 0.4.9 until the next tagged release. The repository 
 | Log file freshness | `Get-Item LastWriteTime` compared against `max_age_minutes` (optional per server) |
 | Process CPU & memory | `TotalProcessorTime` sampled over `sample_ms`, `WorkingSet64` summed across matching processes (optional per server) |
 
+## Outputs
+
+| Output | Description |
+|--------|-------------|
+| `reports/latest-health-report.json` | Machine-readable scan result — overall pass/fail, per-server check details |
+| `reports/latest-health-report.html` | Self-contained HTML report (inline CSS, no JS) — safe for print-to-PDF and client delivery |
+| Discord alert | Plain-text message sent via webhook when any check fails — includes per-server failed category breakdown |
+
+To inspect the JSON report from PowerShell:
+
+```powershell
+(Get-Content reports\latest-health-report.json -Raw | ConvertFrom-Json) | Format-List
+```
+
+## Demo examples
+
+See what QuestOps Watchdog produces without running it yourself. All examples use fictional servers and data.
+
+- [Sample health report JSON](docs/demo/SAMPLE_HEALTH_REPORT_JSON.md) — passing and failing server report
+- [Sample HTML report preview](docs/demo/SAMPLE_HTML_REPORT_PREVIEW.md) — what the HTML audit report looks like
+- [Sample Discord alert](docs/demo/SAMPLE_DISCORD_ALERT.md) — example alert messages
+- [Sample audit results manifest](docs/demo/SAMPLE_AUDIT_RESULTS_MANIFEST.md) — results bundle metadata
+- [Sample client before/after](docs/demo/SAMPLE_CLIENT_BEFORE_AFTER.md) — fictional transformation story
+
+### Screenshots
+
+Real screenshots are planned but not yet captured. The following planning documents and placeholders define what each screenshot should show and how to redact safe data:
+
+- [Capture checklist](docs/assets/SCREENSHOT_CAPTURE_CHECKLIST.md) — 10 screenshot types and capture workflow
+- [Redaction guide](docs/assets/SCREENSHOT_REDACTION_GUIDE.md) — what to redact and how (webhooks, IPs, paths, names)
+- [Shot list](docs/assets/SCREENSHOT_SHOT_LIST.md) — 12 planned screenshots with priorities
+- [Demo script](docs/assets/SCREENSHOT_DEMO_SCRIPT.md) — step-by-step PowerShell commands for each capture
+- [Review checklist](docs/assets/SCREENSHOT_REVIEW_CHECKLIST.md) — pre-publication review checklist
+- [README hero placeholder](docs/assets/placeholders/README_HERO_SCREENSHOT_PLACEHOLDER.md) — intended hero image for README
+
+All screenshot placeholders are in `docs/assets/placeholders/`. See [docs/assets/README.md](docs/assets/README.md) for the naming convention and redaction rules.
+
+## Commercial audit offer
+
+Need a deeper analysis of your server setup? I offer paid manual audits that include config review, security checks, and actionable recommendations.
+
+| Tier | Price | Best for |
+|------|-------|----------|
+| Quick Scan | €49 | Single server, config + report review |
+| Standard Audit | €149 | 1–3 servers, full review + recommendations |
+| Comprehensive Audit | €299 | 4–10 servers, full review + recommendations + call |
+| Enterprise Audit | €499+ | 10+ servers, priority turnaround |
+
+→ [View audit packages](docs/business/PAID_AUDIT_OFFER.md) · [Landing page copy](docs/business/LANDING_PAGE_COPY.md)
+
+## Safety / security notes
+
+- This tool runs **locally only**. It does not phone home, collect telemetry, or send data anywhere.
+- No credentials, tokens, or secrets are stored anywhere in the repository.
+- Secrets must come from environment variables (e.g. `$env:QUESTOPS_DISCORD_WEBHOOK_URL`) only. Never commit webhook URLs.
+- The scan script reads a JSON file and writes a JSON file. It does not execute arbitrary code from config.
+- The default `config/servers.example.json` is a safe local demo and will always pass. For real server monitoring, copy `config/servers.game.example.json` to `config/servers.local.json` and edit the paths.
+- Always review your config file before running — validate it first with `scripts\validate_questops_config.ps1`.
+
+## Who it is for
+
+- Self-hosted **Project Zomboid** server operators
+- Self-hosted **Minecraft** server operators
+- Anyone running multiple game servers on Windows who wants a lightweight, no-dependency health check
+
 ## Requirements
 
 - **Windows** (7/8/10/11, Server 2012+)
 - **PowerShell 5.1** (comes with Windows; no install needed)
 - No modules, no npm, no Python, no databases
-
-## Quick start
-
-```powershell
-# 1. Validate the default config
-powershell -NoProfile -ExecutionPolicy Bypass -File scripts\validate_questops_config.ps1
-
-# 2. Run a health scan
-powershell -NoProfile -ExecutionPolicy Bypass -File scripts\questops_scan.ps1
-
-# 3. View the report
-(Get-Content reports\latest-health-report.json -Raw | ConvertFrom-Json) | Format-List
-```
-
-No install, no dependencies. Works on any Windows machine with PowerShell 5.1.
-
-For your real game servers: copy `config\servers.game.example.json` to `config\servers.local.json`, edit the paths, then run with `-ConfigPath config\servers.local.json`.
 
 ## Config validation
 
@@ -229,29 +308,6 @@ The output is written to `dist\questops-watchdog-v<VERSION>\` containing:
 
 The build script reads the version from `VERSION` in the project root. Git commit and tagging remain manual — see `docs/RELEASE_CHECKLIST.md` for the exact commands.
 
-## Demo examples
-
-See what QuestOps Watchdog produces without running it yourself. All examples use fictional servers and data.
-
-- [Sample health report JSON](docs/demo/SAMPLE_HEALTH_REPORT_JSON.md) — passing and failing server report
-- [Sample HTML report preview](docs/demo/SAMPLE_HTML_REPORT_PREVIEW.md) — what the HTML audit report looks like
-- [Sample Discord alert](docs/demo/SAMPLE_DISCORD_ALERT.md) — example alert messages
-- [Sample audit results manifest](docs/demo/SAMPLE_AUDIT_RESULTS_MANIFEST.md) — results bundle metadata
-- [Sample client before/after](docs/demo/SAMPLE_CLIENT_BEFORE_AFTER.md) — fictional transformation story
-
-### Screenshots
-
-Real screenshots are planned but not yet captured. The following planning documents and placeholders define what each screenshot should show and how to redact safe data:
-
-- [Capture checklist](docs/assets/SCREENSHOT_CAPTURE_CHECKLIST.md) — 10 screenshot types and capture workflow
-- [Redaction guide](docs/assets/SCREENSHOT_REDACTION_GUIDE.md) — what to redact and how (webhooks, IPs, paths, names)
-- [Shot list](docs/assets/SCREENSHOT_SHOT_LIST.md) — 12 planned screenshots with priorities
-- [Demo script](docs/assets/SCREENSHOT_DEMO_SCRIPT.md) — step-by-step PowerShell commands for each capture
-- [Review checklist](docs/assets/SCREENSHOT_REVIEW_CHECKLIST.md) — pre-publication review checklist
-- [README hero placeholder](docs/assets/placeholders/README_HERO_SCREENSHOT_PLACEHOLDER.md) — intended hero image for README
-
-All screenshot placeholders are in `docs/assets/placeholders/`. See [docs/assets/README.md](docs/assets/README.md) for the naming convention and redaction rules.
-
 ## Website / landing page draft
 
 Public-facing marketing materials and website copy for QuestOps Watchdog. Documentation only — no framework, no hosted site.
@@ -260,19 +316,6 @@ Public-facing marketing materials and website copy for QuestOps Watchdog. Docume
 - [Homepage wireframe](docs/website/HOMEPAGE_WIREFRAME.md) — ASCII layout guide
 - [Copy snippets](docs/website/WEBSITE_COPY_SNIPPETS.md) — headlines, CTAs, social posts, FAQ variants
 - [SEO notes](docs/website/SEO_NOTES.md) — keywords, audience, positioning, technical notes
-
-## Commercial audit offer
-
-Need a deeper analysis of your server setup? I offer paid manual audits that include config review, security checks, and actionable recommendations.
-
-| Tier | Price | Best for |
-|------|-------|----------|
-| Quick Scan | €49 | Single server, config + report review |
-| Standard Audit | €149 | 1–3 servers, full review + recommendations |
-| Comprehensive Audit | €299 | 4–10 servers, full review + recommendations + call |
-| Enterprise Audit | €499+ | 10+ servers, priority turnaround |
-
-→ [View audit packages](docs/business/PAID_AUDIT_OFFER.md) · [Landing page copy](docs/business/LANDING_PAGE_COPY.md)
 
 ## Public release preparation
 
@@ -729,15 +772,6 @@ The project root `.gitignore` protects sensitive and generated content from acci
 | `.DS_Store`, `Thumbs.db`, `.vscode/`, `.idea/` | OS / editor metadata |
 
 **Secrets must never be committed.** Use environment variables (e.g. `$env:QUESTOPS_DISCORD_WEBHOOK_URL`) or gitignored local config files only.
-
-## Safety / security notes
-
-- This tool runs **locally only**. It does not phone home, collect telemetry, or send data anywhere.
-- No credentials, tokens, or secrets are stored anywhere in the repository.
-- Secrets must come from environment variables (e.g. `$env:QUESTOPS_DISCORD_WEBHOOK_URL`) only. Never commit webhook URLs.
-- The scan script reads a JSON file and writes a JSON file. It does not execute arbitrary code from config.
-- The default `config/servers.example.json` is a safe local demo and will always pass. For real server monitoring, copy `config/servers.game.example.json` to `config/servers.local.json` and edit the paths.
-- Always review your config file before running — validate it first with `scripts\validate_questops_config.ps1`.
 
 ---
 

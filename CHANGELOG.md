@@ -2,7 +2,12 @@
 
 ## v0.4.18 — Public README quick-start polish (unreleased)
 
-- Added "Quick start" section to README with 3 commands (validate, scan, view report)
+- Restructured README top-level flow: Current status → Try it in 5 minutes (with git clone) → Use it with real servers → What it checks → Outputs → Demo examples → Screenshots → Commercial audit offer → Safety/security notes → deeper technical sections
+- Added "Try it in 5 minutes" section with git clone, validate, scan, and HTML export commands
+- Added "Use it with real servers" section with 4-step config/setup workflow
+- Added "Outputs" section summarizing JSON report, HTML report, and Discord alert
+- Moved "Demo examples" (with Screenshots), "Commercial audit offer", and "Safety / security notes" to top area
+- Moved "Who it is for" and "Requirements" to the deeper technical section area
 - Updated current milestone and roadmap table in README
 - Updated PROJECTMAP, TASKS, ROADMAP, CHANGELOG
 - VERSION unchanged (0.4.9)

@@ -165,9 +165,13 @@
 - [x] Create polished delivery message template
 
 ## v0.4.18 — Public README Quick-Start Polish (shipped)
-- [x] Add quick-start section to README with 3-step workflow (validate, scan, view)
-- [x] Update milestone reference and roadmap table in README
-- [x] Update all tracking docs for v0.4.18
+- [x] Restructure README top-level flow: Current status → Try it in 5 minutes → Use it with real servers → What it checks → Outputs → Demo → Screenshots → Commercial audit → Safety → deeper sections
+- [x] Add "Try it in 5 minutes" section with git clone, validate, scan, HTML export
+- [x] Add "Use it with real servers" 4-step config/setup workflow
+- [x] Add "Outputs" summary table (JSON report, HTML report, Discord alert)
+- [x] Move Demo, Screenshots, Commercial audit, Safety up to top area
+- [x] Move "Who it is for" and "Requirements" to deeper section area
+- [x] Update CHANGELOG, TASKS, ROADMAP, PROJECTMAP
 
 ## v0.5 — Dashboard (optional)
 - [ ] Local HTML report viewer
