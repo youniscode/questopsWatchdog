@@ -148,8 +148,29 @@
 | Done   | - Add "Use it with real servers" 4-step workflow |
 | Done   | - Add "Outputs" summary table |
 | Done   | - Move Demo/Screenshots/Commercial/Safety up to top area |
+| Done   | - Move "Who it is for" and "Requirements" to deeper section area |
 | Done   | - Update CHANGELOG, TASKS, ROADMAP, PROJECTMAP |
+
+| Done   | v0.4.19 - Client package final sanity review |
+| Done   | - Create docs/QUICK_START.md (5-step standalone quick-start guide) |
+| Done   | - Create docs/qa/ with 3 internal QA review docs (PUBLIC_REPO_REVIEW_CHECKLIST, RELEASE_CHECKLIST, RELEASE_ASSET_CHECKLIST) |
+| Done   | - Update client tool package to 53 files |
+| Done   | - Update README, PROJECTMAP, TASKS, ROADMAP, CHANGELOG |
+| Done   | - Update release checklists with 53-file count and v0.4.19 references |
+
+| Done   | v0.4.20 - Prepare v0.5 dashboard planning brief |
+| Done   | - Create docs/dashboard/ with 7 internal dashboard planning docs |
+| Done   | - Create V0_5_DASHBOARD_PLANNING_BRIEF.md (purpose, scope, risks, build order) |
+| Done   | - Create DASHBOARD_MVP_REQUIREMENTS.md (granular MVP checklist) |
+| Done   | - Create DASHBOARD_DATA_MODEL.md (expected JSON report fields with optional handling) |
+| Done   | - Create DASHBOARD_UI_WIREFRAME.md (ASCII layout wireframe) |
+| Done   | - Create DASHBOARD_SECURITY_NOTES.md (no secrets, local-only, no telemetry, no CDN) |
+| Done   | - Create DASHBOARD_IMPLEMENTATION_OPTIONS.md (4 approaches, recommend extending HTML export) |
+| Done   | - Create DASHBOARD_TEST_PLAN.md (12 manual validation scenarios) |
+| Done   | - Update README with v0.5 dashboard planning section |
+| Done   | - Update PROJECTMAP, TASKS, ROADMAP, CHANGELOG |
 
 ## Upcoming
 
+- v0.5.0 - HTML dashboard MVP implementation plan
 - v0.5 - HTML dashboard

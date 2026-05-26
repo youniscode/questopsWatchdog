@@ -165,13 +165,40 @@
 - [x] Create polished delivery message template
 
 ## v0.4.18 — Public README Quick-Start Polish (shipped)
-- [x] Restructure README top-level flow: Current status → Try it in 5 minutes → Use it with real servers → What it checks → Outputs → Demo → Screenshots → Commercial audit → Safety → deeper sections
+- [x] Restructure README top-level section ordering
 - [x] Add "Try it in 5 minutes" section with git clone, validate, scan, HTML export
 - [x] Add "Use it with real servers" 4-step config/setup workflow
 - [x] Add "Outputs" summary table (JSON report, HTML report, Discord alert)
 - [x] Move Demo, Screenshots, Commercial audit, Safety up to top area
 - [x] Move "Who it is for" and "Requirements" to deeper section area
 - [x] Update CHANGELOG, TASKS, ROADMAP, PROJECTMAP
+
+## v0.4.19 — Client Package Final Sanity Review (shipped)
+- [x] Create `docs/QUICK_START.md` — standalone quick-start guide (5 steps: requirements, clone, validate, scan, HTML export, scheduled task)
+- [x] Create `docs/qa/` with 3 internal QA review docs:
+  - `PUBLIC_REPO_REVIEW_CHECKLIST.md` — pre-publication repo review (53 files, docs/qa/ exclusion)
+  - `RELEASE_CHECKLIST.md` — release checklist updated for v0.4.19
+  - `RELEASE_ASSET_CHECKLIST.md` — release asset checklist updated for v0.4.19
+- [x] Update client tool package to 53 files (added `docs/QUICK_START.md`)
+- [x] Update release checklists with 53-file count and v0.4.19 references
+- [x] Update README, PROJECTMAP, TASKS, ROADMAP, CHANGELOG
+
+## v0.4.20 — Prepare v0.5 Dashboard Planning Brief (shipped)
+- [x] Create `docs/dashboard/` with 7 internal dashboard planning docs:
+  - `V0_5_DASHBOARD_PLANNING_BRIEF.md` — purpose, scope, risks, build order
+  - `DASHBOARD_MVP_REQUIREMENTS.md` — granular MVP requirements checklist
+  - `DASHBOARD_DATA_MODEL.md` — expected JSON report fields with optional handling
+  - `DASHBOARD_UI_WIREFRAME.md` — ASCII layout wireframe (header, summary cards, filters, server cards, footer)
+  - `DASHBOARD_SECURITY_NOTES.md` — no secrets, local-only, no telemetry, no CDN
+  - `DASHBOARD_IMPLEMENTATION_OPTIONS.md` — 4 approaches compared, recommends extending existing HTML export
+  - `DASHBOARD_TEST_PLAN.md` — 12 manual validation scenarios
+- [x] Update README with "v0.5 dashboard planning" section linking to 3 key docs
+- [x] Update PROJECTMAP, TASKS, ROADMAP, CHANGELOG
+
+## v0.5.0 — HTML Dashboard MVP Implementation Plan (upcoming)
+- [ ] Plan the implementation of the dashboard MVP based on the planning brief
+- [ ] Build from the recommended Option 1 (extend existing HTML export)
+- [ ] Implement MVP requirements checklist
 
 ## v0.5 — Dashboard (optional)
 - [ ] Local HTML report viewer

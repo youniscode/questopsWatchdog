@@ -48,6 +48,7 @@ questops-watchdog/
 |   |-- PROJECTMAP.md               # This file
 |   |-- ROADMAP.md                  # Development milestones
 |   |-- TASKS.md                    # Active task tracking
+|   |-- QUICK_START.md              # 5-step quick-start guide
 |   |-- CLIENT_AUDIT_GUIDE.md       # Client-facing audit instructions
 |   |-- CLIENT_HANDOFF_CHECKLIST.md # Pre/post-delivery checklist
 |   |-- RELEASE_NOTES_v0.4.8.md    # Client-facing release notes (v0.4.8)
@@ -78,6 +79,18 @@ questops-watchdog/
 |   |   |-- HOMEPAGE_WIREFRAME.md         # ASCII homepage wireframe layout
 |   |   |-- WEBSITE_COPY_SNIPPETS.md      # Reusable copy snippets
 |   |   `-- SEO_NOTES.md                 # SEO guidance and keyword research
+|   |-- qa/
+|   |   |-- PUBLIC_REPO_REVIEW_CHECKLIST.md  # Pre-publication repo review (53 files, qa exclusion)
+|   |   |-- RELEASE_CHECKLIST.md             # Release checklist for v0.4.19
+|   |   `-- RELEASE_ASSET_CHECKLIST.md       # Release asset checklist for v0.4.19
+|   |-- dashboard/
+|   |   |-- V0_5_DASHBOARD_PLANNING_BRIEF.md        # Dashboard purpose, scope, risks, build order
+|   |   |-- DASHBOARD_MVP_REQUIREMENTS.md            # MVP requirements checklist
+|   |   |-- DASHBOARD_DATA_MODEL.md                  # Expected JSON report fields
+|   |   |-- DASHBOARD_UI_WIREFRAME.md                # ASCII layout wireframe
+|   |   |-- DASHBOARD_SECURITY_NOTES.md              # No secrets, local-only, no telemetry
+|   |   |-- DASHBOARD_IMPLEMENTATION_OPTIONS.md      # Compares 4 approaches
+|   |   `-- DASHBOARD_TEST_PLAN.md                   # 12 manual validation scenarios
 |   |-- business/
 |   |   |-- PAID_AUDIT_OFFER.md           # Pricing and scope for paid audits
 |   |   |-- LANDING_PAGE_COPY.md           # Marketing copy reference
@@ -180,6 +193,7 @@ questops-watchdog/
 | `reports/latest-health-report.json` | Last scan output. Overwritten each run. |
 | `reports/history/` | Timestamped report copies. Retained per `-KeepReports`. |
 | `logs/questops-run.log` | Run activity log. Appended each run. |
+| `docs/QUICK_START.md` | 5-step quick-start guide — clone, validate, scan, HTML export, scheduled task. |
 | `docs/PROJECTMAP.md` | This file - structural reference for agents. |
 | `docs/AGENT_RULES.md` | Mandatory rules for AI coding agents. |
 | `docs/ROADMAP.md` | Feature roadmap (v0.1-v0.5). |
@@ -190,6 +204,8 @@ questops-watchdog/
 | `docs/assets/placeholders/` | Screenshot placeholder docs — describe future screenshots without real images. |
 | `docs/launch/` | Internal outreach and beta audit workflow docs — not included in client tool package. |
 | `docs/release/` | Internal release preparation docs — not included in client tool package. |
+| `docs/qa/` | Internal quality assurance review checklists — not included in client tool package. |
+| `docs/dashboard/` | Internal v0.5 dashboard planning docs — not included in client tool package. |
 | `docs/audit/` | Internal beta audit reporting template docs — not included in client tool package. |
 | `docs/website/` | Public-facing website copy, wireframe, snippets, and SEO guidance. |
 | `docs/launch/OUTREACH_LAUNCH_CHECKLIST.md` | What must be ready before first outreach — docs, scripts, audit flow, posting rules, success criteria. |
@@ -840,3 +856,7 @@ These rules bind every AI agent that modifies this repository.
 2026-05-26 - v0.4.17: Created docs/audit/ with 7 internal audit report docs (BETA_AUDIT_REPORT_TEMPLATE, FINDINGS_SEVERITY_GUIDE, COMMON_FINDINGS_LIBRARY, RECOMMENDATION_STYLE_GUIDE, BETA_AUDIT_REPORT_SAMPLE, BETA_AUDIT_INTERNAL_REVIEW_CHECKLIST, BETA_AUDIT_DELIVERY_MESSAGE_POLISHED). Updated README with Beta audit reporting section. Updated PROJECTMAP, TASKS, ROADMAP, CHANGELOG. VERSION unchanged (0.4.9). docs/audit/ excluded from export script (internal-only).
 
 2026-05-26 - v0.4.18: Restructured README top-level flow: Current status, Try it in 5 minutes (with git clone), Use it with real servers, What it checks, Outputs, Demo examples, Screenshots, Commercial audit offer, Safety/security notes, then deeper technical sections. Added "Try it in 5 minutes", "Use it with real servers", and "Outputs" sections. Moved Demo, Commercial audit, Safety to top area. Moved "Who it is for" and "Requirements" to deeper section area. Updated PROJECTMAP, TASKS, ROADMAP, CHANGELOG. VERSION unchanged (0.4.9).
+
+2026-05-26 - v0.4.19: Created docs/QUICK_START.md (standalone quick-start guide). Created docs/qa/ with 3 internal QA docs (PUBLIC_REPO_REVIEW_CHECKLIST, RELEASE_CHECKLIST, RELEASE_ASSET_CHECKLIST). Updated client package to 53 files. Updated README, PROJECTMAP, TASKS, ROADMAP, CHANGELOG, RELEASE_CHECKLIST, RELEASE_ASSET_CHECKLIST. VERSION unchanged (0.4.9).
+
+2026-05-26 - v0.4.20: Created docs/dashboard/ with 7 internal dashboard planning docs (V0_5_DASHBOARD_PLANNING_BRIEF, DASHBOARD_MVP_REQUIREMENTS, DASHBOARD_DATA_MODEL, DASHBOARD_UI_WIREFRAME, DASHBOARD_SECURITY_NOTES, DASHBOARD_IMPLEMENTATION_OPTIONS, DASHBOARD_TEST_PLAN). Updated README with v0.5 dashboard planning section. Updated PROJECTMAP, TASKS, ROADMAP, CHANGELOG. VERSION unchanged (0.4.9). docs/dashboard/ excluded from export script (internal planning only).

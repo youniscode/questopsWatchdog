@@ -175,10 +175,10 @@ powershell -NoProfile -ExecutionPolicy Bypass -File scripts\export_questops_audi
 
 The package is written to `dist\questops-watchdog-audit-package-YYYYMMDD-HHMMSS.zip`.
 
-### What is included (52 files)
+### What is included (53 files)
 
 - **Version & changelog:** VERSION, CHANGELOG.md
-- **Documentation:** README.md, docs/PROJECTMAP.md, docs/ROADMAP.md, docs/AGENT_RULES.md, docs/TASKS.md, docs/CLIENT_AUDIT_GUIDE.md, docs/CLIENT_HANDOFF_CHECKLIST.md, docs/RELEASE_NOTES_v0.4.9.md
+- **Documentation:** README.md, docs/QUICK_START.md, docs/PROJECTMAP.md, docs/ROADMAP.md, docs/AGENT_RULES.md, docs/TASKS.md, docs/CLIENT_AUDIT_GUIDE.md, docs/CLIENT_HANDOFF_CHECKLIST.md, docs/RELEASE_NOTES_v0.4.9.md
 - **Business docs:** docs/business/PAID_AUDIT_OFFER.md, docs/business/LANDING_PAGE_COPY.md, docs/business/OUTREACH_MESSAGES.md, docs/business/SAMPLE_CLIENT_PROPOSAL.md, docs/business/SAMPLE_AUDIT_SUMMARY.md, docs/business/PRICING_NOTES.md
 - **Demo docs:** docs/demo/SAMPLE_HEALTH_REPORT_JSON.md, docs/demo/SAMPLE_HTML_REPORT_PREVIEW.md, docs/demo/SAMPLE_DISCORD_ALERT.md, docs/demo/SAMPLE_AUDIT_RESULTS_MANIFEST.md, docs/demo/SAMPLE_CLIENT_BEFORE_AFTER.md, docs/assets/README.md
 - **Screenshot docs:** docs/assets/SCREENSHOT_CAPTURE_CHECKLIST.md, docs/assets/SCREENSHOT_REDACTION_GUIDE.md, docs/assets/SCREENSHOT_SHOT_LIST.md, docs/assets/SCREENSHOT_DEMO_SCRIPT.md, docs/assets/SCREENSHOT_REVIEW_CHECKLIST.md
@@ -755,6 +755,16 @@ powershell -NoProfile -ExecutionPolicy Bypass -File scripts\uninstall_questops_t
 | v0.5 | HTML dashboard |
 
 Full details in `docs/ROADMAP.md`.
+
+## v0.5 dashboard planning
+
+A local HTML dashboard is planned for v0.5 to provide a visual overview of health scan results. No dashboard code exists yet — the following docs define the approach:
+
+- [Dashboard planning brief](docs/dashboard/V0_5_DASHBOARD_PLANNING_BRIEF.md) — purpose, scope, risks, build order
+- [MVP requirements](docs/dashboard/DASHBOARD_MVP_REQUIREMENTS.md) — granular checklist of what the MVP must cover
+- [UI wireframe](docs/dashboard/DASHBOARD_UI_WIREFRAME.md) — ASCII layout showing summary cards, filters, server cards
+
+These are internal planning docs and are **not** included in the client-ready audit package.
 
 ## Repository hygiene
 

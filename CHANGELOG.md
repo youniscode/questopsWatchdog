@@ -1,5 +1,32 @@
 # QuestOps Watchdog — Changelog
 
+## v0.4.20 — Prepare v0.5 dashboard planning brief (unreleased)
+
+- Created `docs/dashboard/` with 7 internal dashboard planning docs:
+  - `V0_5_DASHBOARD_PLANNING_BRIEF.md` — purpose, scope, risks, build order
+  - `DASHBOARD_MVP_REQUIREMENTS.md` — granular MVP checklist
+  - `DASHBOARD_DATA_MODEL.md` — expected JSON report fields with optional handling
+  - `DASHBOARD_UI_WIREFRAME.md` — ASCII layout wireframe
+  - `DASHBOARD_SECURITY_NOTES.md` — no secrets, local-only, no telemetry, no CDN
+  - `DASHBOARD_IMPLEMENTATION_OPTIONS.md` — compares 4 approaches, recommends extending existing HTML export
+  - `DASHBOARD_TEST_PLAN.md` — 12 manual validation scenarios
+- Updated README with "v0.5 dashboard planning" section linking to 3 key dashboard docs
+- Updated PROJECTMAP, TASKS, ROADMAP, CHANGELOG
+- VERSION unchanged (0.4.9) — `docs/dashboard/` excluded from export script (internal planning only)
+
+## v0.4.19 — Client package final sanity review (unreleased)
+
+- Created `docs/QUICK_START.md` — standalone quick-start guide with 5 steps from clone to scheduled task
+- Created `docs/qa/` with 3 internal QA review docs:
+  - `PUBLIC_REPO_REVIEW_CHECKLIST.md` — pre-publication repo review checklist (53 files, docs/qa/ exclusion)
+  - `RELEASE_CHECKLIST.md` — internal release checklist updated for v0.4.19
+  - `RELEASE_ASSET_CHECKLIST.md` — release asset checklist updated for v0.4.19
+- Updated client tool package to 53 files (added `docs/QUICK_START.md`)
+- Updated `docs/RELEASE_CHECKLIST.md` and `docs/release/RELEASE_ASSET_CHECKLIST.md` with 53-file count and v0.4.19 references
+- Updated README "What is included" count from 52 to 53 files
+- Updated PROJECTMAP, TASKS, ROADMAP, CHANGELOG
+- VERSION unchanged (0.4.9)
+
 ## v0.4.18 — Public README quick-start polish (unreleased)
 
 - Restructured README top-level flow: Current status → Try it in 5 minutes (with git clone) → Use it with real servers → What it checks → Outputs → Demo examples → Screenshots → Commercial audit offer → Safety/security notes → deeper technical sections
