@@ -102,7 +102,16 @@
 | Done   | - Create SCREENSHOT_REVIEW_CHECKLIST.md — pre-publication review checklist |
 | Done   | - Update README, docs/assets/README.md with Screenshots section |
 | Done   | - Update export script and package count to 46 files |
+| Done   | v0.4.14 - Screenshot placeholder references and README layout polish |
+| Done   | - Create docs/assets/placeholders/ with 6 placeholder docs |
+| Done   | - Add README_HERO_SCREENSHOT_PLACEHOLDER.md, HTML_REPORT_SCREENSHOT_PLACEHOLDER.md |
+| Done   | - Add DISCORD_ALERT_SCREENSHOT_PLACEHOLDER.md, POWERSHELL_SCAN_SCREENSHOT_PLACEHOLDER.md |
+| Done   | - Add PACKAGE_ZIP_SCREENSHOT_PLACEHOLDER.md, LANDING_PAGE_SCREENSHOT_PLACEHOLDER.md |
+| Done   | - Polish README layout (Screenshots near Demo, milestone v0.4.14, placeholders section) |
+| Done   | - Update docs/assets/README.md with placeholders section |
+| Done   | - Update export script and package count to 52 files |
 
 ## Upcoming
 
+- v0.4.15 - Outreach launch checklist and first beta audit workflow
 - v0.5 - HTML dashboard

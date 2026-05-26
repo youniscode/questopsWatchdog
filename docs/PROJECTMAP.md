@@ -60,7 +60,19 @@ questops-watchdog/
 |   |   |-- SAMPLE_AUDIT_RESULTS_MANIFEST.md     # Fictional audit-results-manifest.json
 |   |   `-- SAMPLE_CLIENT_BEFORE_AFTER.md        # Fictional client transformation story
 |   |-- assets/
-|   |   `-- README.md              # Screenshot/image asset guidance
+|   |   |-- README.md              # Screenshot/image asset guidance
+|   |   |-- SCREENSHOT_CAPTURE_CHECKLIST.md  # Screenshot types and capture workflow
+|   |   |-- SCREENSHOT_REDACTION_GUIDE.md    # Redaction rules
+|   |   |-- SCREENSHOT_SHOT_LIST.md         # Planned screenshots
+|   |   |-- SCREENSHOT_DEMO_SCRIPT.md       # Demo capture script
+|   |   |-- SCREENSHOT_REVIEW_CHECKLIST.md  # Review checklist
+|   |   `-- placeholders/
+|   |       |-- README_HERO_SCREENSHOT_PLACEHOLDER.md    # README hero placeholder
+|   |       |-- HTML_REPORT_SCREENSHOT_PLACEHOLDER.md    # HTML report placeholder
+|   |       |-- DISCORD_ALERT_SCREENSHOT_PLACEHOLDER.md  # Discord alert placeholder
+|   |       |-- POWERSHELL_SCAN_SCREENSHOT_PLACEHOLDER.md # PowerShell scan placeholder
+|   |       |-- PACKAGE_ZIP_SCREENSHOT_PLACEHOLDER.md    # Package zip placeholder
+|   |       `-- LANDING_PAGE_SCREENSHOT_PLACEHOLDER.md   # Landing page placeholder
 |   |-- website/
 |   |   |-- LANDING_PAGE_DRAFT.md         # Complete landing page copy draft
 |   |   |-- HOMEPAGE_WIREFRAME.md         # ASCII homepage wireframe layout
@@ -153,6 +165,12 @@ questops-watchdog/
 | `docs/assets/SCREENSHOT_SHOT_LIST.md` | 12 planned screenshots table with IDs, descriptions, and priorities (P1-P3). |
 | `docs/assets/SCREENSHOT_DEMO_SCRIPT.md` | Step-by-step PowerShell commands for capturing each planned screenshot. |
 | `docs/assets/SCREENSHOT_REVIEW_CHECKLIST.md` | Pre-publication review checklist for content, redaction, technical, and legal review. |
+| `docs/assets/placeholders/README_HERO_SCREENSHOT_PLACEHOLDER.md` | Placeholder for future README hero screenshot — intended image name, purpose, safe data requirements. |
+| `docs/assets/placeholders/HTML_REPORT_SCREENSHOT_PLACEHOLDER.md` | Placeholder for future HTML report screenshot — crop area, alt text, fictional data rules. |
+| `docs/assets/placeholders/DISCORD_ALERT_SCREENSHOT_PLACEHOLDER.md` | Placeholder for future Discord alert screenshot — fake Discord rules, redaction notes. |
+| `docs/assets/placeholders/POWERSHELL_SCAN_SCREENSHOT_PLACEHOLDER.md` | Placeholder for future PowerShell scan screenshot — safe demo config, command, alt text. |
+| `docs/assets/placeholders/PACKAGE_ZIP_SCREENSHOT_PLACEHOLDER.md` | Placeholder for future package zip screenshot — client-safe contents only, no generated reports. |
+| `docs/assets/placeholders/LANDING_PAGE_SCREENSHOT_PLACEHOLDER.md` | Placeholder for future landing page mockup — based on LANDING_PAGE_DRAFT.md, no fake guarantees. |
 | `docs/website/LANDING_PAGE_DRAFT.md` | Complete landing page copy draft with hero, problem, solution, pricing, FAQ. |
 | `docs/website/HOMEPAGE_WIREFRAME.md` | ASCII wireframe of the homepage layout (nav, hero, features, pricing, FAQ, footer). |
 | `docs/website/WEBSITE_COPY_SNIPPETS.md` | Reusable copy snippets — headlines, subheadlines, CTAs, social posts, repo descriptions, FAQ variants. |
@@ -169,6 +187,7 @@ questops-watchdog/
 | `docs/business/` | Business documentation for paid audit offering. |
 | `docs/demo/` | Safe public demo materials showing fictional tool outputs. |
 | `docs/assets/` | Screenshots, images, and media assets for documentation. |
+| `docs/assets/placeholders/` | Screenshot placeholder docs — describe future screenshots without real images. |
 | `docs/website/` | Public-facing website copy, wireframe, snippets, and SEO guidance. |
 | `README.md` | Public-facing project overview and usage. |
 
@@ -626,7 +645,7 @@ Expected: task removed, exit code 0.
 ```powershell
 powershell -NoProfile -ExecutionPolicy Bypass -File scripts\export_questops_audit_package.ps1 -Force
 ```
-Expected: exits 0. Package written to `dist\questops-watchdog-audit-package-*.zip`. Output shows `success=true`, `included_count=41`.
+Expected: exits 0. Package written to `dist\questops-watchdog-audit-package-*.zip`. Output shows `success=true`, `included_count=52`.
 
 ### List exported packages
 ```powershell
@@ -640,7 +659,7 @@ $zip = Get-ChildItem dist -Filter *.zip | Sort-Object LastWriteTime -Descending 
 Add-Type -AssemblyName System.IO.Compression.FileSystem
 [System.IO.Compression.ZipFile]::OpenRead($zip.FullName).Entries | Select-Object FullName
 ```
-Expected: lists all 41 included files with forward-slash paths.
+Expected: lists all 52 included files with forward-slash paths.
 
 ### Check excluded files are not in zip
 ```powershell
@@ -789,4 +808,4 @@ These rules bind every AI agent that modifies this repository.
 
 ## Last updated
 
-2026-05-26 - v0.4.13: Added docs/assets/SCREENSHOT_CAPTURE_CHECKLIST.md, SCREENSHOT_REDACTION_GUIDE.md, SCREENSHOT_SHOT_LIST.md, SCREENSHOT_DEMO_SCRIPT.md, SCREENSHOT_REVIEW_CHECKLIST.md. Updated package to 46 files. Updated README, PROJECTMAP, TASKS, ROADMAP, CHANGELOG, CLIENT_HANDOFF_CHECKLIST, RELEASE_CHECKLIST.
+2026-05-26 - v0.4.14: Added docs/assets/placeholders/ with 6 placeholder docs (README hero, HTML report, Discord alert, PowerShell scan, package zip, landing page). Updated README layout polish — moved Screenshots near Demo, updated milestone, added placeholders section. Updated package to 52 files. Updated PROJECTMAP, TASKS, ROADMAP, CHANGELOG, CLIENT_HANDOFF_CHECKLIST, RELEASE_CHECKLIST, export script.

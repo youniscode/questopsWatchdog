@@ -19,7 +19,7 @@ Free, open-source, no cloud, no telemetry.
 ## Current status
 
 **Current tagged release:** v0.4.9
-**Latest repository milestone:** v0.4.12 — Website landing page draft
+**Latest repository milestone:** v0.4.14 — Screenshot placeholder references and README layout polish
 
 Run a single command to scan your servers and receive a Discord alert if anything failed. Use the Task Scheduler installer to run automatically on a recurring interval.
 
@@ -79,12 +79,14 @@ powershell -NoProfile -ExecutionPolicy Bypass -File scripts\export_questops_audi
 
 The package is written to `dist\questops-watchdog-audit-package-YYYYMMDD-HHMMSS.zip`.
 
-### What is included (41 files)
+### What is included (52 files)
 
 - **Version & changelog:** VERSION, CHANGELOG.md
 - **Documentation:** README.md, docs/PROJECTMAP.md, docs/ROADMAP.md, docs/AGENT_RULES.md, docs/TASKS.md, docs/CLIENT_AUDIT_GUIDE.md, docs/CLIENT_HANDOFF_CHECKLIST.md, docs/RELEASE_NOTES_v0.4.9.md
 - **Business docs:** docs/business/PAID_AUDIT_OFFER.md, docs/business/LANDING_PAGE_COPY.md, docs/business/OUTREACH_MESSAGES.md, docs/business/SAMPLE_CLIENT_PROPOSAL.md, docs/business/SAMPLE_AUDIT_SUMMARY.md, docs/business/PRICING_NOTES.md
 - **Demo docs:** docs/demo/SAMPLE_HEALTH_REPORT_JSON.md, docs/demo/SAMPLE_HTML_REPORT_PREVIEW.md, docs/demo/SAMPLE_DISCORD_ALERT.md, docs/demo/SAMPLE_AUDIT_RESULTS_MANIFEST.md, docs/demo/SAMPLE_CLIENT_BEFORE_AFTER.md, docs/assets/README.md
+- **Screenshot docs:** docs/assets/SCREENSHOT_CAPTURE_CHECKLIST.md, docs/assets/SCREENSHOT_REDACTION_GUIDE.md, docs/assets/SCREENSHOT_SHOT_LIST.md, docs/assets/SCREENSHOT_DEMO_SCRIPT.md, docs/assets/SCREENSHOT_REVIEW_CHECKLIST.md
+- **Screenshot placeholders:** docs/assets/placeholders/README_HERO_SCREENSHOT_PLACEHOLDER.md, docs/assets/placeholders/HTML_REPORT_SCREENSHOT_PLACEHOLDER.md, docs/assets/placeholders/DISCORD_ALERT_SCREENSHOT_PLACEHOLDER.md, docs/assets/placeholders/POWERSHELL_SCAN_SCREENSHOT_PLACEHOLDER.md, docs/assets/placeholders/PACKAGE_ZIP_SCREENSHOT_PLACEHOLDER.md, docs/assets/placeholders/LANDING_PAGE_SCREENSHOT_PLACEHOLDER.md
 - **Website docs:** docs/website/LANDING_PAGE_DRAFT.md, docs/website/HOMEPAGE_WIREFRAME.md, docs/website/WEBSITE_COPY_SNIPPETS.md, docs/website/SEO_NOTES.md
 - **Scripts:** questops_scan.ps1, questops_run.ps1, questops_discord_alert.ps1, validate_questops_config.ps1, install_questops_task.ps1, uninstall_questops_task.ps1, export_questops_audit_package.ps1, export_questops_html_report.ps1, export_questops_audit_results.ps1
 - **Configs:** servers.example.json, servers.game.example.json
@@ -210,25 +212,6 @@ The output is written to `dist\questops-watchdog-v<VERSION>\` containing:
 
 The build script reads the version from `VERSION` in the project root. Git commit and tagging remain manual — see `docs/RELEASE_CHECKLIST.md` for the exact commands.
 
-## Screenshots
-
-Planning documents for capturing screenshots that visually document QuestOps Watchdog features. No actual images yet — these are the capture workflow, redaction rules, and review checklists.
-
-- [Capture checklist](docs/assets/SCREENSHOT_CAPTURE_CHECKLIST.md) — 10 screenshot types and capture workflow
-- [Redaction guide](docs/assets/SCREENSHOT_REDACTION_GUIDE.md) — what to redact and how (webhooks, IPs, paths, names)
-- [Shot list](docs/assets/SCREENSHOT_SHOT_LIST.md) — 12 planned screenshots with priorities
-- [Demo script](docs/assets/SCREENSHOT_DEMO_SCRIPT.md) — step-by-step PowerShell commands for each capture
-- [Review checklist](docs/assets/SCREENSHOT_REVIEW_CHECKLIST.md) — pre-publication review checklist
-
-## Website / landing page draft
-
-Public-facing marketing materials and website copy for QuestOps Watchdog. Documentation only — no framework, no hosted site.
-
-- [Landing page draft](docs/website/LANDING_PAGE_DRAFT.md) — complete hero-to-FAQ copy
-- [Homepage wireframe](docs/website/HOMEPAGE_WIREFRAME.md) — ASCII layout guide
-- [Copy snippets](docs/website/WEBSITE_COPY_SNIPPETS.md) — headlines, CTAs, social posts, FAQ variants
-- [SEO notes](docs/website/SEO_NOTES.md) — keywords, audience, positioning, technical notes
-
 ## Demo examples
 
 See what QuestOps Watchdog produces without running it yourself. All examples use fictional servers and data.
@@ -238,6 +221,28 @@ See what QuestOps Watchdog produces without running it yourself. All examples us
 - [Sample Discord alert](docs/demo/SAMPLE_DISCORD_ALERT.md) — example alert messages
 - [Sample audit results manifest](docs/demo/SAMPLE_AUDIT_RESULTS_MANIFEST.md) — results bundle metadata
 - [Sample client before/after](docs/demo/SAMPLE_CLIENT_BEFORE_AFTER.md) — fictional transformation story
+
+### Screenshots
+
+Real screenshots are planned but not yet captured. The following planning documents and placeholders define what each screenshot should show and how to redact safe data:
+
+- [Capture checklist](docs/assets/SCREENSHOT_CAPTURE_CHECKLIST.md) — 10 screenshot types and capture workflow
+- [Redaction guide](docs/assets/SCREENSHOT_REDACTION_GUIDE.md) — what to redact and how (webhooks, IPs, paths, names)
+- [Shot list](docs/assets/SCREENSHOT_SHOT_LIST.md) — 12 planned screenshots with priorities
+- [Demo script](docs/assets/SCREENSHOT_DEMO_SCRIPT.md) — step-by-step PowerShell commands for each capture
+- [Review checklist](docs/assets/SCREENSHOT_REVIEW_CHECKLIST.md) — pre-publication review checklist
+- [README hero placeholder](docs/assets/placeholders/README_HERO_SCREENSHOT_PLACEHOLDER.md) — intended hero image for README
+
+All screenshot placeholders are in `docs/assets/placeholders/`. See [docs/assets/README.md](docs/assets/README.md) for the naming convention and redaction rules.
+
+## Website / landing page draft
+
+Public-facing marketing materials and website copy for QuestOps Watchdog. Documentation only — no framework, no hosted site.
+
+- [Landing page draft](docs/website/LANDING_PAGE_DRAFT.md) — complete hero-to-FAQ copy
+- [Homepage wireframe](docs/website/HOMEPAGE_WIREFRAME.md) — ASCII layout guide
+- [Copy snippets](docs/website/WEBSITE_COPY_SNIPPETS.md) — headlines, CTAs, social posts, FAQ variants
+- [SEO notes](docs/website/SEO_NOTES.md) — keywords, audience, positioning, technical notes
 
 ## Commercial audit offer
 
@@ -658,7 +663,9 @@ powershell -NoProfile -ExecutionPolicy Bypass -File scripts\uninstall_questops_t
 | v0.4.10 | Public GitHub polish and issue templates **(shipped)** |
 | v0.4.11 | Sample screenshots and demo assets **(shipped)** |
 | v0.4.12 | Website landing page draft **(shipped)** |
-| v0.4.13 | Real screenshot capture checklist |
+| v0.4.13 | Real screenshot capture checklist **(shipped)** |
+| v0.4.14 | Screenshot placeholder references and README layout polish **(shipped)** |
+| v0.4.15 | Outreach launch checklist and first beta audit workflow |
 | v0.5 | HTML dashboard |
 
 Full details in `docs/ROADMAP.md`.

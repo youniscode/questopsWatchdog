@@ -27,6 +27,19 @@ This folder contains screenshots, images, and media assets used in documentation
 - [Demo script](SCREENSHOT_DEMO_SCRIPT.md) — step-by-step PowerShell commands for each capture
 - [Review checklist](SCREENSHOT_REVIEW_CHECKLIST.md) — pre-publication review checklist
 
+## Screenshot placeholders
+
+Placeholder documents that describe future screenshots. No actual images here yet — these are planning references for what each screenshot should show and what data it must avoid.
+
+- [README hero screenshot placeholder](placeholders/README_HERO_SCREENSHOT_PLACEHOLDER.md)
+- [HTML report screenshot placeholder](placeholders/HTML_REPORT_SCREENSHOT_PLACEHOLDER.md)
+- [Discord alert screenshot placeholder](placeholders/DISCORD_ALERT_SCREENSHOT_PLACEHOLDER.md)
+- [PowerShell scan screenshot placeholder](placeholders/POWERSHELL_SCAN_SCREENSHOT_PLACEHOLDER.md)
+- [Package zip screenshot placeholder](placeholders/PACKAGE_ZIP_SCREENSHOT_PLACEHOLDER.md)
+- [Landing page screenshot placeholder](placeholders/LANDING_PAGE_SCREENSHOT_PLACEHOLDER.md)
+
+Placeholders are documentation-only. They describe intended screenshots but do not contain or reference any actual images. The naming convention and redaction rules above apply to all future screenshots.
+
 ## Current contents
 
-*(No image assets yet — only planning and reference documents.)*
+*(No image assets yet — only planning, reference, and placeholder documents.)*

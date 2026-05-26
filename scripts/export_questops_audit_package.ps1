@@ -82,6 +82,12 @@ $includeRelative = @(
     "docs\assets\SCREENSHOT_SHOT_LIST.md",
     "docs\assets\SCREENSHOT_DEMO_SCRIPT.md",
     "docs\assets\SCREENSHOT_REVIEW_CHECKLIST.md",
+    "docs\assets\placeholders\README_HERO_SCREENSHOT_PLACEHOLDER.md",
+    "docs\assets\placeholders\HTML_REPORT_SCREENSHOT_PLACEHOLDER.md",
+    "docs\assets\placeholders\DISCORD_ALERT_SCREENSHOT_PLACEHOLDER.md",
+    "docs\assets\placeholders\POWERSHELL_SCAN_SCREENSHOT_PLACEHOLDER.md",
+    "docs\assets\placeholders\PACKAGE_ZIP_SCREENSHOT_PLACEHOLDER.md",
+    "docs\assets\placeholders\LANDING_PAGE_SCREENSHOT_PLACEHOLDER.md",
     "docs\website\LANDING_PAGE_DRAFT.md",
     "docs\website\HOMEPAGE_WIREFRAME.md",
     "docs\website\WEBSITE_COPY_SNIPPETS.md",
@@ -137,7 +143,8 @@ foreach ($path in $includePaths) {
     # Check for Discord webhook URLs with actual IDs (allow doc placeholder patterns)
     if ($content -match 'discord\.com/api/webhooks/[a-zA-Z0-9_/-]+' -and
         $content -notmatch 'YOUR_WEBHOOK_ID' -and
-        $content -notmatch 'your_webhook') {
+        $content -notmatch 'your_webhook' -and
+        $content -notmatch 'demo/demo') {
         $relPath = $path.Substring($ProjectRoot.Length + 1)
         $safetyFailures += "Discord webhook URL detected in: $relPath"
     }

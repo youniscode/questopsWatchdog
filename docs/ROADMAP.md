@@ -137,6 +137,17 @@
 - [x] Create screenshot planning docs (capture checklist, shot list, demo script, review checklist)
 - [x] Updated tool package to include all screenshot docs (46 files)
 
+## v0.4.14 — Screenshot Placeholder References and README Layout Polish (shipped)
+- [x] Create docs/assets/placeholders/ with 6 placeholder docs (README hero, HTML report, Discord alert, PowerShell scan, package zip, landing page)
+- [x] Update docs/assets/README.md with placeholders section
+- [x] Polish README layout — Screenshots section near Demo, milestone updated, placeholder references added
+- [x] Updated tool package to include placeholder docs (52 files)
+
+## v0.4.15 — Outreach Launch Checklist and First Beta Audit Workflow
+- [ ] Create outreach checklist docs
+- [ ] Define beta audit workflow
+- [ ] First beta audit with real client (if applicable)
+
 ## v0.5 — Dashboard (optional)
 - [ ] Local HTML report viewer
 - [ ] Historical trend chart

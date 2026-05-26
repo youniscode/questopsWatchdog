@@ -10,7 +10,7 @@ Use this checklist when preparing a new release.
 - [ ] `CHANGELOG.md` has an entry for the new version
 - [ ] `docs/RELEASE_NOTES_v*.md` exists and is up to date
 - [ ] All doc version references (README, PROJECTMAP, ROADMAP, TASKS) are updated
-- [ ] Client package file counts are consistent everywhere (46 for v0.4.13)
+- [ ] Client package file counts are consistent everywhere (52 for v0.4.14)
 
 ## Validation commands
 
@@ -62,9 +62,9 @@ $entries | Where-Object {
 ```
 
 Expected:
-- File count = 46
+- File count = 52
 - Generated reports: empty
-- Version/release notes/docs/demo/assets/website docs: 24 results
+- Version/release notes/docs/demo/assets/placeholders/website docs: 30 results
 
 ## Checksum generation
 

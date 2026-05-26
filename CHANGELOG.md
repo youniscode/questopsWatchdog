@@ -1,5 +1,19 @@
 # QuestOps Watchdog — Changelog
 
+## v0.4.14 — Screenshot placeholder references and README layout polish (unreleased)
+
+- Added `docs/assets/placeholders/` folder with 6 placeholder docs:
+  - `README_HERO_SCREENSHOT_PLACEHOLDER.md` — intended hero image for GitHub README
+  - `HTML_REPORT_SCREENSHOT_PLACEHOLDER.md` — future HTML report screenshot
+  - `DISCORD_ALERT_SCREENSHOT_PLACEHOLDER.md` — future Discord alert screenshot
+  - `POWERSHELL_SCAN_SCREENSHOT_PLACEHOLDER.md` — future PowerShell scan screenshot
+  - `PACKAGE_ZIP_SCREENSHOT_PLACEHOLDER.md` — future package zip screenshot
+  - `LANDING_PAGE_SCREENSHOT_PLACEHOLDER.md` — future landing page mockup
+- Updated `docs/assets/README.md` with "Screenshot placeholders" section linking to all placeholder docs
+- Polished README layout — moved Screenshots subsection near Demo examples, updated milestone to v0.4.14, added placeholder references, updated package count to 52
+- Updated tool package to 52 files (includes 6 placeholder docs)
+- Updated PROJECTMAP, TASKS, ROADMAP, CHANGELOG, CLIENT_HANDOFF_CHECKLIST, RELEASE_CHECKLIST
+
 ## v0.4.13 — Real screenshot capture checklist (unreleased)
 
 - Added `docs/assets/SCREENSHOT_CAPTURE_CHECKLIST.md` — 10 screenshot types with scenario, visual elements, redaction notes, and capture workflow
