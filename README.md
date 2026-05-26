@@ -210,6 +210,16 @@ The output is written to `dist\questops-watchdog-v<VERSION>\` containing:
 
 The build script reads the version from `VERSION` in the project root. Git commit and tagging remain manual — see `docs/RELEASE_CHECKLIST.md` for the exact commands.
 
+## Screenshots
+
+Planning documents for capturing screenshots that visually document QuestOps Watchdog features. No actual images yet — these are the capture workflow, redaction rules, and review checklists.
+
+- [Capture checklist](docs/assets/SCREENSHOT_CAPTURE_CHECKLIST.md) — 10 screenshot types and capture workflow
+- [Redaction guide](docs/assets/SCREENSHOT_REDACTION_GUIDE.md) — what to redact and how (webhooks, IPs, paths, names)
+- [Shot list](docs/assets/SCREENSHOT_SHOT_LIST.md) — 12 planned screenshots with priorities
+- [Demo script](docs/assets/SCREENSHOT_DEMO_SCRIPT.md) — step-by-step PowerShell commands for each capture
+- [Review checklist](docs/assets/SCREENSHOT_REVIEW_CHECKLIST.md) — pre-publication review checklist
+
 ## Website / landing page draft
 
 Public-facing marketing materials and website copy for QuestOps Watchdog. Documentation only — no framework, no hosted site.

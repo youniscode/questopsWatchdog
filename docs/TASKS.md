@@ -87,8 +87,22 @@
 | Done   | - Create docs/assets/README.md |
 | Done   | - Update README with Demo examples section |
 | Done   | - Update export script and package count to 37 files |
+| Done   | v0.4.12 - Website landing page draft |
+| Done   | - Create docs/website/LANDING_PAGE_DRAFT.md |
+| Done   | - Create docs/website/HOMEPAGE_WIREFRAME.md |
+| Done   | - Create docs/website/WEBSITE_COPY_SNIPPETS.md |
+| Done   | - Create docs/website/SEO_NOTES.md |
+| Done   | - Update README with Website section |
+| Done   | - Update export script and package count to 41 files |
+| Done   | v0.4.13 - Real screenshot capture checklist |
+| Done   | - Create SCREENSHOT_CAPTURE_CHECKLIST.md — 10 screenshot types with capture workflow |
+| Done   | - Create SCREENSHOT_REDACTION_GUIDE.md — redaction rules for webhooks, IPs, paths, names |
+| Done   | - Create SCREENSHOT_SHOT_LIST.md — 12 planned screenshots table |
+| Done   | - Create SCREENSHOT_DEMO_SCRIPT.md — step-by-step PowerShell demo flow |
+| Done   | - Create SCREENSHOT_REVIEW_CHECKLIST.md — pre-publication review checklist |
+| Done   | - Update README, docs/assets/README.md with Screenshots section |
+| Done   | - Update export script and package count to 46 files |
 
 ## Upcoming
 
-- v0.4.12 - Website landing page draft
 - v0.5 - HTML dashboard

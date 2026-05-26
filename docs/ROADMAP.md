@@ -124,10 +124,18 @@
 - [x] Assets folder with naming convention and rules
 - [x] Updated tool package to include demo docs (37 files)
 
-## v0.4.12 — Website Landing Page Draft
-- [ ] Landing page copy and structure
-- [ ] Feature highlights and pricing section
-- [ ] Link to GitHub repo and business docs
+## v0.4.12 — Website Landing Page Draft (shipped)
+- [x] Complete landing page draft (hero, problem, solution, who it's for, what it checks, how it works, pricing, demo, security, FAQ, CTA)
+- [x] Homepage wireframe (ASCII layout with nav, hero, trust strip, features, demo, pricing, timeline, FAQ, footer)
+- [x] Copy snippets (5 alternative headlines, subheadlines, CTAs, social posts, repo descriptions, audit descriptions, FAQ variants)
+- [x] SEO guidance (keywords, target audience, ranking sections, phrases to avoid, honest positioning, technical notes)
+- [x] Updated tool package to include website docs (41 files)
+
+## v0.4.13 — Real Screenshot Capture Checklist (shipped)
+- [x] Define screenshot capture workflow (which features, what scenarios)
+- [x] Create redaction/anonymisation rules
+- [x] Create screenshot planning docs (capture checklist, shot list, demo script, review checklist)
+- [x] Updated tool package to include all screenshot docs (46 files)
 
 ## v0.5 — Dashboard (optional)
 - [ ] Local HTML report viewer

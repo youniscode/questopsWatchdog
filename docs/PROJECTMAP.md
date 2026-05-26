@@ -61,6 +61,11 @@ questops-watchdog/
 |   |   `-- SAMPLE_CLIENT_BEFORE_AFTER.md        # Fictional client transformation story
 |   |-- assets/
 |   |   `-- README.md              # Screenshot/image asset guidance
+|   |-- website/
+|   |   |-- LANDING_PAGE_DRAFT.md         # Complete landing page copy draft
+|   |   |-- HOMEPAGE_WIREFRAME.md         # ASCII homepage wireframe layout
+|   |   |-- WEBSITE_COPY_SNIPPETS.md      # Reusable copy snippets
+|   |   `-- SEO_NOTES.md                 # SEO guidance and keyword research
 |   |-- business/
 |   |   |-- PAID_AUDIT_OFFER.md           # Pricing and scope for paid audits
 |   |   |-- LANDING_PAGE_COPY.md           # Marketing copy reference
@@ -143,6 +148,15 @@ questops-watchdog/
 | `docs/demo/SAMPLE_AUDIT_RESULTS_MANIFEST.md` | Fictional audit-results-manifest.json examples. |
 | `docs/demo/SAMPLE_CLIENT_BEFORE_AFTER.md` | Fictional before/after transformation story for a server owner. |
 | `docs/assets/README.md` | Screenshot/image asset naming convention and rules. |
+| `docs/assets/SCREENSHOT_CAPTURE_CHECKLIST.md` | 10 screenshot types with scenario descriptions, key visual elements, and capture workflow. |
+| `docs/assets/SCREENSHOT_REDACTION_GUIDE.md` | Redaction rules for webhook URLs, IPs, paths, usernames, and Discord content in screenshots. |
+| `docs/assets/SCREENSHOT_SHOT_LIST.md` | 12 planned screenshots table with IDs, descriptions, and priorities (P1-P3). |
+| `docs/assets/SCREENSHOT_DEMO_SCRIPT.md` | Step-by-step PowerShell commands for capturing each planned screenshot. |
+| `docs/assets/SCREENSHOT_REVIEW_CHECKLIST.md` | Pre-publication review checklist for content, redaction, technical, and legal review. |
+| `docs/website/LANDING_PAGE_DRAFT.md` | Complete landing page copy draft with hero, problem, solution, pricing, FAQ. |
+| `docs/website/HOMEPAGE_WIREFRAME.md` | ASCII wireframe of the homepage layout (nav, hero, features, pricing, FAQ, footer). |
+| `docs/website/WEBSITE_COPY_SNIPPETS.md` | Reusable copy snippets — headlines, subheadlines, CTAs, social posts, repo descriptions, FAQ variants. |
+| `docs/website/SEO_NOTES.md` | SEO guidance — keywords, target audience, ranking sections, phrases to avoid, honest positioning. |
 | `VERSION` | Current version number string. |
 | `CHANGELOG.md` | Version history with feature summaries per release. |
 | `reports/latest-health-report.json` | Last scan output. Overwritten each run. |
@@ -155,6 +169,7 @@ questops-watchdog/
 | `docs/business/` | Business documentation for paid audit offering. |
 | `docs/demo/` | Safe public demo materials showing fictional tool outputs. |
 | `docs/assets/` | Screenshots, images, and media assets for documentation. |
+| `docs/website/` | Public-facing website copy, wireframe, snippets, and SEO guidance. |
 | `README.md` | Public-facing project overview and usage. |
 
 ## Config files
@@ -611,7 +626,7 @@ Expected: task removed, exit code 0.
 ```powershell
 powershell -NoProfile -ExecutionPolicy Bypass -File scripts\export_questops_audit_package.ps1 -Force
 ```
-Expected: exits 0. Package written to `dist\questops-watchdog-audit-package-*.zip`. Output shows `success=true`, `included_count=37`.
+Expected: exits 0. Package written to `dist\questops-watchdog-audit-package-*.zip`. Output shows `success=true`, `included_count=41`.
 
 ### List exported packages
 ```powershell
@@ -625,7 +640,7 @@ $zip = Get-ChildItem dist -Filter *.zip | Sort-Object LastWriteTime -Descending 
 Add-Type -AssemblyName System.IO.Compression.FileSystem
 [System.IO.Compression.ZipFile]::OpenRead($zip.FullName).Entries | Select-Object FullName
 ```
-Expected: lists all 37 included files with forward-slash paths.
+Expected: lists all 41 included files with forward-slash paths.
 
 ### Check excluded files are not in zip
 ```powershell
@@ -774,4 +789,4 @@ These rules bind every AI agent that modifies this repository.
 
 ## Last updated
 
-2026-05-25 - v0.4.11: Added docs/demo/ (5 sample docs), docs/assets/README.md. Updated package to 37 files. Updated README, PROJECTMAP, TASKS, ROADMAP, CHANGELOG, CLIENT_HANDOFF_CHECKLIST, RELEASE_CHECKLIST.
+2026-05-26 - v0.4.13: Added docs/assets/SCREENSHOT_CAPTURE_CHECKLIST.md, SCREENSHOT_REDACTION_GUIDE.md, SCREENSHOT_SHOT_LIST.md, SCREENSHOT_DEMO_SCRIPT.md, SCREENSHOT_REVIEW_CHECKLIST.md. Updated package to 46 files. Updated README, PROJECTMAP, TASKS, ROADMAP, CHANGELOG, CLIENT_HANDOFF_CHECKLIST, RELEASE_CHECKLIST.

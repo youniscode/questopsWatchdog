@@ -19,6 +19,14 @@ This folder contains screenshots, images, and media assets used in documentation
 4. **No private Discord messages** — do not include Discord chat messages from private servers or DMs without explicit consent.
 5. **No real logs with usernames** — redact or replace any usernames, player names, or other identifiers in log excerpts.
 
+## Screenshot documentation
+
+- [Capture checklist](SCREENSHOT_CAPTURE_CHECKLIST.md) — 10 screenshot types and capture workflow
+- [Redaction guide](SCREENSHOT_REDACTION_GUIDE.md) — what to redact and how (webhooks, IPs, paths, names)
+- [Shot list](SCREENSHOT_SHOT_LIST.md) — 12 planned screenshots with priorities
+- [Demo script](SCREENSHOT_DEMO_SCRIPT.md) — step-by-step PowerShell commands for each capture
+- [Review checklist](SCREENSHOT_REVIEW_CHECKLIST.md) — pre-publication review checklist
+
 ## Current contents
 
-*(No assets yet — this folder is ready for future screenshots and images.)*
+*(No image assets yet — only planning and reference documents.)*

@@ -1,5 +1,27 @@
 # QuestOps Watchdog — Changelog
 
+## v0.4.13 — Real screenshot capture checklist (unreleased)
+
+- Added `docs/assets/SCREENSHOT_CAPTURE_CHECKLIST.md` — 10 screenshot types with scenario, visual elements, redaction notes, and capture workflow
+- Added `docs/assets/SCREENSHOT_REDACTION_GUIDE.md` — redaction rules for file paths, Discord webhook URLs, JSON configs, PowerShell terminal output, usernames, IPs, and timestamps
+- Added `docs/assets/SCREENSHOT_SHOT_LIST.md` — 12 planned screenshots table with IDs, descriptions, priorities (P1-P3), and naming convention
+- Added `docs/assets/SCREENSHOT_DEMO_SCRIPT.md` — step-by-step PowerShell demo flow for each of the 12 planned screenshots, from setup through capture
+- Added `docs/assets/SCREENSHOT_REVIEW_CHECKLIST.md` — pre-publication review checklist covering content, redaction, technical, legal, and sign-off
+- Updated `docs/assets/README.md` with links to all new screenshot docs
+- Updated README with "Screenshots" section linking to all screenshot docs
+- Updated tool package to 46 files (includes 5 screenshot docs)
+- Updated PROJECTMAP, TASKS, ROADMAP, CHANGELOG, CLIENT_HANDOFF_CHECKLIST, RELEASE_CHECKLIST
+
+## v0.4.12 — Website landing page draft (unreleased)
+
+- Added `docs/website/LANDING_PAGE_DRAFT.md` — complete landing page draft with hero, problem, solution, who it's for, what it checks, how it works, paid audit tiers, demo links, security/privacy, FAQ, and final CTA
+- Added `docs/website/HOMEPAGE_WIREFRAME.md` — ASCII wireframe of the homepage layout (nav, hero, trust strip, feature cards, demo preview, pricing cards, how it works timeline, FAQ, footer)
+- Added `docs/website/WEBSITE_COPY_SNIPPETS.md` — reusable copy snippets: 5 alternative hero headlines, 5 subheadlines, 5 CTAs, 5 social posts, 5 repo descriptions, 5 audit descriptions, 5 FAQ answer variants
+- Added `docs/website/SEO_NOTES.md` — SEO guidance with suggested page title, meta description, primary/secondary/long-tail keywords, target audience table, content sections to rank for, phrases to avoid, honest positioning notes, and technical SEO notes
+- Updated README with "Website / landing page draft" section linking to all website docs
+- Updated tool package to 41 files (includes 4 website docs)
+- Updated PROJECTMAP, TASKS, ROADMAP, CHANGELOG, CLIENT_HANDOFF_CHECKLIST, RELEASE_CHECKLIST
+
 ## v0.4.11 — Sample screenshots and demo assets (unreleased)
 
 - Added `docs/demo/SAMPLE_HEALTH_REPORT_JSON.md` — fictional health report JSON with one passing server (Demo Project Zomboid) and one failing server (Demo Minecraft), including folder/disk/process/network/log/resource checks
