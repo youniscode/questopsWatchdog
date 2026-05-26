@@ -1,5 +1,26 @@
 # QuestOps Watchdog — Changelog
 
+## v0.4.18 — Public README quick-start polish (unreleased)
+
+- Added "Quick start" section to README with 3 commands (validate, scan, view report)
+- Updated current milestone and roadmap table in README
+- Updated PROJECTMAP, TASKS, ROADMAP, CHANGELOG
+- VERSION unchanged (0.4.9)
+
+## v0.4.17 — Beta audit reporting template polish (unreleased)
+
+- Created `docs/audit/` with 7 internal audit reporting docs:
+  - `BETA_AUDIT_REPORT_TEMPLATE.md` — structured report template with executive summary, per-server findings, and recommendations
+  - `FINDINGS_SEVERITY_GUIDE.md` — 5-level severity definitions (Critical, High, Medium, Low, Informational)
+  - `COMMON_FINDINGS_LIBRARY.md` — 13 reusable finding blocks with symptom, impact, fix, severity, and client-friendly wording
+  - `RECOMMENDATION_STYLE_GUIDE.md` — writing conventions: no blame, no exaggeration, factual tone
+  - `BETA_AUDIT_REPORT_SAMPLE.md` — fictional report with one healthy and one failing server
+  - `BETA_AUDIT_INTERNAL_REVIEW_CHECKLIST.md` — pre-delivery quality review checklist
+  - `BETA_AUDIT_DELIVERY_MESSAGE_POLISHED.md` — refined delivery message template
+- Updated README with "Beta audit reporting" section linking to 3 key audit docs
+- Updated PROJECTMAP, TASKS, ROADMAP, CHANGELOG
+- VERSION unchanged (0.4.9) — `docs/audit/` excluded from export script (internal-only)
+
 ## v0.4.16 — First public release page preparation (unreleased)
 
 - Created `docs/release/` with 6 internal release preparation docs:

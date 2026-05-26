@@ -19,7 +19,7 @@ Free, open-source, no cloud, no telemetry.
 ## Current status
 
 **Current tagged release:** v0.4.9
-**Latest repository milestone:** v0.4.16 — First public release page preparation
+**Latest repository milestone:** v0.4.18 — Public README quick-start polish
 
 Run a single command to scan your servers and receive a Discord alert if anything failed. Use the Task Scheduler installer to run automatically on a recurring interval.
 
@@ -41,6 +41,23 @@ The `VERSION` file stays at 0.4.9 until the next tagged release. The repository 
 - **Windows** (7/8/10/11, Server 2012+)
 - **PowerShell 5.1** (comes with Windows; no install needed)
 - No modules, no npm, no Python, no databases
+
+## Quick start
+
+```powershell
+# 1. Validate the default config
+powershell -NoProfile -ExecutionPolicy Bypass -File scripts\validate_questops_config.ps1
+
+# 2. Run a health scan
+powershell -NoProfile -ExecutionPolicy Bypass -File scripts\questops_scan.ps1
+
+# 3. View the report
+(Get-Content reports\latest-health-report.json -Raw | ConvertFrom-Json) | Format-List
+```
+
+No install, no dependencies. Works on any Windows machine with PowerShell 5.1.
+
+For your real game servers: copy `config\servers.game.example.json` to `config\servers.local.json`, edit the paths, then run with `-ConfigPath config\servers.local.json`.
 
 ## Config validation
 
@@ -690,7 +707,8 @@ powershell -NoProfile -ExecutionPolicy Bypass -File scripts\uninstall_questops_t
 | v0.4.14 | Screenshot placeholder references and README layout polish **(shipped)** |
 | v0.4.15 | Outreach launch checklist and first beta audit workflow **(shipped)** |
 | v0.4.16 | First public release page preparation **(shipped)** |
-| v0.4.17 | Beta audit reporting template polish |
+| v0.4.17 | Beta audit reporting template polish **(shipped)** |
+| v0.4.18 | Public README quick-start polish |
 | v0.5 | HTML dashboard |
 
 Full details in `docs/ROADMAP.md`.

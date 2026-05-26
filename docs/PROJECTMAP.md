@@ -190,6 +190,7 @@ questops-watchdog/
 | `docs/assets/placeholders/` | Screenshot placeholder docs — describe future screenshots without real images. |
 | `docs/launch/` | Internal outreach and beta audit workflow docs — not included in client tool package. |
 | `docs/release/` | Internal release preparation docs — not included in client tool package. |
+| `docs/audit/` | Internal beta audit reporting template docs — not included in client tool package. |
 | `docs/website/` | Public-facing website copy, wireframe, snippets, and SEO guidance. |
 | `docs/launch/OUTREACH_LAUNCH_CHECKLIST.md` | What must be ready before first outreach — docs, scripts, audit flow, posting rules, success criteria. |
 | `docs/launch/FIRST_BETA_AUDIT_WORKFLOW.md` | End-to-end workflow from finding server owners to delivering audit results and collecting feedback. |
@@ -204,6 +205,13 @@ questops-watchdog/
 | `docs/release/RELEASE_ASSET_CHECKLIST.md` | Required and optional assets for the GitHub release, checksum verification, exclusion rules. |
 | `docs/release/FIRST_WEEK_FEEDBACK_TRACKER.md` | Markdown table template for logging feedback types, priorities, and actions. |
 | `docs/release/PUBLIC_REPO_REVIEW_CHECKLIST.md` | Final pre-publication review of the entire repository — README, security, package, screenshots, roadmap, commercial wording. |
+| `docs/audit/BETA_AUDIT_REPORT_TEMPLATE.md` | Structured beta audit report template with executive summary, per-server findings, and recommendations. |
+| `docs/audit/FINDINGS_SEVERITY_GUIDE.md` | 5-level severity definitions (Critical, High, Medium, Low, Informational) with example conditions and response expectations. |
+| `docs/audit/COMMON_FINDINGS_LIBRARY.md` | 13 reusable finding blocks with symptom, impact, fix, severity suggestion, and client-friendly wording. |
+| `docs/audit/RECOMMENDATION_STYLE_GUIDE.md` | Writing conventions — no blame, no exaggeration, factual tone, neutral explanations. |
+| `docs/audit/BETA_AUDIT_REPORT_SAMPLE.md` | Fictional sample report with one healthy and one failing server. |
+| `docs/audit/BETA_AUDIT_INTERNAL_REVIEW_CHECKLIST.md` | Pre-delivery quality review checklist for audit reports. |
+| `docs/audit/BETA_AUDIT_DELIVERY_MESSAGE_POLISHED.md` | Refined delivery message template for sending audit results. |
 | `README.md` | Public-facing project overview and usage. |
 
 ## Config files
@@ -828,3 +836,7 @@ These rules bind every AI agent that modifies this repository.
 2026-05-26 - v0.4.15: Created docs/launch/ with 7 internal launch docs (OUTREACH_LAUNCH_CHECKLIST, FIRST_BETA_AUDIT_WORKFLOW, BETA_AUDIT_INTAKE_FORM, BETA_AUDIT_DELIVERY_TEMPLATE, OUTREACH_TRACKER_TEMPLATE, BETA_FEEDBACK_FORM, LAUNCH_MESSAGE_PACK). Updated README with Launch / beta audit workflow section. Updated PROJECTMAP, TASKS, ROADMAP, CHANGELOG. VERSION unchanged (0.4.9). docs/launch/ excluded from export script (internal-only).
 
 2026-05-26 - v0.4.16: Created docs/release/ with 6 release prep docs (GITHUB_RELEASE_DRAFT_v0.4.9, PUBLIC_LAUNCH_CHECKLIST, PUBLIC_ANNOUNCEMENT_COPY, RELEASE_ASSET_CHECKLIST, FIRST_WEEK_FEEDBACK_TRACKER, PUBLIC_REPO_REVIEW_CHECKLIST). Updated README with Public release preparation section. Updated PROJECTMAP, TASKS, ROADMAP, CHANGELOG. VERSION unchanged (0.4.9). docs/release/ excluded from export script (internal-only).
+
+2026-05-26 - v0.4.17: Created docs/audit/ with 7 internal audit report docs (BETA_AUDIT_REPORT_TEMPLATE, FINDINGS_SEVERITY_GUIDE, COMMON_FINDINGS_LIBRARY, RECOMMENDATION_STYLE_GUIDE, BETA_AUDIT_REPORT_SAMPLE, BETA_AUDIT_INTERNAL_REVIEW_CHECKLIST, BETA_AUDIT_DELIVERY_MESSAGE_POLISHED). Updated README with Beta audit reporting section. Updated PROJECTMAP, TASKS, ROADMAP, CHANGELOG. VERSION unchanged (0.4.9). docs/audit/ excluded from export script (internal-only).
+
+2026-05-26 - v0.4.18: Added Quick start section to README (validate, scan, view report). Updated milestone and roadmap table. Updated PROJECTMAP, TASKS, ROADMAP, CHANGELOG. VERSION unchanged (0.4.9).

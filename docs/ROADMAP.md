@@ -155,10 +155,19 @@
 - [x] Create GitHub release page template for v0.4.9
 - [x] Create public repo review checklist for final pre-publication review
 
-## v0.4.17 — Beta Audit Reporting Template Polish
-- [ ] Create structured beta audit report template
-- [ ] Define report sections and format
-- [ ] Add example findings and recommendations
+## v0.4.17 — Beta Audit Reporting Template Polish (shipped)
+- [x] Create structured beta audit report template with executive summary, per-server findings, and recommendations
+- [x] Create 5-level severity guide (Critical, High, Medium, Low, Informational)
+- [x] Create common findings library with 13 reusable finding blocks
+- [x] Create recommendation style guide (no blame, no exaggeration, factual tone)
+- [x] Create fictional sample report with one healthy and one failing server
+- [x] Create pre-delivery internal review checklist
+- [x] Create polished delivery message template
+
+## v0.4.18 — Public README Quick-Start Polish (shipped)
+- [x] Add quick-start section to README with 3-step workflow (validate, scan, view)
+- [x] Update milestone reference and roadmap table in README
+- [x] Update all tracking docs for v0.4.18
 
 ## v0.5 — Dashboard (optional)
 - [ ] Local HTML report viewer

@@ -130,7 +130,19 @@
 | Done   | - Update README with Public release preparation section |
 | Done   | - Update PROJECTMAP, TASKS, ROADMAP, CHANGELOG (VERSION unchanged) |
 
+| Done   | v0.4.17 - Beta audit reporting template polish |
+| Done   | - Create docs/audit/ with 7 internal audit report docs |
+| Done   | - Create BETA_AUDIT_REPORT_TEMPLATE.md — structured report template |
+| Done   | - Create FINDINGS_SEVERITY_GUIDE.md — 5-level severity definitions |
+| Done   | - Create COMMON_FINDINGS_LIBRARY.md — 13 reusable finding blocks |
+| Done   | - Create RECOMMENDATION_STYLE_GUIDE.md — writing conventions |
+| Done   | - Create BETA_AUDIT_REPORT_SAMPLE.md — fictional report example |
+| Done   | - Create BETA_AUDIT_INTERNAL_REVIEW_CHECKLIST.md — pre-delivery checklist |
+| Done   | - Create BETA_AUDIT_DELIVERY_MESSAGE_POLISHED.md — refined delivery message |
+| Done   | - Update README with Beta audit reporting section |
+| Done   | - Update PROJECTMAP, TASKS, ROADMAP, CHANGELOG (VERSION unchanged) |
+
 ## Upcoming
 
-- v0.4.17 - Beta audit reporting template polish
+- v0.4.18 - Public README quick-start polish
 - v0.5 - HTML dashboard
