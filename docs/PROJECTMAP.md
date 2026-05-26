@@ -189,6 +189,7 @@ questops-watchdog/
 | `docs/assets/` | Screenshots, images, and media assets for documentation. |
 | `docs/assets/placeholders/` | Screenshot placeholder docs — describe future screenshots without real images. |
 | `docs/launch/` | Internal outreach and beta audit workflow docs — not included in client tool package. |
+| `docs/release/` | Internal release preparation docs — not included in client tool package. |
 | `docs/website/` | Public-facing website copy, wireframe, snippets, and SEO guidance. |
 | `docs/launch/OUTREACH_LAUNCH_CHECKLIST.md` | What must be ready before first outreach — docs, scripts, audit flow, posting rules, success criteria. |
 | `docs/launch/FIRST_BETA_AUDIT_WORKFLOW.md` | End-to-end workflow from finding server owners to delivering audit results and collecting feedback. |
@@ -197,6 +198,12 @@ questops-watchdog/
 | `docs/launch/OUTREACH_TRACKER_TEMPLATE.md` | Markdown table for manual outreach tracking — date, platform, status, notes. |
 | `docs/launch/BETA_FEEDBACK_FORM.md` | Copy/paste feedback form for post-audit collection. |
 | `docs/launch/LAUNCH_MESSAGE_PACK.md` | Refined message templates for Discord, forum posts, and follow-ups. |
+| `docs/release/GITHUB_RELEASE_DRAFT_v0.4.9.md` | Ready-to-paste GitHub Release page for the current tagged release v0.4.9. |
+| `docs/release/PUBLIC_LAUNCH_CHECKLIST.md` | Everything to verify before and during the first week of public launch. |
+| `docs/release/PUBLIC_ANNOUNCEMENT_COPY.md` | Message templates for Discord, forums, Reddit, LinkedIn, and follow-ups. |
+| `docs/release/RELEASE_ASSET_CHECKLIST.md` | Required and optional assets for the GitHub release, checksum verification, exclusion rules. |
+| `docs/release/FIRST_WEEK_FEEDBACK_TRACKER.md` | Markdown table template for logging feedback types, priorities, and actions. |
+| `docs/release/PUBLIC_REPO_REVIEW_CHECKLIST.md` | Final pre-publication review of the entire repository — README, security, package, screenshots, roadmap, commercial wording. |
 | `README.md` | Public-facing project overview and usage. |
 
 ## Config files
@@ -819,3 +826,5 @@ These rules bind every AI agent that modifies this repository.
 2026-05-26 - v0.4.14: Added docs/assets/placeholders/ with 6 placeholder docs (README hero, HTML report, Discord alert, PowerShell scan, package zip, landing page). Updated README layout polish — moved Screenshots near Demo, updated milestone, added placeholders section. Updated package to 52 files. Updated PROJECTMAP, TASKS, ROADMAP, CHANGELOG, CLIENT_HANDOFF_CHECKLIST, RELEASE_CHECKLIST, export script.
 
 2026-05-26 - v0.4.15: Created docs/launch/ with 7 internal launch docs (OUTREACH_LAUNCH_CHECKLIST, FIRST_BETA_AUDIT_WORKFLOW, BETA_AUDIT_INTAKE_FORM, BETA_AUDIT_DELIVERY_TEMPLATE, OUTREACH_TRACKER_TEMPLATE, BETA_FEEDBACK_FORM, LAUNCH_MESSAGE_PACK). Updated README with Launch / beta audit workflow section. Updated PROJECTMAP, TASKS, ROADMAP, CHANGELOG. VERSION unchanged (0.4.9). docs/launch/ excluded from export script (internal-only).
+
+2026-05-26 - v0.4.16: Created docs/release/ with 6 release prep docs (GITHUB_RELEASE_DRAFT_v0.4.9, PUBLIC_LAUNCH_CHECKLIST, PUBLIC_ANNOUNCEMENT_COPY, RELEASE_ASSET_CHECKLIST, FIRST_WEEK_FEEDBACK_TRACKER, PUBLIC_REPO_REVIEW_CHECKLIST). Updated README with Public release preparation section. Updated PROJECTMAP, TASKS, ROADMAP, CHANGELOG. VERSION unchanged (0.4.9). docs/release/ excluded from export script (internal-only).

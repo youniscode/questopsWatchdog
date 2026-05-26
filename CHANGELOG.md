@@ -1,5 +1,18 @@
 # QuestOps Watchdog — Changelog
 
+## v0.4.16 — First public release page preparation (unreleased)
+
+- Created `docs/release/` with 6 internal release preparation docs:
+  - `GITHUB_RELEASE_DRAFT_v0.4.9.md` — ready-to-paste GitHub Release page for v0.4.9
+  - `PUBLIC_LAUNCH_CHECKLIST.md` — repo readiness, security, package export, screenshots, where/where not to share, first-week monitoring
+  - `PUBLIC_ANNOUNCEMENT_COPY.md` — 8 message templates (Discord, community forum, Reddit, LinkedIn, GitHub description, beta audit ask, soft CTA, follow-up)
+  - `RELEASE_ASSET_CHECKLIST.md` — required/optional assets, checksum verification, exclusion rules
+  - `FIRST_WEEK_FEEDBACK_TRACKER.md` — markdown table template with feedback types, priorities, and statuses
+  - `PUBLIC_REPO_REVIEW_CHECKLIST.md` — final pre-publication review of README, docs links, templates, security, license, package, screenshots, roadmap, commercial wording
+- Updated README with "Public release preparation" section linking to all 6 release docs
+- Updated PROJECTMAP, TASKS, ROADMAP, CHANGELOG
+- VERSION unchanged (0.4.9) — `docs/release/` excluded from export script (internal-only)
+
 ## v0.4.15 — Outreach launch checklist and first beta audit workflow (unreleased)
 
 - Created `docs/launch/` with 7 internal workflow docs:

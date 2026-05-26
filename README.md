@@ -19,7 +19,7 @@ Free, open-source, no cloud, no telemetry.
 ## Current status
 
 **Current tagged release:** v0.4.9
-**Latest repository milestone:** v0.4.15 — Outreach launch checklist and first beta audit workflow
+**Latest repository milestone:** v0.4.16 — First public release page preparation
 
 Run a single command to scan your servers and receive a Discord alert if anything failed. Use the Task Scheduler installer to run automatically on a recurring interval.
 
@@ -256,6 +256,17 @@ Need a deeper analysis of your server setup? I offer paid manual audits that inc
 | Enterprise Audit | €499+ | 10+ servers, priority turnaround |
 
 → [View audit packages](docs/business/PAID_AUDIT_OFFER.md) · [Landing page copy](docs/business/LANDING_PAGE_COPY.md)
+
+## Public release preparation
+
+Internal release preparation docs for publishing QuestOps Watchdog publicly on GitHub. These are operator-facing — not required for running scans.
+
+- [GitHub release draft v0.4.9](docs/release/GITHUB_RELEASE_DRAFT_v0.4.9.md) — ready-to-paste release page for the current tagged version
+- [Public launch checklist](docs/release/PUBLIC_LAUNCH_CHECKLIST.md) — everything to verify before and during the first week
+- [Public announcement copy](docs/release/PUBLIC_ANNOUNCEMENT_COPY.md) — message templates for Discord, forums, Reddit, and LinkedIn
+- [Release asset checklist](docs/release/RELEASE_ASSET_CHECKLIST.md) — files to attach, files to exclude, checksum verification
+- [First week feedback tracker](docs/release/FIRST_WEEK_FEEDBACK_TRACKER.md) — markdown table for logging feedback
+- [Public repo review checklist](docs/release/PUBLIC_REPO_REVIEW_CHECKLIST.md) — final pre-publication review of the entire repository
 
 ## Launch / beta audit workflow
 
@@ -678,7 +689,8 @@ powershell -NoProfile -ExecutionPolicy Bypass -File scripts\uninstall_questops_t
 | v0.4.13 | Real screenshot capture checklist **(shipped)** |
 | v0.4.14 | Screenshot placeholder references and README layout polish **(shipped)** |
 | v0.4.15 | Outreach launch checklist and first beta audit workflow **(shipped)** |
-| v0.4.16 | First public release page preparation |
+| v0.4.16 | First public release page preparation **(shipped)** |
+| v0.4.17 | Beta audit reporting template polish |
 | v0.5 | HTML dashboard |
 
 Full details in `docs/ROADMAP.md`.

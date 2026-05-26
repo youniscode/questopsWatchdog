@@ -149,10 +149,16 @@
 - [x] Prepare message templates for Discord, forums, and follow-ups
 - [ ] First beta audit with real client (if applicable)
 
-## v0.4.16 — First Public Release Page Preparation
-- [ ] Draft first public release announcement
-- [ ] Create release page template
-- [ ] Prepare screenshots and demo assets for release
+## v0.4.16 — First Public Release Page Preparation (shipped)
+- [x] Create docs/release/ with 6 release prep docs (GitHub release draft, public launch checklist, announcement copy, asset checklist, feedback tracker, repo review checklist)
+- [x] Draft public announcement copy (Discord, forums, Reddit, LinkedIn, GitHub)
+- [x] Create GitHub release page template for v0.4.9
+- [x] Create public repo review checklist for final pre-publication review
+
+## v0.4.17 — Beta Audit Reporting Template Polish
+- [ ] Create structured beta audit report template
+- [ ] Define report sections and format
+- [ ] Add example findings and recommendations
 
 ## v0.5 — Dashboard (optional)
 - [ ] Local HTML report viewer

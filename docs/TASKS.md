@@ -119,7 +119,18 @@
 | Done   | - Update README with Launch / beta audit workflow section |
 | Done   | - Update PROJECTMAP, TASKS, ROADMAP, CHANGELOG (VERSION unchanged) |
 
+| Done   | v0.4.16 - First public release page preparation |
+| Done   | - Create docs/release/ with 6 release prep docs |
+| Done   | - Create GITHUB_RELEASE_DRAFT_v0.4.9.md — ready-to-paste GitHub release page for v0.4.9 |
+| Done   | - Create PUBLIC_LAUNCH_CHECKLIST.md — repo readiness, security, package, screenshots, release page, where/where not to share, first-week monitoring |
+| Done   | - Create PUBLIC_ANNOUNCEMENT_COPY.md — 8 message templates (Discord, forums, Reddit, LinkedIn, GitHub, beta audit ask, soft CTA, follow-up) |
+| Done   | - Create RELEASE_ASSET_CHECKLIST.md — required/optional assets, checksum verification, exclusion rules |
+| Done   | - Create FIRST_WEEK_FEEDBACK_TRACKER.md — markdown table for feedback with types, priorities, statuses |
+| Done   | - Create PUBLIC_REPO_REVIEW_CHECKLIST.md — README, docs links, issue templates, security, license, package count, screenshots, roadmap, commercial wording, final safe-to-share review |
+| Done   | - Update README with Public release preparation section |
+| Done   | - Update PROJECTMAP, TASKS, ROADMAP, CHANGELOG (VERSION unchanged) |
+
 ## Upcoming
 
-- v0.4.16 - First public release page preparation
+- v0.4.17 - Beta audit reporting template polish
 - v0.5 - HTML dashboard
