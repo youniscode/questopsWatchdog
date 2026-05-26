@@ -12,7 +12,7 @@ Use this checklist when preparing and sending the audit package to a client.
   ```
 - [ ] Verify the exit code is **0** (package created successfully)
 - [ ] Confirm the zip path shown in the output
-- [ ] Open the zip and verify included files (37 files expected):
+- [ ] Open the zip and verify included files (41 files expected):
   ```powershell
   Add-Type -AssemblyName System.IO.Compression.FileSystem
   $zip = Get-ChildItem dist -Filter *.zip | Sort-Object LastWriteTime -Descending | Select-Object -First 1
@@ -21,10 +21,10 @@ Use this checklist when preparing and sending the audit package to a client.
 - [ ] Confirm version, release notes, and business docs are present:
   ```powershell
   [System.IO.Compression.ZipFile]::OpenRead($zip.FullName).Entries | Where-Object {
-      $_.FullName -match '^VERSION$|^CHANGELOG\.md$|docs/RELEASE_NOTES_v0\.4\.9\.md|docs/business/'
+      $_.FullName -match '^VERSION$|^CHANGELOG\.md$|docs/RELEASE_NOTES_v0\.4\.9\.md|docs/business/|docs/demo/|docs/assets/README\.md|docs/website/'
   } | Select-Object FullName
   ```
-  Expected: 16 results (VERSION, CHANGELOG.md, docs/RELEASE_NOTES_v0.4.9.md, 7 business docs, 5 demo docs, docs/assets/README.md).
+  Expected: 19 results: VERSION, CHANGELOG.md, release notes, 6 packaged business docs, 5 demo docs, assets README, and 4 website docs.
 - [ ] Confirm no sensitive files are included:
   ```powershell
   [System.IO.Compression.ZipFile]::OpenRead($zip.FullName).Entries | Where-Object {

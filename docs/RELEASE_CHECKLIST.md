@@ -10,7 +10,7 @@ Use this checklist when preparing a new release.
 - [ ] `CHANGELOG.md` has an entry for the new version
 - [ ] `docs/RELEASE_NOTES_v*.md` exists and is up to date
 - [ ] All doc version references (README, PROJECTMAP, ROADMAP, TASKS) are updated
-- [ ] Client package file counts are consistent everywhere (37 for v0.4.11)
+- [ ] Client package file counts are consistent everywhere (41 for v0.4.12)
 
 ## Validation commands
 
@@ -55,16 +55,16 @@ $entries | Where-Object {
     $_.FullName -match 'latest-health-report\.json|latest-health-report\.html|manual-audit-report\.html|audit-results-manifest\.json|release-manifest\.json'
 } | Select-Object FullName
 
-# Confirm version/release notes/business docs present
+# Confirm version/release notes/docs/demo/website docs present
 $entries | Where-Object {
-    $_.FullName -match '^VERSION$|^CHANGELOG\.md$|docs/RELEASE_NOTES_v0\.4\.9\.md|docs/business/'
+    $_.FullName -match '^VERSION$|^CHANGELOG\.md$|docs/RELEASE_NOTES_v0\.4\.9\.md|docs/business/|docs/demo/|docs/assets/README\.md|docs/website/'
 } | Select-Object FullName
 ```
 
 Expected:
-- File count = 37
+- File count = 41
 - Generated reports: empty
-- Version/release notes/business docs: 16 results
+- Version/release notes/docs/demo/website docs: 19 results
 
 ## Checksum generation
 
