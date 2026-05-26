@@ -115,10 +115,19 @@
 - [x] License note (LICENSE-NOTE.md)
 - [x] README polish with GitHub-friendly intro and links
 
-## v0.4.11 — Sample Screenshots and Demo Assets
-- [ ] Screenshots of scan output, HTML report, Discord alert
-- [ ] Sample configs for common games
-- [ ] Demo video or GIF (optional)
+## v0.4.11 — Sample Screenshots and Demo Assets (shipped)
+- [x] Sample health report JSON (passing + failing server)
+- [x] HTML report preview (ASCII-style layout description)
+- [x] Sample Discord alert messages (various scenarios)
+- [x] Sample audit results manifest (fictional manifest examples)
+- [x] Sample client before/after transformation story
+- [x] Assets folder with naming convention and rules
+- [x] Updated tool package to include demo docs (37 files)
+
+## v0.4.12 — Website Landing Page Draft
+- [ ] Landing page copy and structure
+- [ ] Feature highlights and pricing section
+- [ ] Link to GitHub repo and business docs
 
 ## v0.5 — Dashboard (optional)
 - [ ] Local HTML report viewer

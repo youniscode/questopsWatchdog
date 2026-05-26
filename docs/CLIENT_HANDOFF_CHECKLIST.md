@@ -12,7 +12,7 @@ Use this checklist when preparing and sending the audit package to a client.
   ```
 - [ ] Verify the exit code is **0** (package created successfully)
 - [ ] Confirm the zip path shown in the output
-- [ ] Open the zip and verify included files (31 files expected):
+- [ ] Open the zip and verify included files (37 files expected):
   ```powershell
   Add-Type -AssemblyName System.IO.Compression.FileSystem
   $zip = Get-ChildItem dist -Filter *.zip | Sort-Object LastWriteTime -Descending | Select-Object -First 1
@@ -24,7 +24,7 @@ Use this checklist when preparing and sending the audit package to a client.
       $_.FullName -match '^VERSION$|^CHANGELOG\.md$|docs/RELEASE_NOTES_v0\.4\.9\.md|docs/business/'
   } | Select-Object FullName
   ```
-  Expected: 10 results (VERSION, CHANGELOG.md, docs/RELEASE_NOTES_v0.4.9.md, plus 7 business docs).
+  Expected: 16 results (VERSION, CHANGELOG.md, docs/RELEASE_NOTES_v0.4.9.md, 7 business docs, 5 demo docs, docs/assets/README.md).
 - [ ] Confirm no sensitive files are included:
   ```powershell
   [System.IO.Compression.ZipFile]::OpenRead($zip.FullName).Entries | Where-Object {

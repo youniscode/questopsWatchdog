@@ -76,11 +76,12 @@ powershell -NoProfile -ExecutionPolicy Bypass -File scripts\export_questops_audi
 
 The package is written to `dist\questops-watchdog-audit-package-YYYYMMDD-HHMMSS.zip`.
 
-### What is included (31 files)
+### What is included (37 files)
 
 - **Version & changelog:** VERSION, CHANGELOG.md
 - **Documentation:** README.md, docs/PROJECTMAP.md, docs/ROADMAP.md, docs/AGENT_RULES.md, docs/TASKS.md, docs/CLIENT_AUDIT_GUIDE.md, docs/CLIENT_HANDOFF_CHECKLIST.md, docs/RELEASE_NOTES_v0.4.9.md
 - **Business docs:** docs/business/PAID_AUDIT_OFFER.md, docs/business/LANDING_PAGE_COPY.md, docs/business/OUTREACH_MESSAGES.md, docs/business/SAMPLE_CLIENT_PROPOSAL.md, docs/business/SAMPLE_AUDIT_SUMMARY.md, docs/business/PRICING_NOTES.md
+- **Demo docs:** docs/demo/SAMPLE_HEALTH_REPORT_JSON.md, docs/demo/SAMPLE_HTML_REPORT_PREVIEW.md, docs/demo/SAMPLE_DISCORD_ALERT.md, docs/demo/SAMPLE_AUDIT_RESULTS_MANIFEST.md, docs/demo/SAMPLE_CLIENT_BEFORE_AFTER.md, docs/assets/README.md
 - **Scripts:** questops_scan.ps1, questops_run.ps1, questops_discord_alert.ps1, validate_questops_config.ps1, install_questops_task.ps1, uninstall_questops_task.ps1, export_questops_audit_package.ps1, export_questops_html_report.ps1, export_questops_audit_results.ps1
 - **Configs:** servers.example.json, servers.game.example.json
 - **Placeholders:** reports/.gitkeep, reports/history/.gitkeep, logs/.gitkeep, state/.gitkeep
@@ -204,6 +205,16 @@ The output is written to `dist\questops-watchdog-v<VERSION>\` containing:
 - `release-manifest.json` with version, timestamps, git info, checksums, and warnings
 
 The build script reads the version from `VERSION` in the project root. Git commit and tagging remain manual — see `docs/RELEASE_CHECKLIST.md` for the exact commands.
+
+## Demo examples
+
+See what QuestOps Watchdog produces without running it yourself. All examples use fictional servers and data.
+
+- [Sample health report JSON](docs/demo/SAMPLE_HEALTH_REPORT_JSON.md) — passing and failing server report
+- [Sample HTML report preview](docs/demo/SAMPLE_HTML_REPORT_PREVIEW.md) — what the HTML audit report looks like
+- [Sample Discord alert](docs/demo/SAMPLE_DISCORD_ALERT.md) — example alert messages
+- [Sample audit results manifest](docs/demo/SAMPLE_AUDIT_RESULTS_MANIFEST.md) — results bundle metadata
+- [Sample client before/after](docs/demo/SAMPLE_CLIENT_BEFORE_AFTER.md) — fictional transformation story
 
 ## Commercial audit offer
 
@@ -621,6 +632,9 @@ powershell -NoProfile -ExecutionPolicy Bypass -File scripts\uninstall_questops_t
 | v0.4.7 | HTML report package integration polish **(shipped)** |
 | v0.4.8 | Release hygiene and first tagged client build **(shipped)** |
 | v0.4.9 | Paid audit offer kit and landing copy **(shipped)** |
+| v0.4.10 | Public GitHub polish and issue templates **(shipped)** |
+| v0.4.11 | Sample screenshots and demo assets **(shipped)** |
+| v0.4.12 | Website landing page draft |
 | v0.5 | HTML dashboard |
 
 Full details in `docs/ROADMAP.md`.

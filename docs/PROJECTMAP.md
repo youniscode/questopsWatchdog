@@ -53,6 +53,14 @@ questops-watchdog/
 |   |-- RELEASE_NOTES_v0.4.8.md    # Client-facing release notes (v0.4.8)
 |   |-- RELEASE_NOTES_v0.4.9.md    # Client-facing release notes (v0.4.9)
 |   |-- RELEASE_CHECKLIST.md       # Internal pre-release validation checklist
+|   |-- demo/
+|   |   |-- SAMPLE_HEALTH_REPORT_JSON.md        # Fictional health report JSON example
+|   |   |-- SAMPLE_HTML_REPORT_PREVIEW.md        # HTML report preview description
+|   |   |-- SAMPLE_DISCORD_ALERT.md              # Fictional Discord alert examples
+|   |   |-- SAMPLE_AUDIT_RESULTS_MANIFEST.md     # Fictional audit-results-manifest.json
+|   |   `-- SAMPLE_CLIENT_BEFORE_AFTER.md        # Fictional client transformation story
+|   |-- assets/
+|   |   `-- README.md              # Screenshot/image asset guidance
 |   |-- business/
 |   |   |-- PAID_AUDIT_OFFER.md           # Pricing and scope for paid audits
 |   |   |-- LANDING_PAGE_COPY.md           # Marketing copy reference
@@ -129,6 +137,12 @@ questops-watchdog/
 | `docs/business/SAMPLE_AUDIT_SUMMARY.md` | Fictional audit summary showing the type of output a client receives. |
 | `docs/business/GITHUB_README_POSITIONING.md` | Repository-facing guidance on positioning the project on GitHub (not in client package). |
 | `docs/business/PRICING_NOTES.md` | Pricing rationale, discounting strategy, and scope expansion notes. |
+| `docs/demo/SAMPLE_HEALTH_REPORT_JSON.md` | Fictional health report JSON showing one passing and one failing server. |
+| `docs/demo/SAMPLE_HTML_REPORT_PREVIEW.md` | ASCII-style preview of the HTML audit report layout. |
+| `docs/demo/SAMPLE_DISCORD_ALERT.md` | Fictional Discord alert examples for various failure scenarios. |
+| `docs/demo/SAMPLE_AUDIT_RESULTS_MANIFEST.md` | Fictional audit-results-manifest.json examples. |
+| `docs/demo/SAMPLE_CLIENT_BEFORE_AFTER.md` | Fictional before/after transformation story for a server owner. |
+| `docs/assets/README.md` | Screenshot/image asset naming convention and rules. |
 | `VERSION` | Current version number string. |
 | `CHANGELOG.md` | Version history with feature summaries per release. |
 | `reports/latest-health-report.json` | Last scan output. Overwritten each run. |
@@ -139,6 +153,8 @@ questops-watchdog/
 | `docs/ROADMAP.md` | Feature roadmap (v0.1-v0.5). |
 | `docs/TASKS.md` | Task tracker - update after every change. |
 | `docs/business/` | Business documentation for paid audit offering. |
+| `docs/demo/` | Safe public demo materials showing fictional tool outputs. |
+| `docs/assets/` | Screenshots, images, and media assets for documentation. |
 | `README.md` | Public-facing project overview and usage. |
 
 ## Config files
@@ -595,7 +611,7 @@ Expected: task removed, exit code 0.
 ```powershell
 powershell -NoProfile -ExecutionPolicy Bypass -File scripts\export_questops_audit_package.ps1 -Force
 ```
-Expected: exits 0. Package written to `dist\questops-watchdog-audit-package-*.zip`. Output shows `success=true`, `included_count=31`.
+Expected: exits 0. Package written to `dist\questops-watchdog-audit-package-*.zip`. Output shows `success=true`, `included_count=37`.
 
 ### List exported packages
 ```powershell
@@ -609,7 +625,7 @@ $zip = Get-ChildItem dist -Filter *.zip | Sort-Object LastWriteTime -Descending 
 Add-Type -AssemblyName System.IO.Compression.FileSystem
 [System.IO.Compression.ZipFile]::OpenRead($zip.FullName).Entries | Select-Object FullName
 ```
-Expected: lists all 31 included files with forward-slash paths.
+Expected: lists all 37 included files with forward-slash paths.
 
 ### Check excluded files are not in zip
 ```powershell
@@ -758,4 +774,4 @@ These rules bind every AI agent that modifies this repository.
 
 ## Last updated
 
-2026-05-25 - v0.4.10: Added .github/ (issue templates, PR template), SECURITY.md, CONTRIBUTING.md, LICENSE-NOTE.md. Updated README with GitHub-friendly intro and links. Updated all docs.
+2026-05-25 - v0.4.11: Added docs/demo/ (5 sample docs), docs/assets/README.md. Updated package to 37 files. Updated README, PROJECTMAP, TASKS, ROADMAP, CHANGELOG, CLIENT_HANDOFF_CHECKLIST, RELEASE_CHECKLIST.

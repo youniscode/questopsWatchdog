@@ -78,8 +78,17 @@
 | Done   | - Create SECURITY.md, CONTRIBUTING.md, LICENSE-NOTE.md |
 | Done   | - Update README with GitHub-friendly intro and links |
 | Done   | - Update PROJECTMAP, TASKS, ROADMAP, CHANGELOG |
+| Done   | v0.4.11 - Sample screenshots and demo assets |
+| Done   | - Create docs/demo/SAMPLE_HEALTH_REPORT_JSON.md |
+| Done   | - Create docs/demo/SAMPLE_HTML_REPORT_PREVIEW.md |
+| Done   | - Create docs/demo/SAMPLE_DISCORD_ALERT.md |
+| Done   | - Create docs/demo/SAMPLE_AUDIT_RESULTS_MANIFEST.md |
+| Done   | - Create docs/demo/SAMPLE_CLIENT_BEFORE_AFTER.md |
+| Done   | - Create docs/assets/README.md |
+| Done   | - Update README with Demo examples section |
+| Done   | - Update export script and package count to 37 files |
 
 ## Upcoming
 
-- v0.4.11 - Sample screenshots and demo assets
+- v0.4.12 - Website landing page draft
 - v0.5 - HTML dashboard

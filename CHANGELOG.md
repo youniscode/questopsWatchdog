@@ -1,5 +1,17 @@
 # QuestOps Watchdog — Changelog
 
+## v0.4.11 — Sample screenshots and demo assets (unreleased)
+
+- Added `docs/demo/SAMPLE_HEALTH_REPORT_JSON.md` — fictional health report JSON with one passing server (Demo Project Zomboid) and one failing server (Demo Minecraft), including folder/disk/process/network/log/resource checks
+- Added `docs/demo/SAMPLE_HTML_REPORT_PREVIEW.md` — ASCII-style preview of the HTML audit report layout with summary cards, PASS/FAIL badges, per-server sections, and optional check tables
+- Added `docs/demo/SAMPLE_DISCORD_ALERT.md` — fictional Discord alert examples for single failure, multiple failures, forced test, and truncated messages
+- Added `docs/demo/SAMPLE_AUDIT_RESULTS_MANIFEST.md` — fictional audit-results-manifest.json examples with and without optional config/log
+- Added `docs/demo/SAMPLE_CLIENT_BEFORE_AFTER.md` — fictional before/after transformation story showing how QuestOps Watchdog helps a server owner
+- Added `docs/assets/README.md` — screenshot naming convention and asset rules (no real webhook URLs, client names, IPs, private messages, or log usernames)
+- Updated README with "Demo examples" section linking to all sample docs
+- Updated tool package to 37 files (includes 5 demo docs + assets README)
+- Updated PROJECTMAP, TASKS, ROADMAP, CHANGELOG, CLIENT_HANDOFF_CHECKLIST, RELEASE_CHECKLIST
+
 ## v0.4.10 — Public GitHub polish and issue templates (unreleased)
 
 - Added `.github/ISSUE_TEMPLATE/bug_report.md` — structured bug report template with environment, sanitized report snippet, and security reminder
