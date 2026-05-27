@@ -58,6 +58,7 @@ $includeRelative = @(
     "VERSION",
     "CHANGELOG.md",
     "README.md",
+    "docs\QUICK_START.md",
     "docs\PROJECTMAP.md",
     "docs\ROADMAP.md",
     "docs\AGENT_RULES.md",
