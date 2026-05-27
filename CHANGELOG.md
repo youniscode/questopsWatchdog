@@ -1,5 +1,17 @@
 # QuestOps Watchdog — Changelog
 
+## v0.5.2 — Dashboard History Trend Polish (unreleased)
+
+- Added 6 trend helper functions: Get-QuestTrendSummary, Get-QuestStatusStreak, Get-QuestFailureCategoryCounts, Get-QuestServerFailureCounts, Format-QuestTimelineItems, Format-QuestFailureInsightRows
+- Enhanced trend section with 3 cards:
+  - Pass / Fail Summary — pass count, fail count, pass rate %, fail rate %, failures by category table
+  - Streak & Timeline — current streak, longest streak, coloured PASS/FAIL timeline pills for most recent 20 scans
+  - Repeated Failure Insights — top 5 servers with failure count and percentage of reports
+- Built normalized timeline with deduplication by scan_timestamp_utc
+- Updated DASHBOARD_GUIDE.md, SAMPLE_DASHBOARD_PREVIEW.md, README.md, PROJECTMAP.md, TASKS.md, ROADMAP.md, CHANGELOG.md
+- Package count unchanged (56 files)
+- VERSION unchanged (0.4.9)
+
 ## v0.5.1 — Dashboard Visual Polish and Status Filters (unreleased)
 
 - Improved dashboard visual polish: better spacing, section hierarchy, summary cards, PASS/FAIL badges, failed-row styling, table readability, empty-state messages, warning box styling, system fonts

@@ -60,14 +60,14 @@ Below is a fictional example showing what the dashboard looks like with sample d
 │  └──────────────────────┴───────┴────────┴────────────┴───────────┘ │
 │                                                                      │
 │  Trend Summary                                                      │
-│  ┌────────────────────────────────────────────┐                     │
-│  │         Trend Summary                      │                     │
-│  │  Metric                  │ Value           │                     │
-│  │  PASS reports            │ 3               │                     │
-│  │  FAIL reports            │ 2               │                     │
-│  │  Most recent failure     │ 2026-05-27      │                     │
-│  │                          │ 09:15:00 UTC    │                     │
-│  └────────────────────────────────────────────┘                     │
+│  ┌──────────────────────────┐ ┌──────────────────────┐ ┌───────────┐│
+│  │ Pass / Fail Summary      │ │ Streak & Timeline    │ │ Repeated  ││
+│  │ PASS reports: 3          │ │ Current streak: 1    │ │ Failure   ││
+│  │ FAIL reports: 2          │ │   PASS               │ │ Insights  ││
+│  │ Pass rate: 60.0%         │ │ Longest streak: 2    │ │ Mc Svr: 2 ││
+│  │ Fail rate: 40.0%         │ │   PASS               │ │ (40.0%)   ││
+│  │ Total reports: 5         │ │ ●●○○●○○○●●           │ │ PZ Svr: 1 ││
+│  └──────────────────────────┘ └──────────────────────┘ └───────────┘│
 │                                                                      │
 │  References                                                         │
 │  Latest JSON report: reports\latest-health-report.json              │
@@ -143,10 +143,22 @@ History rows are colour-coded: green for PASS, red for FAIL.
 
 ## Trend summary
 
-Text-based trend section showing:
-- Count of PASS reports in history
-- Count of FAIL reports in history
-- Timestamp of the most recent failure
+The trend section has three cards:
+
+### Pass / Fail Summary
+- PASS reports count, FAIL reports count
+- Pass rate (%), fail rate (%)
+- Total reports analysed
+- Failures by category table (folder, disk, process, network, logs, resources) with counts and percentage of failures
+
+### Streak &amp; Timeline
+- Current streak — number of consecutive PASS or FAIL reports from the most recent scan backward
+- Longest streak — longest consecutive run of PASS or FAIL in the entire timeline
+- Timeline pills — small coloured circles representing the most recent 20 scans (green = PASS, red = FAIL); hover for timestamp
+
+### Repeated Failure Insights
+- Top 5 servers that failed most often across all reports
+- Each row shows server name, failure count, and percentage of reports where it failed
 
 No charts in v0.5.x — charts may come in a future version.
 

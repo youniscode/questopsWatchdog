@@ -188,6 +188,13 @@
 | Done   | - Updated DASHBOARD_GUIDE.md, SAMPLE_DASHBOARD_PREVIEW.md, README.md, PROJECTMAP.md, ROADMAP.md, CHANGELOG.md |
 | Done   | - Package count unchanged (56 files) |
 
+| Done   | v0.5.2 - Dashboard history trend polish |
+| Done   | - Added trend helper functions: Get-QuestTrendSummary, Get-QuestStatusStreak, Get-QuestFailureCategoryCounts, Get-QuestServerFailureCounts, Format-QuestTimelineItems, Format-QuestFailureInsightRows |
+| Done   | - Enhanced trend section with 3 cards: Pass/Fail Summary (counts, rates, failures by category), Streak & Timeline (current streak, longest streak, timeline pills), Repeated Failure Insights (top 5 servers with failure count and percentage) |
+| Done   | - Built normalized timeline with deduplication by scan_timestamp_utc |
+| Done   | - Updated DASHBOARD_GUIDE.md, SAMPLE_DASHBOARD_PREVIEW.md, README.md, PROJECTMAP.md, ROADMAP.md, CHANGELOG.md, TASKS.md |
+| Done   | - Package count unchanged (56 files) |
+
 ## Upcoming
 
-- v0.5.2 - Dashboard history trend polish
+- v0.5.3 - TBD

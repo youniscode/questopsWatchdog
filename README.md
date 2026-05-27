@@ -13,7 +13,7 @@ Free, open-source, no cloud, no telemetry.
 ## Current status
 
 **Current tagged release:** v0.4.9
-**Latest repository milestone:** v0.5.1 — Dashboard Visual Polish and Status Filters
+**Latest repository milestone:** v0.5.2 — Dashboard History Trend Polish
 
 The `VERSION` file stays at 0.4.9 until the next tagged release. Repository milestones track unreleased work-in-progress.
 
@@ -756,7 +756,8 @@ powershell -NoProfile -ExecutionPolicy Bypass -File scripts\uninstall_questops_t
 | v0.4.20 | Dashboard planning brief |
 | v0.5.0 | Local HTML Dashboard MVP |
 | v0.5.1 | Dashboard visual polish and status filters **(shipped)** |
-| v0.5.2 | Dashboard history trend polish |
+| v0.5.2 | Dashboard history trend polish **(shipped)** |
+| v0.5.3 | TBD |
 
 Full details in `docs/ROADMAP.md`.
 
@@ -780,7 +781,7 @@ The dashboard shows:
 - Server status table (folder, disk, process, network, logs, resources) under the active filter
 - Failed server detail section with per-category explanations
 - History summary (last N report timestamps with status)
-- Trend summary (PASS/FAIL counts, most recent failure timestamp)
+- Trend summary (pass/fail counts, pass/fail rates, failures by category, current/longest streak, timeline pills, repeated failure insights)
 - Print-friendly layout with full content, hidden controls, and page-break avoidance
 
 It is a static, local-only file — no server, no database, no JavaScript, no external dependencies.

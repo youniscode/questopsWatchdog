@@ -157,7 +157,7 @@ questops-watchdog/
 | `scripts/export_questops_audit_package.ps1` | Creates a clean zip package of client-safe files. Runs a preflight safety scan. Exit codes 0/1/2/3. |
 | `scripts/export_questops_audit_results.ps1` | Creates an audit results bundle zip of scan outputs (JSON report, HTML report, optional config/log) for client review. Runs safety scan. Exit codes 0/1/2/3/4. |
 | `scripts/export_questops_html_report.ps1` | HTML audit report exporter. Reads a JSON scan report and generates a standalone HTML file with inline CSS. No JS, no external deps. Exit codes 0/2/3/4. |
-| `scripts/export_questops_dashboard.ps1` | Local HTML dashboard exporter. Reads a JSON scan report and optional history, generates a self-contained static HTML dashboard with polished summary cards, CSS-only status filter tabs (All / Passing / Failing), server table with per-check badges, failed details, history summary, trend summary, responsive layout, and print-friendly styling. Inline CSS only. Exit codes 0/2/3/4/5. |
+| `scripts/export_questops_dashboard.ps1` | Local HTML dashboard exporter. Reads a JSON scan report and optional history, generates a self-contained static HTML dashboard with polished summary cards, CSS-only status filter tabs (All / Passing / Failing), server table with per-check badges, failed details, history summary, trend summary (pass/fail counts, pass/fail rates, failures by category, current/longest streak, timeline pills, repeated failure insights), responsive layout, and print-friendly styling. Inline CSS only. Exit codes 0/2/3/4/5. |
 | `scripts/build_questops_client_release.ps1` | Release build orchestrator. Runs config validation, scan, exports, checksums, and writes release manifest. Parameters: `-Version`, `-OutputDir`, `-Force`, `-AllowDirty`. Exit codes 0/1/2/3/4. |
 | `docs/CLIENT_AUDIT_GUIDE.md` | Client-facing guide - explains setup, scanning, alerts, scheduled tasks, exit codes, and what to send for an audit. |
 | `docs/CLIENT_HANDOFF_CHECKLIST.md` | Pre/post-delivery checklist - export, verify, security reminders, troubleshooting. |
@@ -320,6 +320,12 @@ The report is also emitted to the PowerShell pipeline so callers can capture it:
 | `Format-QuestFailedServerLine` | `questops_discord_alert.ps1` | Formats a single failed server line for Discord message |
 | `Format-QuestDiscordAlertMessage` | `questops_discord_alert.ps1` | Builds the full Discord alert message from report |
 | `Limit-QuestDiscordMessage` | `questops_discord_alert.ps1` | Truncates long messages safely within Discord 2000 char limit |
+| `Get-QuestTrendSummary` | `export_questops_dashboard.ps1` | Computes pass/fail counts and pass/fail rates from timeline |
+| `Get-QuestStatusStreak` | `export_questops_dashboard.ps1` | Computes current and longest status streak from timeline |
+| `Get-QuestFailureCategoryCounts` | `export_questops_dashboard.ps1` | Counts failures by category across timeline reports |
+| `Get-QuestServerFailureCounts` | `export_questops_dashboard.ps1` | Counts server failures across timeline reports, returns top 5 |
+| `Format-QuestTimelineItems` | `export_questops_dashboard.ps1` | Generates PASS/FAIL coloured pill HTML for timeline display |
+| `Format-QuestFailureInsightRows` | `export_questops_dashboard.ps1` | Generates repeated failure insight table rows HTML |
 | `Resolve-QuestValidatePath` | `validate_questops_config.ps1` | Resolves config file path, returns `$null` if not found (exit 2) |
 | `Read-QuestValidateConfig` | `validate_questops_config.ps1` | Reads and parses JSON config with try/catch (exit 3 on malformed) |
 
@@ -789,6 +795,19 @@ Expected: dashboard generated and opened in default browser.
 } | Select-Object FullName
 ```
 Expected: no results (empty output).
+
+### Dashboard history trend validation
+```powershell
+# Check trend section contains enhanced metrics
+Select-String -Path reports\questops-dashboard.html -Pattern "Pass / Fail Summary|Streak &amp; Timeline|Repeated Failure Insights|timeline-pill|Current streak|Longest streak|Pass rate|Fail rate|Failures by Category"
+
+# Check timeline pills exist
+Select-String -Path reports\questops-dashboard.html -Pattern "timeline-pill-pass|timeline-pill-fail"
+
+# Check no external dependencies
+Select-String -Path reports\questops-dashboard.html -Pattern "https://|http://|script src|cdn|fonts.googleapis"
+```
+Expected: trend section metrics present, timeline pills found, no external URLs.
 
 ### Visual polish and status filter validation
 ```powershell

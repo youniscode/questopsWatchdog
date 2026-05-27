@@ -219,4 +219,11 @@
 - [x] Empty-state messages for filters with no results
 - [x] Updated dashboard docs and project docs
 
-## v0.5.2 — Dashboard History Trend Polish (upcoming)
+## v0.5.2 — Dashboard History Trend Polish (shipped)
+- [x] Added 6 trend helper functions: Get-QuestTrendSummary, Get-QuestStatusStreak, Get-QuestFailureCategoryCounts, Get-QuestServerFailureCounts, Format-QuestTimelineItems, Format-QuestFailureInsightRows
+- [x] Enhanced trend section with 3 cards: Pass/Fail Summary (counts, rates, failures by category), Streak & Timeline (current streak, longest streak, timeline pills for last 20 scans), Repeated Failure Insights (top 5 most-failing servers)
+- [x] Built normalized timeline with deduplication by scan_timestamp_utc
+- [x] Updated DASHBOARD_GUIDE.md, SAMPLE_DASHBOARD_PREVIEW.md, README.md, PROJECTMAP.md, ROADMAP.md, CHANGELOG.md, TASKS.md
+- [x] Package count unchanged (56 files), VERSION unchanged (0.4.9)
+
+## v0.5.3 — TBD (upcoming)

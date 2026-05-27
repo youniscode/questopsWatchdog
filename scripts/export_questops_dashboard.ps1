@@ -283,6 +283,161 @@ function Read-QuestDashboardHistory {
 }
 
 # ---------------------------------------------------------------------------
+# Helper: compute trend summary metrics from timeline
+# ---------------------------------------------------------------------------
+function Get-QuestTrendSummary {
+    param([object[]]$Timeline)
+    $passCount = 0
+    $failCount = 0
+    foreach ($hr in $Timeline) {
+        $hrPassed = if ($hr.overall_pass) { $true } else { $false }
+        if ($hrPassed) { $passCount++ } else { $failCount++ }
+    }
+    $total = $passCount + $failCount
+    $passRate = if ($total -gt 0) { [math]::Round(($passCount / $total) * 100, 1) } else { 0 }
+    $failRate = if ($total -gt 0) { [math]::Round(($failCount / $total) * 100, 1) } else { 0 }
+    return [PSCustomObject]@{
+        passCount = $passCount
+        failCount = $failCount
+        passRate  = $passRate
+        failRate  = $failRate
+        total     = $total
+    }
+}
+
+# ---------------------------------------------------------------------------
+# Helper: compute current and longest status streak from timeline
+# ---------------------------------------------------------------------------
+function Get-QuestStatusStreak {
+    param([object[]]$Timeline)
+    if ($Timeline.Count -eq 0) {
+        return [PSCustomObject]@{ currentStreak = 0; currentStreakStatus = $null; longestStreak = 0; longestStreakStatus = $null }
+    }
+
+    $firstPassed = if ($Timeline[0].overall_pass) { $true } else { $false }
+    $currentStreak = 1
+    for ($i = 1; $i -lt $Timeline.Count; $i++) {
+        $hrPassed = if ($Timeline[$i].overall_pass) { $true } else { $false }
+        if ($hrPassed -eq $firstPassed) { $currentStreak++ } else { break }
+    }
+
+    $longestStreak = 1
+    $longestStatus = $firstPassed
+    $runCount = 1
+    for ($i = 1; $i -lt $Timeline.Count; $i++) {
+        $hrPassed = if ($Timeline[$i].overall_pass) { $true } else { $false }
+        $prevPassed = if ($Timeline[$i-1].overall_pass) { $true } else { $false }
+        if ($hrPassed -eq $prevPassed) {
+            $runCount++
+            if ($runCount -gt $longestStreak) {
+                $longestStreak = $runCount
+                $longestStatus = $hrPassed
+            }
+        } else {
+            $runCount = 1
+        }
+    }
+
+    return [PSCustomObject]@{
+        currentStreak       = $currentStreak
+        currentStreakStatus = $firstPassed
+        longestStreak       = $longestStreak
+        longestStreakStatus = $longestStatus
+    }
+}
+
+# ---------------------------------------------------------------------------
+# Helper: count failures by category across timeline reports
+# ---------------------------------------------------------------------------
+function Get-QuestFailureCategoryCounts {
+    param([object[]]$Timeline)
+    $catCounts = @{}
+    $totalFailing = 0
+
+    foreach ($hr in $Timeline) {
+        $hrPassed = if ($hr.overall_pass) { $true } else { $false }
+        if ($hrPassed) { continue }
+        $totalFailing++
+        if (-not $hr.results) { continue }
+        foreach ($svr in $hr.results) {
+            $svrPassed = if ($svr.passed) { $true } else { $false }
+            if ($svrPassed) { continue }
+            $cats = Get-QuestFailedCategoryList -Server $svr
+            foreach ($cat in $cats) {
+                if (-not $catCounts.ContainsKey($cat)) { $catCounts[$cat] = 0 }
+                $catCounts[$cat]++
+            }
+        }
+    }
+
+    $result = @()
+    foreach ($key in $catCounts.Keys) {
+        $pct = if ($totalFailing -gt 0) { [math]::Round(($catCounts[$key] / $totalFailing) * 100, 1) } else { 0 }
+        $result += [PSCustomObject]@{ name = $key; count = $catCounts[$key]; percentage = $pct }
+    }
+    return @($result | Sort-Object count -Descending)
+}
+
+# ---------------------------------------------------------------------------
+# Helper: count server failures across timeline reports
+# ---------------------------------------------------------------------------
+function Get-QuestServerFailureCounts {
+    param([object[]]$Timeline)
+    $svrCounts = @{}
+    $totalReports = $Timeline.Count
+
+    foreach ($hr in $Timeline) {
+        if (-not $hr.results) { continue }
+        foreach ($svr in $hr.results) {
+            $svrPassed = if ($svr.passed) { $true } else { $false }
+            if ($svrPassed) { continue }
+            $name = "$($svr.server_name)"
+            if (-not $svrCounts.ContainsKey($name)) { $svrCounts[$name] = 0 }
+            $svrCounts[$name]++
+        }
+    }
+
+    $result = @()
+    foreach ($key in $svrCounts.Keys) {
+        $pct = if ($totalReports -gt 0) { [math]::Round(($svrCounts[$key] / $totalReports) * 100, 1) } else { 0 }
+        $result += [PSCustomObject]@{ name = $key; count = $svrCounts[$key]; percentage = $pct }
+    }
+    return @($result | Sort-Object count -Descending | Select-Object -First 5)
+}
+
+# ---------------------------------------------------------------------------
+# Helper: generate timeline pill HTML (PASS/FAIL colored dots)
+# ---------------------------------------------------------------------------
+function Format-QuestTimelineItems {
+    param([object[]]$Timeline)
+    $maxPills = [math]::Min($Timeline.Count, 20)
+    if ($maxPills -eq 0) { return "" }
+    $pills = ""
+    for ($i = 0; $i -lt $maxPills; $i++) {
+        $hr = $Timeline[$i]
+        $hrPassed = if ($hr.overall_pass) { $true } else { $false }
+        $pillClass = if ($hrPassed) { "timeline-pill-pass" } else { "timeline-pill-fail" }
+        $ts = ConvertTo-QuestHtmlEncoded -Value (Get-QuestSafeString -Value $hr.scan_timestamp_utc)
+        $pills += "<span class=""timeline-pill $pillClass"" title=""$ts""></span>"
+    }
+    return $pills
+}
+
+# ---------------------------------------------------------------------------
+# Helper: generate repeated failure insight table rows HTML
+# ---------------------------------------------------------------------------
+function Format-QuestFailureInsightRows {
+    param([object[]]$ServerFailures)
+    if ($ServerFailures.Count -eq 0) { return "" }
+    $rows = ""
+    foreach ($sf in $ServerFailures) {
+        $name = ConvertTo-QuestHtmlEncoded -Value (Get-QuestSafeString -Value $sf.name)
+        $rows += "<tr><td>$name</td><td>$($sf.count)</td><td>$($sf.percentage)%</td></tr>`n"
+    }
+    return $rows
+}
+
+# ---------------------------------------------------------------------------
 # Helper: write the dashboard HTML file
 # ---------------------------------------------------------------------------
 function Write-QuestDashboardHtml {
@@ -393,29 +548,31 @@ $failedDetailsFailing = Format-QuestDashboardFailedDetails -Results $failingServ
 
 # --- History summary section ---
 $historyRows = ""
-$passCount = 0
-$failCount = 0
-$mostRecentFailTimestamp = $null
 
-$allReports = @()
-$allReports += $historyReports
-
-foreach ($hr in $allReports) {
-    $hrPassed = if ($hr.overall_pass) { $true } else { $false }
-    if ($hrPassed) { $passCount++ } else { $failCount++ }
-
-    $ts = Get-QuestSafeString -Value $hr.scan_timestamp_utc
-    if (-not $hrPassed) {
-        if (-not $mostRecentFailTimestamp -or $ts -gt $mostRecentFailTimestamp) {
-            $mostRecentFailTimestamp = $ts
-        }
+# --- Build normalized timeline (deduplicated by scan_timestamp_utc) ---
+$timelineAll = @($report) + @($historyReports)
+$seenTimestamps = @{}
+$normalizedTimeline = @()
+foreach ($tr in $timelineAll) {
+    $rawTs = $tr.scan_timestamp_utc
+    $ts = if ($rawTs -and $rawTs -ne "N/A") { $rawTs } else { [guid]::NewGuid().ToString() }
+    if (-not $seenTimestamps.ContainsKey($ts)) {
+        $seenTimestamps[$ts] = $true
+        $normalizedTimeline += $tr
     }
 }
+$normalizedTimeline = @($normalizedTimeline | Sort-Object -Property {
+    $ts = $_.scan_timestamp_utc
+    if (-not $ts -or $ts -eq "N/A") { "0000-00-00 00:00:00" } else { $ts }
+} -Descending)
 
-$latestPassed = if ($report.overall_pass) { $true } else { $false }
-if ($historyReports.Count -eq 0) {
-    if ($latestPassed) { $passCount = 1 } else { $failCount = 1 }
-}
+# --- Compute trend metrics from normalized timeline ---
+$trendSummary = Get-QuestTrendSummary -Timeline $normalizedTimeline
+$trendStreak = Get-QuestStatusStreak -Timeline $normalizedTimeline
+$failureCategoryCounts = Get-QuestFailureCategoryCounts -Timeline $normalizedTimeline
+$serverFailureCounts = Get-QuestServerFailureCounts -Timeline $normalizedTimeline
+$timelinePills = Format-QuestTimelineItems -Timeline $normalizedTimeline
+$insightRowsHtml = Format-QuestFailureInsightRows -ServerFailures $serverFailureCounts
 
 foreach ($hr in $historyReports) {
     $hrPassed = if ($hr.overall_pass) { $true } else { $false }
@@ -443,16 +600,59 @@ foreach ($hr in $historyReports) {
 }
 
 # --- Trend summary ---
+$categoryRows = ""
+if ($failureCategoryCounts.Count -gt 0) {
+    foreach ($cc in $failureCategoryCounts) {
+        $catName = ConvertTo-QuestHtmlEncoded -Value $cc.name
+        $categoryRows += "<tr><td>$catName</td><td>$($cc.count)</td><td>$($cc.percentage)%</td></tr>`n"
+    }
+}
+$categorySection = if ($categoryRows) {
+@"
+            <h3 style="margin-top:12px;">Failures by Category</h3>
+            <table class="trend-table">
+                <tr><th>Category</th><th>Count</th><th>% of Failures</th></tr>
+$categoryRows            </table>
+"@
+} else { "" }
+
+$streakStatusClass = if ($trendStreak.currentStreakStatus) { "trend-pass" } else { "trend-fail" }
+$streakStatusLabel = if ($trendStreak.currentStreakStatus) { "PASS" } else { "FAIL" }
+$longestStreakClass = if ($trendStreak.longestStreakStatus) { "trend-pass" } else { "trend-fail" }
+$longestStreakLabel = if ($trendStreak.longestStreakStatus) { "PASS" } else { "FAIL" }
+$timelinePillsHtml = if ($timelinePills) { "<div class=""timeline-pills"">$timelinePills</div>" } else { "" }
+
+$insightSection = if ($insightRowsHtml) {
+@"
+            <h3>Repeated Failure Insights</h3>
+            <table class="trend-table">
+                <tr><th>Server</th><th>Failures</th><th>% of Reports</th></tr>
+$insightRowsHtml            </table>
+"@
+} else { "<p style=""color:#777;font-size:0.85em;"">No repeated failures detected.</p>" }
+
 $trendHtml = @"
         <div class="trend-card">
-            <h3>Trend Summary</h3>
+            <h3>Pass / Fail Summary</h3>
             <table class="trend-table">
                 <tr><th>Metric</th><th>Value</th></tr>
-                <tr><td>PASS reports</td><td><span class="trend-pass">$passCount</span></td></tr>
-                <tr><td>FAIL reports</td><td><span class="trend-fail">$failCount</span></td></tr>
-                <tr><td>Most recent failure</td><td>$mostRecentFailTimestamp</td></tr>
+                <tr><td>PASS reports</td><td><span class="trend-pass">$($trendSummary.passCount)</span></td></tr>
+                <tr><td>FAIL reports</td><td><span class="trend-fail">$($trendSummary.failCount)</span></td></tr>
+                <tr><td>Pass rate</td><td><span class="trend-pass">$($trendSummary.passRate)%</span></td></tr>
+                <tr><td>Fail rate</td><td><span class="trend-fail">$($trendSummary.failRate)%</span></td></tr>
+                <tr><td>Total reports</td><td>$($trendSummary.total)</td></tr>
             </table>
-        </div>
+$categorySection        </div>
+        <div class="trend-card">
+            <h3>Streak &amp; Timeline</h3>
+            <table class="trend-table">
+                <tr><th>Metric</th><th>Value</th></tr>
+                <tr><td>Current streak</td><td><span class="$streakStatusClass">$($trendStreak.currentStreak) $streakStatusLabel</span></td></tr>
+                <tr><td>Longest streak</td><td><span class="$longestStreakClass">$($trendStreak.longestStreak) $longestStreakLabel</span></td></tr>
+            </table>
+$timelinePillsHtml        </div>
+        <div class="trend-card">
+$insightSection        </div>
 "@
 
 # --- Links / references ---
@@ -560,6 +760,10 @@ h3 { font-size: 1em; margin: 0 0 8px; color: #444; font-weight: 600; }
 .trend-table tr:last-child td { border-bottom: none; }
 .trend-pass { color: #1a7f37; font-weight: 700; }
 .trend-fail { color: #cf222e; font-weight: 700; }
+.timeline-pills { display: flex; gap: 4px; flex-wrap: wrap; margin-top: 10px; align-items: center; }
+.timeline-pill { width: 10px; height: 10px; border-radius: 50%; display: inline-block; border: 1px solid transparent; cursor: default; flex-shrink: 0; }
+.timeline-pill-pass { background: #1a7f37; border-color: #145d29; }
+.timeline-pill-fail { background: #cf222e; border-color: #a11b26; }
 .references { font-size: 0.83em; color: #666; border-top: 1px solid #e0e3e8; padding-top: 16px; margin-top: 14px; }
 .references p { margin: 3px 0; }
 .references code { background: #f0f2f5; padding: 1px 5px; border-radius: 3px; font-size: 0.9em; }

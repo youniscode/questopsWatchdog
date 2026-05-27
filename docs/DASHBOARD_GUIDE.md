@@ -13,7 +13,7 @@ The dashboard includes:
 - Empty-state messages when a filter has no servers
 - Failed server detail section (explanations per failed category), filtered by active view
 - History summary (last N report timestamps with pass/fail status)
-- Trend summary (count of PASS/FAIL reports, most recent failure timestamp)
+- Trend summary (pass/fail counts, pass/fail rates, failures by category, current/longest streak, timeline pills, repeated failure insights)
 - Links to the latest JSON report and HTML report
 - Responsive layout with overflow-x table scroll and stacked cards on smaller screens
 - Print-friendly layout with hidden filter controls, page-break avoidance, and monochrome-friendly contrast
@@ -91,7 +91,8 @@ The `-MaxHistory` parameter limits how many historical reports are loaded (defau
 - `questops_run.ps1` saves a timestamped copy of each scan to `reports/history/questops-health-YYYYMMDD-HHMMSS.json`
 - The dashboard loads the most recent N reports (default 20) from that directory
 - If a history file has invalid JSON, it is skipped with a warning — the dashboard is still created
-- The trend section shows the count of PASS and FAIL reports from loaded history
+- The trend section shows pass/fail counts, pass/fail rates, failures by category, current and longest streak, a timeline of coloured PASS/FAIL pills for the most recent 20 reports, and repeated failure insights (top 5 servers with failure count and percentage)
+- Timeline calculations de-duplicate the latest report from history by `scan_timestamp_utc` to avoid double-counting
 - If no history files exist, the trend is based on the latest report only
 
 ## Security / privacy notes
@@ -115,7 +116,7 @@ The `-MaxHistory` parameter limits how many historical reports are loaded (defau
 
 ## Limitations
 
-- No charts — the trend summary is text-based. Charts may come in a later version
+- No charts — the trend summary uses text, tables, and small coloured pills. Charts may come in a later version
 - No live updates — regenerate the dashboard after each scan to see new data
 - History depends on `questops_run.ps1` — standalone `questops_scan.ps1` does not create history copies
 - Filters are CSS-only radio tabs — all three views exist in the HTML; only one is shown at a time. All data is loaded on page generation, not dynamically.
