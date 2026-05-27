@@ -1,5 +1,18 @@
 # QuestOps Watchdog — Changelog
 
+## v0.5.3 — Dashboard Error State Polish (unreleased)
+
+- Added 9 new helper functions: Get-QuestSafeProperty, Get-QuestSafeBoolean, Get-QuestSafeArray, Get-QuestDashboardTimestamp, Test-QuestDashboardReportShape, Get-QuestDashboardReportWarnings, Format-QuestDashboardWarningBox, Write-QuestDashboardErrorPage
+- Safe error pages written on missing report (exit 2) and malformed report (exit 3) — self-contained HTML with suggested fixes, no raw JSON or secrets
+- Report shape validation warns about missing top-level fields (`total_servers`, `passed_checks`, `failed_checks`) with inferred defaults
+- Per-server field warnings for missing optional check fields (`network_ok`, `logs_ok`, `resources_ok`, `network_checks`, `log_checks`, `resource_checks`)
+- Consolidated warning box combines history, shape, and field warnings in a single yellow box
+- Shape/field warnings are non-fatal (exit 0); history warnings still produce exit 5
+- Dashboard data section uses safe accessors with defaults instead of inline null checks
+- Updated DASHBOARD_GUIDE.md, SAMPLE_DASHBOARD_PREVIEW.md, README.md, PROJECTMAP.md, TASKS.md, ROADMAP.md, CHANGELOG.md
+- Package count unchanged (56 files)
+- VERSION unchanged (0.4.9)
+
 ## v0.5.2 — Dashboard History Trend Polish (unreleased)
 
 - Added 6 trend helper functions: Get-QuestTrendSummary, Get-QuestStatusStreak, Get-QuestFailureCategoryCounts, Get-QuestServerFailureCounts, Format-QuestTimelineItems, Format-QuestFailureInsightRows

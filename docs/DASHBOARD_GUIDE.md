@@ -114,6 +114,26 @@ The `-MaxHistory` parameter limits how many historical reports are loaded (defau
 | 4 | Dashboard file write failed |
 | 5 | Dashboard created with history read warnings (bad history files skipped) |
 
+## Error states
+
+The dashboard gracefully handles the following error conditions:
+
+### Missing report (exit 2)
+
+If the JSON report file does not exist at the specified path, the script writes a safe error page to the output path explaining that a scan must be run first. The error page includes suggested fix commands and a security reminder. Exit code 2 is returned.
+
+### Malformed report (exit 3)
+
+If the JSON report file exists but contains invalid JSON, the script writes a safe error page explaining the file is malformed and suggesting a re-scan. Exit code 3 is returned.
+
+### Missing optional fields (non-fatal, exit 0)
+
+If the latest report is missing top-level fields (`scan_timestamp_utc`, `overall_pass`, `results`, `total_servers`, `passed_checks`, `failed_checks`), the dashboard infers sensible defaults and shows a yellow warning box. Per-server optional check fields (`network_ok`, `logs_ok`, `resources_ok`, `network_checks`, `log_checks`, `resource_checks`) are handled similarly — missing values show as `N/A` or `true` (safe default). Shape and field warnings appear in a single consolidated warning box at the top of the dashboard.
+
+### History warnings (exit 5)
+
+If one or more historical report files are malformed and skipped, a warning is shown in the consolidated warning box. Exit code 5 is returned.
+
 ## Limitations
 
 - No charts — the trend summary uses text, tables, and small coloured pills. Charts may come in a later version

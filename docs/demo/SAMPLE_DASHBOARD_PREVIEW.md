@@ -162,6 +162,71 @@ The trend section has three cards:
 
 No charts in v0.5.x — charts may come in a future version.
 
+## Error state previews
+
+### Missing report
+
+When the JSON report file does not exist, a safe error page is generated instead:
+
+```
+┌─────────────────────────────────────────────────────────────────────┐
+│  QuestOps Watchdog Dashboard                                       │
+│  Generated: 2026-05-27 10:00:00 UTC                                 │
+├─────────────────────────────────────────────────────────────────────┤
+│  ┌─────────────────────────────────────────────────────────────┐    │
+│  │  [ERROR]                                                     │    │
+│  │                                                              │    │
+│  │  Report Not Found                                            │    │
+│  │                                                              │    │
+│  │  The latest health report was not found at the expected      │    │
+│  │  location. Run a scan first to generate a report.            │    │
+│  │                                                              │    │
+│  │  ┌───────────────────────────────────────────────────────┐   │    │
+│  │  │ Suggested fixes                                       │   │    │
+│  │  │ • Run a scan first: questops_run.ps1 -NoAlert         │   │    │
+│  │  │ • Run a standalone scan: questops_scan.ps1            │   │    │
+│  │  │ • Validate your config: validate_questops_config.ps1  │   │    │
+│  │  └───────────────────────────────────────────────────────┘   │    │
+│  │                                                              │    │
+│  │  No dashboard content available.                             │    │
+│  │  Security reminder: ...                                      │    │
+│  └─────────────────────────────────────────────────────────────┘    │
+└─────────────────────────────────────────────────────────────────────┘
+```
+
+### Malformed report
+
+When the JSON report file exists but contains invalid JSON:
+
+```
+┌─────────────────────────────────────────────────────────────────────┐
+│  ...same error card layout with:
+│  [ERROR]  Malformed Report
+│  The latest health report at the expected location contains invalid
+│  JSON. Re-run the scan to regenerate the report.
+│  ...same suggested fixes section...
+└─────────────────────────────────────────────────────────────────────┘
+```
+
+### Warning box (consolidated)
+
+When the report is structurally valid but has missing or inferred fields, a yellow warning box appears below the header before the summary cards:
+
+```
+┌─────────────────────────────────────────────────────────────────────┐
+│  Warnings                                                           │
+│  • total_servers missing — inferred from results count              │
+│  • 2 server(s) missing optional field: resource_checks — shown as  │
+│    N/A                                                              │
+│  • Skipped malformed history file: questops-health-bad.json —      │
+│    Unexpected token...                                              │
+└─────────────────────────────────────────────────────────────────────┘
+```
+
+### Empty history
+
+When no history directory or files exist, the history summary and trend sections are still shown with zero counts and "No repeated failures detected." messages. No warning is shown — this is a normal state.
+
 ## Print-friendly layout
 
 When printed or saved as PDF:

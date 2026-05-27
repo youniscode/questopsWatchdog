@@ -13,7 +13,7 @@ Free, open-source, no cloud, no telemetry.
 ## Current status
 
 **Current tagged release:** v0.4.9
-**Latest repository milestone:** v0.5.2 — Dashboard History Trend Polish
+**Latest repository milestone:** v0.5.3 — Dashboard Error State Polish
 
 The `VERSION` file stays at 0.4.9 until the next tagged release. Repository milestones track unreleased work-in-progress.
 
@@ -757,7 +757,7 @@ powershell -NoProfile -ExecutionPolicy Bypass -File scripts\uninstall_questops_t
 | v0.5.0 | Local HTML Dashboard MVP |
 | v0.5.1 | Dashboard visual polish and status filters **(shipped)** |
 | v0.5.2 | Dashboard history trend polish **(shipped)** |
-| v0.5.3 | TBD |
+| v0.5.3 | Dashboard error state polish **(shipped)** |
 
 Full details in `docs/ROADMAP.md`.
 
@@ -784,7 +784,7 @@ The dashboard shows:
 - Trend summary (pass/fail counts, pass/fail rates, failures by category, current/longest streak, timeline pills, repeated failure insights)
 - Print-friendly layout with full content, hidden controls, and page-break avoidance
 
-It is a static, local-only file — no server, no database, no JavaScript, no external dependencies.
+The dashboard includes safe error pages: if the JSON report is missing or malformed, a self-contained error page is written instead of crashing. Missing optional fields produce a yellow warning box with sensible defaults — the dashboard still renders. All error states are handled without raw JSON, stack traces, or sensitive data.
 
 - [Dashboard guide](docs/DASHBOARD_GUIDE.md) — full documentation
 - [Sample dashboard preview](docs/demo/SAMPLE_DASHBOARD_PREVIEW.md) — fictional layout example

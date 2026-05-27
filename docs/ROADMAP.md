@@ -226,4 +226,13 @@
 - [x] Updated DASHBOARD_GUIDE.md, SAMPLE_DASHBOARD_PREVIEW.md, README.md, PROJECTMAP.md, ROADMAP.md, CHANGELOG.md, TASKS.md
 - [x] Package count unchanged (56 files), VERSION unchanged (0.4.9)
 
-## v0.5.3 — TBD (upcoming)
+## v0.5.3 — Dashboard Error State Polish (shipped)
+- [x] Safe error pages for missing (exit 2) and malformed (exit 3) reports
+- [x] Report shape validation with inferred defaults for missing fields
+- [x] Per-server missing optional field warnings (non-fatal)
+- [x] Consolidated warning box showing history + shape + field warnings
+- [x] 8 new helper functions: Get-QuestSafeProperty, Get-QuestSafeBoolean, Get-QuestSafeArray, Get-QuestDashboardTimestamp, Test-QuestDashboardReportShape, Get-QuestDashboardReportWarnings, Format-QuestDashboardWarningBox, Write-QuestDashboardErrorPage
+- [x] Updated docs (DASHBOARD_GUIDE, SAMPLE_DASHBOARD_PREVIEW, README, PROJECTMAP, TASKS, ROADMAP, CHANGELOG)
+- [x] Package count unchanged (56 files), VERSION unchanged (0.4.9)
+
+## v0.5.4 — Dashboard release readiness and screenshot pass (upcoming)

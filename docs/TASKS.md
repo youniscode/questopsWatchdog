@@ -194,7 +194,20 @@
 | Done   | - Built normalized timeline with deduplication by scan_timestamp_utc |
 | Done   | - Updated DASHBOARD_GUIDE.md, SAMPLE_DASHBOARD_PREVIEW.md, README.md, PROJECTMAP.md, ROADMAP.md, CHANGELOG.md, TASKS.md |
 | Done   | - Package count unchanged (56 files) |
+| Done   | v0.5.3 - Dashboard error-state and malformed report polish |
+| Done   | - Added safe field accessors: Get-QuestSafeProperty, Get-QuestSafeBoolean, Get-QuestSafeArray |
+| Done   | - Added report shape validation: Test-QuestDashboardReportShape |
+| Done   | - Added per-server field warnings: Get-QuestDashboardReportWarnings |
+| Done   | - Added consolidated warning box: Format-QuestDashboardWarningBox |
+| Done   | - Added safe error page writer: Write-QuestDashboardErrorPage |
+| Done   | - Missing/malformed report now writes safe error page before exiting (exit 2/3) |
+| Done   | - Dashboard data section uses safe accessors for graceful missing-field handling |
+| Done   | - Consolidated warning box shows history + shape + field warnings together |
+| Done   | - Non-fatal shape/field warnings (exit 0) with yellow warning box |
+| Done   | - Updated DASHBOARD_GUIDE.md, SAMPLE_DASHBOARD_PREVIEW.md, README.md, PROJECTMAP.md, ROADMAP.md, CHANGELOG.md, TASKS.md |
+| Done   | - Package count unchanged (56 files), VERSION unchanged (0.4.9) |
+| Done   | - Added 8 new functions to dashboard script (total 15 helpers) |
 
 ## Upcoming
 
-- v0.5.3 - TBD
+- v0.5.4 - Dashboard release readiness and screenshot pass

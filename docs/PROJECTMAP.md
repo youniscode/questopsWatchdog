@@ -214,7 +214,7 @@ questops-watchdog/
 | `docs/website/` | Public-facing website copy, wireframe, snippets, and SEO guidance. |
 | `docs/DASHBOARD_GUIDE.md` | Local dashboard user guide — generation, data sources, security, troubleshooting. |
 | `docs/demo/SAMPLE_DASHBOARD_PREVIEW.md` | Fictional ASCII preview of the local HTML dashboard layout. |
-| `scripts/export_questops_dashboard.ps1` | Local HTML dashboard exporter. Reads JSON report + optional history, generates self-contained HTML with inline CSS. Exit codes 0/2/3/4/5. |
+| `scripts/export_questops_dashboard.ps1` | Local HTML dashboard exporter. Reads JSON report + optional history, generates self-contained HTML with inline CSS. Safe error pages on missing/malformed report. Consolidated warning box for shape/field/history warnings. Exit codes 0/2/3/4/5. |
 | `reports/questops-dashboard.html` | Generated local dashboard — gitignored, not included in client tool package. |
 | `docs/launch/OUTREACH_LAUNCH_CHECKLIST.md` | What must be ready before first outreach — docs, scripts, audit flow, posting rules, success criteria. |
 | `docs/launch/FIRST_BETA_AUDIT_WORKFLOW.md` | End-to-end workflow from finding server owners to delivering audit results and collecting feedback. |
@@ -326,6 +326,14 @@ The report is also emitted to the PowerShell pipeline so callers can capture it:
 | `Get-QuestServerFailureCounts` | `export_questops_dashboard.ps1` | Counts server failures across timeline reports, returns top 5 |
 | `Format-QuestTimelineItems` | `export_questops_dashboard.ps1` | Generates PASS/FAIL coloured pill HTML for timeline display |
 | `Format-QuestFailureInsightRows` | `export_questops_dashboard.ps1` | Generates repeated failure insight table rows HTML |
+| `Get-QuestSafeProperty` | `export_questops_dashboard.ps1` | Safe property accessor with default value |
+| `Get-QuestSafeBoolean` | `export_questops_dashboard.ps1` | Safe boolean coercion with default |
+| `Get-QuestSafeArray` | `export_questops_dashboard.ps1` | Safe array coercion |
+| `Get-QuestDashboardTimestamp` | `export_questops_dashboard.ps1` | Returns current UTC timestamp string |
+| `Test-QuestDashboardReportShape` | `export_questops_dashboard.ps1` | Validates report shape, returns missing top-level field warnings |
+| `Get-QuestDashboardReportWarnings` | `export_questops_dashboard.ps1` | Collects per-server missing optional field warnings |
+| `Format-QuestDashboardWarningBox` | `export_questops_dashboard.ps1` | Generates HTML for a consolidated warning box |
+| `Write-QuestDashboardErrorPage` | `export_questops_dashboard.ps1` | Writes a safe error dashboard page to disk |
 | `Resolve-QuestValidatePath` | `validate_questops_config.ps1` | Resolves config file path, returns `$null` if not found (exit 2) |
 | `Read-QuestValidateConfig` | `validate_questops_config.ps1` | Reads and parses JSON config with try/catch (exit 3 on malformed) |
 
@@ -796,6 +804,33 @@ Expected: dashboard generated and opened in default browser.
 ```
 Expected: no results (empty output).
 
+### Dashboard error state - missing report test (expect exit 2, error page)
+```powershell
+powershell -NoProfile -ExecutionPolicy Bypass -File scripts\export_questops_dashboard.ps1 -ReportPath reports\nonexistent.json
+```
+Expected: exits 2. Error page written to default dashboard output path with "Report Not Found" title.
+
+### Dashboard error state - malformed report test (expect exit 3, error page)
+```powershell
+Set-Content "$env:TEMP\bad-dashboard-report.json" -Value "not valid json" -Force
+powershell -NoProfile -ExecutionPolicy Bypass -File scripts\export_questops_dashboard.ps1 -ReportPath "$env:TEMP\bad-dashboard-report.json"
+```
+Expected: exits 3. Error page written with "Malformed Report" title.
+
+### Dashboard partial field test (expect exit 0, warning box)
+```powershell
+$report = Get-Content reports\latest-health-report.json -Raw | ConvertFrom-Json
+$report.PSObject.Properties.Remove("total_servers")
+$report.PSObject.Properties.Remove("passed_checks")
+$report.PSObject.Properties.Remove("failed_checks")
+$report.results[0].PSObject.Properties.Remove("network_checks")
+$report.results[0].PSObject.Properties.Remove("log_checks")
+$json = $report | ConvertTo-Json -Depth 10
+Set-Content "$env:TEMP\partial-report.json" -Value $json -Force
+powershell -NoProfile -ExecutionPolicy Bypass -File scripts\export_questops_dashboard.ps1 -ReportPath "$env:TEMP\partial-report.json" -OutputPath "$env:TEMP\partial-dashboard.html"
+```
+Expected: exits 0. Dashboard generated with warning box showing inferred field messages.
+
 ### Dashboard history trend validation
 ```powershell
 # Check trend section contains enhanced metrics
@@ -955,3 +990,7 @@ These rules bind every AI agent that modifies this repository.
 2026-05-26 - v0.5.0: Created scripts/export_questops_dashboard.ps1 (local HTML dashboard exporter with summary cards, server table, failed details, history summary, trend summary). Created docs/DASHBOARD_GUIDE.md (dashboard user guide). Created docs/demo/SAMPLE_DASHBOARD_PREVIEW.md (fictional ASCII preview). Updated README with Local dashboard section. Updated client package to 56 files (added dashboard script + 2 docs). Updated PROJECTMAP, TASKS, ROADMAP, CHANGELOG, CLIENT_HANDOFF_CHECKLIST, RELEASE_CHECKLIST, export script. VERSION unchanged (0.4.9).
 
 2026-05-27 - v0.5.1: Improved local dashboard visual polish with better spacing, section hierarchy, summary cards, PASS/FAIL badges, table readability, empty states, CSS-only All/Passing/Failing filters, responsive table behavior, and print layout refinements. Updated DASHBOARD_GUIDE, SAMPLE_DASHBOARD_PREVIEW, README, PROJECTMAP, TASKS, ROADMAP, CHANGELOG. Package count unchanged at 56 files. VERSION unchanged (0.4.9).
+
+2026-05-27 - v0.5.2: Improved local dashboard history trend polish with pass/fail counts, pass/fail rates, failures by category, current/longest streaks, PASS/FAIL timeline pills, repeated failure insights, and normalized timeline deduplication by scan_timestamp_utc. Added dashboard trend helper functions. Updated DASHBOARD_GUIDE, SAMPLE_DASHBOARD_PREVIEW, README, PROJECTMAP, TASKS, ROADMAP, CHANGELOG. Package count unchanged at 56 files. VERSION unchanged (0.4.9).
+
+2026-05-27 - v0.5.3: Improved local dashboard error-state handling with safe error pages for missing/malformed reports, report shape validation, safe field accessors, consolidated warning box, inferred defaults for missing fields, and graceful optional field handling. Updated DASHBOARD_GUIDE, SAMPLE_DASHBOARD_PREVIEW, README, PROJECTMAP, TASKS, ROADMAP, CHANGELOG. Package count unchanged at 56 files. VERSION unchanged (0.4.9).

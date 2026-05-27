@@ -438,6 +438,214 @@ function Format-QuestFailureInsightRows {
 }
 
 # ---------------------------------------------------------------------------
+# Helper: safe property accessor with default
+# ---------------------------------------------------------------------------
+function Get-QuestSafeProperty {
+    param([object]$Object, [string]$PropertyName, [object]$DefaultValue = $null)
+    if ($null -eq $Object) { return $DefaultValue }
+    if ($Object.PSObject.Properties.Name -contains $PropertyName) {
+        return $Object.$PropertyName
+    }
+    return $DefaultValue
+}
+
+# ---------------------------------------------------------------------------
+# Helper: safe boolean coercion with default
+# ---------------------------------------------------------------------------
+function Get-QuestSafeBoolean {
+    param([object]$Value, [bool]$DefaultValue = $true)
+    if ($null -eq $Value) { return $DefaultValue }
+    if ($Value -is [bool]) { return $Value }
+    $str = "$Value"
+    if ($str -eq "true" -or $str -eq "True" -or $str -eq "1") { return $true }
+    if ($str -eq "false" -or $str -eq "False" -or $str -eq "0") { return $false }
+    return $DefaultValue
+}
+
+# ---------------------------------------------------------------------------
+# Helper: safe array coercion
+# ---------------------------------------------------------------------------
+function Get-QuestSafeArray {
+    param([object]$Value)
+    if ($null -eq $Value) { return @() }
+    if ($Value -is [array]) { return $Value }
+    return @()
+}
+
+# ---------------------------------------------------------------------------
+# Helper: get current UTC timestamp string
+# ---------------------------------------------------------------------------
+function Get-QuestDashboardTimestamp {
+    return (Get-Date).ToUniversalTime().ToString("yyyy-MM-dd HH:mm:ss UTC")
+}
+
+# ---------------------------------------------------------------------------
+# Helper: validate report shape and return field-level warnings
+# ---------------------------------------------------------------------------
+function Test-QuestDashboardReportShape {
+    param([object]$Report)
+    $warnings = @()
+    if (-not $Report) { return $warnings }
+
+    foreach ($f in @("scan_timestamp_utc","overall_pass","results")) {
+        if (-not ($Report.PSObject.Properties.Name -contains $f)) {
+            $warnings += "Latest report missing top-level field: $f"
+        }
+    }
+
+    if ($Report.PSObject.Properties.Name -contains "total_servers") {
+        if (-not ($Report.total_servers -is [int])) {
+            $warnings += "total_servers is not a valid integer -- inferred from results count"
+        }
+    } else {
+        $warnings += "total_servers missing -- inferred from results count"
+    }
+
+    foreach ($f in @("passed_checks","failed_checks")) {
+        if ($Report.PSObject.Properties.Name -contains $f) {
+            if (-not ($Report.$f -is [int])) {
+                $warnings += "$f is not a valid integer -- inferred from results"
+            }
+        } else {
+            $warnings += "$f missing -- inferred from results"
+        }
+    }
+
+    return $warnings
+}
+
+# ---------------------------------------------------------------------------
+# Helper: collect per-server field warnings from the latest report
+# ---------------------------------------------------------------------------
+function Get-QuestDashboardReportWarnings {
+    param([object]$Report)
+    $warnings = @()
+    if (-not $Report) { return $warnings }
+    $r = Get-QuestSafeProperty -Object $Report -PropertyName "results"
+    if ($r.Count -eq 0) { return $warnings }
+
+    $unnamedCount = 0
+    $missingOpt = @{}
+
+    foreach ($svr in $r) {
+        if (-not ($svr.PSObject.Properties.Name -contains "server_name")) {
+            $unnamedCount++
+        }
+        foreach ($f in @("network_ok","logs_ok","resources_ok","network_checks","log_checks","resource_checks")) {
+            if (-not ($svr.PSObject.Properties.Name -contains $f)) {
+                if (-not $missingOpt.ContainsKey($f)) { $missingOpt[$f] = 0 }
+                $missingOpt[$f]++
+            }
+        }
+    }
+
+    if ($unnamedCount -gt 0) {
+        $warnings += "$unnamedCount server(s) missing server_name -- using 'Unnamed server'"
+    }
+    foreach ($key in ($missingOpt.Keys | Sort-Object)) {
+        $warnings += "$($missingOpt[$key]) server(s) missing optional field: $key -- shown as N/A"
+    }
+
+    return $warnings
+}
+
+# ---------------------------------------------------------------------------
+# Helper: generate warning box HTML from a warnings array
+# ---------------------------------------------------------------------------
+function Format-QuestDashboardWarningBox {
+    param([string[]]$Warnings, [string]$Title = "Warnings")
+    if ($Warnings.Count -eq 0) { return "" }
+    $html = @"
+    <div class="warning-section">
+        <h3>$Title</h3>
+        <ul>
+"@
+    foreach ($w in $Warnings) {
+        $safeW = ConvertTo-QuestHtmlEncoded -Value $w
+        $html += "<li>$safeW</li>`n"
+    }
+    $html += "        </ul>`n    </div>`n"
+    return $html
+}
+
+# ---------------------------------------------------------------------------
+# Helper: write a safe error dashboard page to disk
+# ---------------------------------------------------------------------------
+function Write-QuestDashboardErrorPage {
+    param(
+        [string]$Path,
+        [string]$Title = "QuestOps Watchdog Dashboard",
+        [string]$ErrorTitle = "Dashboard Generation Error",
+        [string]$ErrorMessage = "An unexpected error occurred while generating the dashboard.",
+        [string]$ReportPath = "",
+        [string]$OutputPath = ""
+    )
+    $safeTitle = ConvertTo-QuestHtmlEncoded -Value $Title
+    $safeErrorTitle = ConvertTo-QuestHtmlEncoded -Value $ErrorTitle
+    $safeErrorMessage = ConvertTo-QuestHtmlEncoded -Value $ErrorMessage
+    $generatedStamp = Get-QuestDashboardTimestamp
+    $rpDisplay = if ($ReportPath) { "<p><strong>Report path:</strong> <code>$(ConvertTo-QuestHtmlEncoded -Value $ReportPath)</code></p>" } else { "" }
+    $opDisplay = if ($OutputPath) { "<p><strong>Output path:</strong> <code>$(ConvertTo-QuestHtmlEncoded -Value $OutputPath)</code></p>" } else { "" }
+
+    $html = @"
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>$safeTitle — Error</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; background: #f0f2f5; color: #1a1a2e; line-height: 1.6; padding: 24px; }
+.container { max-width: 700px; margin: 40px auto; }
+h1 { font-size: 1.3em; margin-bottom: 4px; color: #111; font-weight: 700; }
+.header-meta { font-size: 0.82em; color: #777; margin-bottom: 24px; }
+.error-card { background: #fff; border: 1px solid #e0e3e8; border-radius: 10px; padding: 24px; box-shadow: 0 1px 3px rgba(0,0,0,0.04); }
+.error-badge { display: inline-block; padding: 4px 14px; border-radius: 4px; font-size: 0.82em; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; background: #ffebe9; color: #cf222e; border: 1px solid #ffb8b0; margin-bottom: 16px; }
+.error-card h2 { font-size: 1.2em; color: #cf222e; margin-bottom: 12px; border: none; padding: 0; }
+.error-card p { font-size: 0.92em; color: #444; margin-bottom: 10px; line-height: 1.5; }
+.error-card code { background: #f0f2f5; padding: 1px 5px; border-radius: 3px; font-size: 0.9em; word-break: break-all; }
+.suggestions { background: #f6fdf8; border: 1px solid #a6e3b1; border-radius: 8px; padding: 14px 18px; margin: 16px 0; }
+.suggestions h3 { font-size: 0.95em; color: #1a7f37; margin-bottom: 8px; border: none; padding: 0; }
+.suggestions ul { margin-left: 18px; font-size: 0.9em; }
+.suggestions li { margin-bottom: 4px; color: #333; }
+.suggestions code { background: #dafbe1; padding: 1px 5px; border-radius: 3px; font-size: 0.9em; }
+.security-note { border-top: 1px solid #e0e3e8; margin-top: 16px; padding-top: 12px; }
+.security-note p { font-size: 0.82em; color: #888; }
+.no-json { background: #fafbfc; border: 1px dashed #d0d4dc; border-radius: 8px; padding: 16px; margin: 16px 0; text-align: center; color: #888; font-size: 0.88em; }
+@media print { body { background: #fff; padding: 10px; } .error-card { border: 1px solid #ccc; } }
+</style>
+</head>
+<body>
+<div class="container">
+<h1>$safeTitle</h1>
+<div class="header-meta"><p>Generated: $generatedStamp</p></div>
+<div class="error-card">
+<div class="error-badge">ERROR</div>
+<h2>$safeErrorTitle</h2>
+<p>$safeErrorMessage</p>
+<div class="suggestions">
+<h3>Suggested fixes</h3>
+<ul>
+<li>Run a scan first: <code>powershell -NoProfile -ExecutionPolicy Bypass -File scripts\questops_run.ps1 -NoAlert</code></li>
+<li>Run a standalone scan: <code>powershell -NoProfile -ExecutionPolicy Bypass -File scripts\questops_scan.ps1</code></li>
+<li>Validate your config: <code>powershell -NoProfile -ExecutionPolicy Bypass -File scripts\validate_questops_config.ps1</code></li>
+</ul>
+</div>
+$rpDisplay
+$opDisplay
+<div class="no-json">No dashboard content available.</div>
+<div class="security-note"><p><strong>Security reminder:</strong> This page does not contain sensitive data. Do not paste secrets, webhook URLs, or environment variables into reports or dashboards.</p></div>
+</div>
+</div>
+</body>
+</html>
+"@
+
+    return Write-QuestDashboardHtml -Path $Path -Html $html
+}
+
+# ---------------------------------------------------------------------------
 # Helper: write the dashboard HTML file
 # ---------------------------------------------------------------------------
 function Write-QuestDashboardHtml {
@@ -475,6 +683,8 @@ Write-Verbose "Reading report from: $ReportPath"
 
 if (-not (Test-Path -LiteralPath $ReportPath -PathType Leaf)) {
     Write-Warning "Latest report not found: $ReportPath"
+    $errorWritten = Write-QuestDashboardErrorPage -Path $OutputPath -Title $Title -ErrorTitle "Report Not Found" -ErrorMessage "The latest health report was not found at the expected location. Run a scan first to generate a report." -ReportPath $ReportPath -OutputPath $OutputPath
+    if (-not $errorWritten) { Write-Warning "Failed to write error page: $OutputPath" }
     Write-Output ([PSCustomObject]@{ success = $false; exit_code = 2; dashboard_path = $OutputPath })
     exit 2
 }
@@ -485,6 +695,8 @@ try {
     $report = $raw | ConvertFrom-Json -ErrorAction Stop
 } catch {
     Write-Warning "Report file contains invalid JSON: $ReportPath"
+    $errorWritten = Write-QuestDashboardErrorPage -Path $OutputPath -Title $Title -ErrorTitle "Malformed Report" -ErrorMessage "The latest health report at the expected location contains invalid JSON. Re-run the scan to regenerate the report." -ReportPath $ReportPath -OutputPath $OutputPath
+    if (-not $errorWritten) { Write-Warning "Failed to write error page: $OutputPath" }
     Write-Output ([PSCustomObject]@{ success = $false; exit_code = 3; dashboard_path = $OutputPath })
     exit 3
 }
@@ -505,24 +717,29 @@ if ($historyWarnings.Count -gt 0) {
 }
 
 # ---------------------------------------------------------------------------
+# Validate report shape and collect field-level warnings
+# ---------------------------------------------------------------------------
+$shapeWarnings = Test-QuestDashboardReportShape -Report $report
+$fieldWarnings = Get-QuestDashboardReportWarnings -Report $report
+
+# ---------------------------------------------------------------------------
 # Build dashboard data
 # ---------------------------------------------------------------------------
-$generatedStamp = (Get-Date).ToUniversalTime().ToString("yyyy-MM-dd HH:mm:ss UTC")
-$scanStamp = if ($report.scan_timestamp_utc) { $report.scan_timestamp_utc } else { "N/A" }
+$generatedStamp = Get-QuestDashboardTimestamp
+$scanStamp = Get-QuestSafeProperty -Object $report -PropertyName "scan_timestamp_utc" -DefaultValue "N/A"
 
-$overallPass = if ($report.overall_pass) { $true } else { $false }
-$totalServers = if ($report.total_servers -is [int]) { $report.total_servers } else { 0 }
-$passedChecks = if ($report.passed_checks -is [int]) { $report.passed_checks } else { 0 }
-$failedChecks = if ($report.failed_checks -is [int]) { $report.failed_checks } else { 0 }
+$overallPass = Get-QuestSafeBoolean -Value ($report.overall_pass) -DefaultValue $false
+$safeResults = Get-QuestSafeArray -Value $report.results
+$totalServers = if ($report.PSObject.Properties.Name -contains "total_servers" -and $report.total_servers -is [int]) { $report.total_servers } else { $safeResults.Count }
+$passedChecks = if ($report.PSObject.Properties.Name -contains "passed_checks" -and $report.passed_checks -is [int]) { $report.passed_checks } else { 0 }
+$failedChecks = if ($report.PSObject.Properties.Name -contains "failed_checks" -and $report.failed_checks -is [int]) { $report.failed_checks } else { 0 }
 
 $failedServerCount = 0
 $results = @()
-if ($report.results) {
-    foreach ($svr in $report.results) {
-        $svrPassed = if ($svr.passed) { $true } else { $false }
-        if (-not $svrPassed) { $failedServerCount++ }
-        $results += $svr
-    }
+foreach ($svr in $safeResults) {
+    $svrPassed = Get-QuestSafeBoolean -Value $svr.passed -DefaultValue $false
+    if (-not $svrPassed) { $failedServerCount++ }
+    $results += $svr
 }
 $historyCount = $historyReports.Count
 
@@ -670,19 +887,11 @@ if (Test-Path -LiteralPath $latestHtmlPath) {
 $safeTitle = ConvertTo-QuestHtmlEncoded -Value $Title
 $overallBadge = Get-QuestStatusBadge -Value $overallPass
 
-$historyWarningHtml = ""
-if ($historyWarnings.Count -gt 0) {
-    $historyWarningHtml = @"
-    <div class="warning-section">
-        <h3>History Warnings</h3>
-        <ul>
-"@
-    foreach ($w in $historyWarnings) {
-        $safeW = ConvertTo-QuestHtmlEncoded -Value $w
-        $historyWarningHtml += "<li>$safeW</li>`n"
-    }
-    $historyWarningHtml += "        </ul>`n    </div>`n"
-}
+$allWarnings = @()
+$allWarnings += $historyWarnings
+$allWarnings += $shapeWarnings
+$allWarnings += $fieldWarnings
+$warningBoxHtml = Format-QuestDashboardWarningBox -Warnings $allWarnings -Title "Warnings"
 
 $html = @"
 <!DOCTYPE html>
@@ -835,7 +1044,7 @@ h3 { font-size: 1em; margin: 0 0 8px; color: #444; font-weight: 600; }
     </div>
 </div>
 
-$historyWarningHtml
+$warningBoxHtml
 
 <div class="filter-controls">
 <input type="radio" name="filter" id="filter-all" class="filter-radio" checked>
