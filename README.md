@@ -13,7 +13,7 @@ Free, open-source, no cloud, no telemetry.
 ## Current status
 
 **Current tagged release:** v0.4.9
-**Latest repository milestone:** v0.4.18 — Public README quick-start polish
+**Latest repository milestone:** v0.5.0 — Local HTML Dashboard MVP
 
 The `VERSION` file stays at 0.4.9 until the next tagged release. Repository milestones track unreleased work-in-progress.
 
@@ -34,6 +34,7 @@ No install, no dependencies. Works on any Windows machine with PowerShell 5.1. T
 1. **Validated** the config structure (JSON syntax, required fields, types)
 2. **Scanned** your local machine — checked that `C:\Windows` exists, `powershell.exe` is running, and disk space is above 1 GB
 3. **Exported** a self-contained HTML report to `reports\latest-health-report.html`
+4. **Optionally** generated a local dashboard to `reports\questops-dashboard.html`
 
 The JSON report at `reports\latest-health-report.json` contains the full data. To inspect it:
 
@@ -175,7 +176,7 @@ powershell -NoProfile -ExecutionPolicy Bypass -File scripts\export_questops_audi
 
 The package is written to `dist\questops-watchdog-audit-package-YYYYMMDD-HHMMSS.zip`.
 
-### What is included (53 files)
+### What is included (56 files)
 
 - **Version & changelog:** VERSION, CHANGELOG.md
 - **Documentation:** README.md, docs/QUICK_START.md, docs/PROJECTMAP.md, docs/ROADMAP.md, docs/AGENT_RULES.md, docs/TASKS.md, docs/CLIENT_AUDIT_GUIDE.md, docs/CLIENT_HANDOFF_CHECKLIST.md, docs/RELEASE_NOTES_v0.4.9.md
@@ -184,7 +185,7 @@ The package is written to `dist\questops-watchdog-audit-package-YYYYMMDD-HHMMSS.
 - **Screenshot docs:** docs/assets/SCREENSHOT_CAPTURE_CHECKLIST.md, docs/assets/SCREENSHOT_REDACTION_GUIDE.md, docs/assets/SCREENSHOT_SHOT_LIST.md, docs/assets/SCREENSHOT_DEMO_SCRIPT.md, docs/assets/SCREENSHOT_REVIEW_CHECKLIST.md
 - **Screenshot placeholders:** docs/assets/placeholders/README_HERO_SCREENSHOT_PLACEHOLDER.md, docs/assets/placeholders/HTML_REPORT_SCREENSHOT_PLACEHOLDER.md, docs/assets/placeholders/DISCORD_ALERT_SCREENSHOT_PLACEHOLDER.md, docs/assets/placeholders/POWERSHELL_SCAN_SCREENSHOT_PLACEHOLDER.md, docs/assets/placeholders/PACKAGE_ZIP_SCREENSHOT_PLACEHOLDER.md, docs/assets/placeholders/LANDING_PAGE_SCREENSHOT_PLACEHOLDER.md
 - **Website docs:** docs/website/LANDING_PAGE_DRAFT.md, docs/website/HOMEPAGE_WIREFRAME.md, docs/website/WEBSITE_COPY_SNIPPETS.md, docs/website/SEO_NOTES.md
-- **Scripts:** questops_scan.ps1, questops_run.ps1, questops_discord_alert.ps1, validate_questops_config.ps1, install_questops_task.ps1, uninstall_questops_task.ps1, export_questops_audit_package.ps1, export_questops_html_report.ps1, export_questops_audit_results.ps1
+- **Scripts:** questops_scan.ps1, questops_run.ps1, questops_discord_alert.ps1, validate_questops_config.ps1, install_questops_task.ps1, uninstall_questops_task.ps1, export_questops_audit_package.ps1, export_questops_html_report.ps1, export_questops_audit_results.ps1, export_questops_dashboard.ps1
 - **Configs:** servers.example.json, servers.game.example.json
 - **Placeholders:** reports/.gitkeep, reports/history/.gitkeep, logs/.gitkeep, state/.gitkeep
 
@@ -752,19 +753,38 @@ powershell -NoProfile -ExecutionPolicy Bypass -File scripts\uninstall_questops_t
 | v0.4.16 | First public release page preparation **(shipped)** |
 | v0.4.17 | Beta audit reporting template polish **(shipped)** |
 | v0.4.18 | Public README quick-start polish |
-| v0.5 | HTML dashboard |
+| v0.4.20 | Dashboard planning brief |
+| v0.5.0 | Local HTML Dashboard MVP |
+| v0.5.1 | Dashboard visual polish and status filters |
 
 Full details in `docs/ROADMAP.md`.
 
-## v0.5 dashboard planning
+## Local dashboard
 
-A local HTML dashboard is planned for v0.5 to provide a visual overview of health scan results. No dashboard code exists yet — the following docs define the approach:
+The local dashboard is a static HTML page that provides a visual overview of your latest health scan results and history.
 
-- [Dashboard planning brief](docs/dashboard/V0_5_DASHBOARD_PLANNING_BRIEF.md) — purpose, scope, risks, build order
-- [MVP requirements](docs/dashboard/DASHBOARD_MVP_REQUIREMENTS.md) — granular checklist of what the MVP must cover
-- [UI wireframe](docs/dashboard/DASHBOARD_UI_WIREFRAME.md) — ASCII layout showing summary cards, filters, server cards
+```powershell
+# Generate the dashboard (requires a scan first)
+powershell -NoProfile -ExecutionPolicy Bypass -File scripts\export_questops_dashboard.ps1
 
-These are internal planning docs and are **not** included in the client-ready audit package.
+# Generate and open in browser
+powershell -NoProfile -ExecutionPolicy Bypass -File scripts\export_questops_dashboard.ps1 -Open
+```
+
+Default output: `reports\questops-dashboard.html`
+
+The dashboard shows:
+- Overall PASS/FAIL status with summary cards (total servers, passed, failed, failed servers, history loaded)
+- Latest server status table (folder, disk, process, network, logs, resources)
+- Failed server detail section with per-category explanations
+- History summary (last N report timestamps with status)
+- Trend summary (PASS/FAIL counts, most recent failure timestamp)
+
+It is a static, local-only file — no server, no database, no JavaScript, no external dependencies.
+
+- [Dashboard guide](docs/DASHBOARD_GUIDE.md) — full documentation
+- [Sample dashboard preview](docs/demo/SAMPLE_DASHBOARD_PREVIEW.md) — fictional layout example
+- [Dashboard planning brief](docs/dashboard/V0_5_DASHBOARD_PLANNING_BRIEF.md) — design rationale
 
 ## Repository hygiene
 

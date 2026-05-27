@@ -170,7 +170,15 @@
 | Done   | - Update README with v0.5 dashboard planning section |
 | Done   | - Update PROJECTMAP, TASKS, ROADMAP, CHANGELOG |
 
+| Done   | v0.5.0 - Local HTML Dashboard MVP |
+| Done   | - Create scripts/export_questops_dashboard.ps1 (local HTML dashboard exporter) |
+| Done   | - Create docs/DASHBOARD_GUIDE.md (dashboard user guide) |
+| Done   | - Create docs/demo/SAMPLE_DASHBOARD_PREVIEW.md (fictional ASCII preview) |
+| Done   | - Update README with Local dashboard section |
+| Done   | - Update PROJECTMAP, TASKS, ROADMAP, CHANGELOG |
+| Done   | - Update package references from 53 to 56 files |
+| Done   | - Update export_questops_audit_package.ps1 (include dashboard script + 2 docs) |
+
 ## Upcoming
 
-- v0.5.0 - HTML dashboard MVP implementation plan
-- v0.5 - HTML dashboard
+- v0.5.1 - Dashboard visual polish and status filters

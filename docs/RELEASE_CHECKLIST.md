@@ -10,7 +10,7 @@ Use this checklist when preparing a new release.
 - [ ] `CHANGELOG.md` has an entry for the new version
 - [ ] `docs/RELEASE_NOTES_v*.md` exists and is up to date
 - [ ] All doc version references (README, PROJECTMAP, ROADMAP, TASKS) are updated
-- [ ] Client package file counts are consistent everywhere (53 for v0.4.19)
+- [ ] Client package file counts are consistent everywhere (56 for v0.5.0)
 
 ## Validation commands
 
@@ -55,23 +55,23 @@ $entries | Where-Object {
     $_.FullName -match 'latest-health-report\.json|latest-health-report\.html|manual-audit-report\.html|audit-results-manifest\.json|release-manifest\.json'
 } | Select-Object FullName
 
-# Confirm version/release notes/docs/demo/website docs present
+# Confirm version/release notes/docs/demo/website/dashboard docs present
 $entries | Where-Object {
-    $_.FullName -match '^VERSION$|^CHANGELOG\.md$|^docs/QUICK_START\.md$|docs/RELEASE_NOTES_v0\.4\.9\.md|docs/business/|docs/demo/|docs/assets/|docs/website/'
+    $_.FullName -match '^VERSION$|^CHANGELOG\.md$|^docs/QUICK_START\.md$|docs/RELEASE_NOTES_v0\.4\.9\.md|docs/business/|docs/demo/|docs/assets/|docs/website/|docs/DASHBOARD_GUIDE\.md'
 } | Select-Object FullName
 ```
 
 Expected:
-- File count = 53
+- File count = 56
 - Generated reports: empty
-- Version/release notes/docs/demo/assets/placeholders/website docs: 31 results
+- Version/release notes/docs/demo/assets/placeholders/website docs: 33 results
 
 ## Checksum generation
 
 After release build, verify checksums:
 
 ```powershell
-Get-ChildItem dist\questops-watchdog-v0.4.19 -Filter *.sha256 | ForEach-Object {
+Get-ChildItem dist\questops-watchdog-v<VERSION> -Filter *.sha256 | ForEach-Object {
     Get-Content $_.FullName
 }
 ```
@@ -83,10 +83,10 @@ Get-ChildItem dist\questops-watchdog-v0.4.19 -Filter *.sha256 | ForEach-Object {
 git add -A
 
 # Commit
-git commit -m "v0.4.19 - Client package final sanity review"
+git commit -m "v0.5.0 - Local HTML Dashboard MVP"
 
 # Tag
-git tag -a v0.4.19 -m "QuestOps Watchdog v0.4.19 - Client package final sanity review"
+git tag -a v0.5.0 -m "QuestOps Watchdog v0.5.0 - Local HTML Dashboard MVP"
 
 # Push
 git push origin main --tags
@@ -97,8 +97,8 @@ git push origin main --tags
 If a release needs to be rolled back:
 
 1. Revert the commit: `git revert HEAD`
-2. Delete the tag locally: `git tag -d v0.4.19`
-3. Delete the tag remotely: `git push origin :refs/tags/v0.4.19`
-4. Delete the release folder: `Remove-Item -Recurse -Force dist\questops-watchdog-v0.4.19`
+2. Delete the tag locally: `git tag -d <version>`
+3. Delete the tag remotely: `git push origin :refs/tags/<version>`
+4. Delete the release folder: `Remove-Item -Recurse -Force dist\questops-watchdog-v<version>`
 5. Update `VERSION` back to the previous version
 6. Re-run the release build

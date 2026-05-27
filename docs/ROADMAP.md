@@ -195,11 +195,24 @@
 - [x] Update README with "v0.5 dashboard planning" section linking to 3 key docs
 - [x] Update PROJECTMAP, TASKS, ROADMAP, CHANGELOG
 
-## v0.5.0 — HTML Dashboard MVP Implementation Plan (upcoming)
-- [ ] Plan the implementation of the dashboard MVP based on the planning brief
-- [ ] Build from the recommended Option 1 (extend existing HTML export)
-- [ ] Implement MVP requirements checklist
+## v0.5.0 — Local HTML Dashboard MVP (shipped)
+- [x] Create scripts/export_questops_dashboard.ps1 — local HTML dashboard exporter with inline CSS
+- [x] Read latest JSON report + optional history reports
+- [x] Generate summary cards (total servers, passed, failed, failed servers, history loaded)
+- [x] Generate latest server table with per-check PASS/FAIL badges
+- [x] Generate failed server detail section with per-category explanations
+- [x] Generate history summary (last N report timestamps with status)
+- [x] Generate trend summary (PASS/FAIL counts, most recent failure timestamp)
+- [x] Handle malformed history files gracefully (skip, warn, exit 5)
+- [x] Redact Discord webhook URL patterns in rendered values
+- [x] HTML-encode all string values
+- [x] Exit codes: 0/2/3/4/5
+- [x] Create docs/DASHBOARD_GUIDE.md — generation, data sources, security, troubleshooting
+- [x] Create docs/demo/SAMPLE_DASHBOARD_PREVIEW.md — fictional ASCII layout preview
+- [x] Update client package to include dashboard script and docs (56 files)
 
-## v0.5 — Dashboard (optional)
-- [ ] Local HTML report viewer
-- [ ] Historical trend chart
+## v0.5.1 — Dashboard Visual Polish and Status Filters (upcoming)
+- [ ] Visual polish: improved table styling, colour contrast, spacing
+- [ ] Status filter tabs (All / Pass / Fail) without JavaScript
+- [ ] Responsive improvements for smaller screens
+- [ ] Print layout refinements

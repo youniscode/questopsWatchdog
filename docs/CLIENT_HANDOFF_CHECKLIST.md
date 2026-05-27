@@ -12,7 +12,7 @@ Use this checklist when preparing and sending the audit package to a client.
   ```
 - [ ] Verify the exit code is **0** (package created successfully)
 - [ ] Confirm the zip path shown in the output
-- [ ] Open the zip and verify included files (53 files expected):
+- [ ] Open the zip and verify included files (56 files expected):
   ```powershell
   Add-Type -AssemblyName System.IO.Compression.FileSystem
   $zip = Get-ChildItem dist -Filter *.zip | Sort-Object LastWriteTime -Descending | Select-Object -First 1
@@ -21,10 +21,10 @@ Use this checklist when preparing and sending the audit package to a client.
 - [ ] Confirm version, release notes, and business docs are present:
   ```powershell
   [System.IO.Compression.ZipFile]::OpenRead($zip.FullName).Entries | Where-Object {
-      $_.FullName -match '^VERSION$|^CHANGELOG\.md$|docs/RELEASE_NOTES_v0\.4\.9\.md|docs/business/|docs/demo/|docs/assets/|docs/website/'
+      $_.FullName -match '^VERSION$|^CHANGELOG\.md$|^docs/QUICK_START\.md$|docs/RELEASE_NOTES_v0\.4\.9\.md|docs/business/|docs/demo/|docs/assets/|docs/website/|docs/DASHBOARD_GUIDE\.md'
   } | Select-Object FullName
   ```
-  Expected: 30 results: VERSION, CHANGELOG.md, release notes, 6 packaged business docs, 5 demo docs, 6 assets docs (README + 5 screenshot docs), 6 placeholder docs, and 4 website docs.
+  Expected: 33 results: VERSION, CHANGELOG.md, release notes, 6 packaged business docs, 6 demo docs (added SAMPLE_DASHBOARD_PREVIEW.md), 6 assets docs (README + 5 screenshot docs), 6 placeholder docs, 4 website docs, and DASHBOARD_GUIDE.md.
 - [ ] Confirm no sensitive files are included:
   ```powershell
   [System.IO.Compression.ZipFile]::OpenRead($zip.FullName).Entries | Where-Object {
@@ -106,13 +106,13 @@ powershell -NoProfile -ExecutionPolicy Bypass -File scripts\install_questops_tas
 
 Request the following files from the client for the audit:
 
-| File | Purpose |
-|------|---------|
-| Audit results bundle zip | All outputs in one file (created by `export_questops_audit_results.ps1`) |
-| `reports\latest-health-report.json` | The scan result (included in bundle) |
-| `reports\latest-health-report.html` | The HTML audit report (included in bundle) |
-| `config\servers.local.json` | Their server configuration (optional, include via `-IncludeConfig`) |
-| `logs\questops-run.log` | Run log (optional, include via `-IncludeLog`) |
+| File                                | Purpose                                                                  |
+| ----------------------------------- | ------------------------------------------------------------------------ |
+| Audit results bundle zip            | All outputs in one file (created by `export_questops_audit_results.ps1`) |
+| `reports\latest-health-report.json` | The scan result (included in bundle)                                     |
+| `reports\latest-health-report.html` | The HTML audit report (included in bundle)                               |
+| `config\servers.local.json`         | Their server configuration (optional, include via `-IncludeConfig`)      |
+| `logs\questops-run.log`             | Run log (optional, include via `-IncludeLog`)                            |
 
 Also ask for any console warnings or errors they observed.
 
@@ -142,15 +142,15 @@ The bundle is written to `dist\questops-watchdog-audit-results-YYYYMMDD-HHMMSS.z
 
 ## Troubleshooting basics
 
-| Symptom | Likely cause | Fix |
-|---------|------------|-----|
-| `exit code 2` on scan | Config file not found | Check the path; use `-ConfigPath` |
-| `exit code 3` on scan | Config has invalid JSON | Run `validate_questops_config.ps1` |
-| `folder_exists: false` | Server folder path is wrong | Edit the `folder` field in config |
-| `process_running: false` | Server process not running | Start the server or check the `process` name |
-| `disk_ok: false` | Disk is full or threshold too high | Free space or lower `disk_threshold_gb` |
-| `network_ok: false` | Port unreachable | Check firewall, server bind address, and port config |
-| `logs_ok: false` | Log file missing or stale | Check `path` and `max_age_minutes` in config |
-| `resources_ok: false` | Process over memory/CPU limit | Check `max_memory_mb` / `max_cpu_percent` thresholds |
-| Alert not sending | Webhook URL not set | Set `$env:QUESTOPS_DISCORD_WEBHOOK_URL` |
-| Package export fails with exit 3 | Secrets detected in included files | Remove hardcoded secrets and re-run |
+| Symptom                          | Likely cause                       | Fix                                                  |
+| -------------------------------- | ---------------------------------- | ---------------------------------------------------- |
+| `exit code 2` on scan            | Config file not found              | Check the path; use `-ConfigPath`                    |
+| `exit code 3` on scan            | Config has invalid JSON            | Run `validate_questops_config.ps1`                   |
+| `folder_exists: false`           | Server folder path is wrong        | Edit the `folder` field in config                    |
+| `process_running: false`         | Server process not running         | Start the server or check the `process` name         |
+| `disk_ok: false`                 | Disk is full or threshold too high | Free space or lower `disk_threshold_gb`              |
+| `network_ok: false`              | Port unreachable                   | Check firewall, server bind address, and port config |
+| `logs_ok: false`                 | Log file missing or stale          | Check `path` and `max_age_minutes` in config         |
+| `resources_ok: false`            | Process over memory/CPU limit      | Check `max_memory_mb` / `max_cpu_percent` thresholds |
+| Alert not sending                | Webhook URL not set                | Set `$env:QUESTOPS_DISCORD_WEBHOOK_URL`              |
+| Package export fails with exit 3 | Secrets detected in included files | Remove hardcoded secrets and re-run                  |

@@ -1,5 +1,21 @@
 # QuestOps Watchdog — Changelog
 
+## v0.5.0 — Local HTML Dashboard MVP (unreleased)
+
+- Created `scripts/export_questops_dashboard.ps1` — local static HTML dashboard exporter
+  - Reads `reports/latest-health-report.json` (required) and `reports/history/` (optional)
+  - Generates summary cards, latest server table, failed server details, history summary, trend summary
+  - Inline CSS only, no JavaScript, no external dependencies
+  - Handles malformed history files gracefully (skip, warn, exit 5)
+  - Redacts Discord webhook URLs, HTML-encodes all string values
+  - Exit codes 0/2/3/4/5
+- Created `docs/DASHBOARD_GUIDE.md` — dashboard user guide with generation, security, and troubleshooting
+- Created `docs/demo/SAMPLE_DASHBOARD_PREVIEW.md` — fictional ASCII preview of dashboard layout
+- Updated README with "Local dashboard" section
+- Updated tool package to 56 files (added dashboard script + 2 docs)
+- Updated PROJECTMAP, TASKS, ROADMAP, CHANGELOG, CLIENT_HANDOFF_CHECKLIST, RELEASE_CHECKLIST
+- VERSION unchanged (0.4.9)
+
 ## v0.4.20 — Prepare v0.5 dashboard planning brief (unreleased)
 
 - Created `docs/dashboard/` with 7 internal dashboard planning docs:
