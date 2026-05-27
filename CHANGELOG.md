@@ -1,8 +1,20 @@
 # QuestOps Watchdog — Changelog
 
+## v0.5.4 — Dashboard Release Readiness and Screenshot Pass (unreleased)
+
+- Created DASHBOARD_RELEASE_READINESS_CHECKLIST.md — QA checklist covering scope, scenarios, security, package, browser, and screenshot readiness
+- Created DASHBOARD_SCREENSHOT_PASS.md — dashboard screenshot capture plan with 10 screenshots, naming convention, safe demo data requirements, and redaction checklist
+- Created DASHBOARD_FINAL_VALIDATION_COMMANDS.md — one-page copy/paste validation command reference for the entire dashboard
+- Updated README.md with links to all 3 new dashboard docs
+- Updated DASHBOARD_GUIDE.md with "Release readiness and screenshots" section linking to new docs
+- Updated docs/assets/README.md with dashboard screenshot note referencing the screenshot pass doc
+- Updated PROJECTMAP.md, TASKS.md, ROADMAP.md, CHANGELOG.md
+- Package count unchanged (56 files)
+- VERSION unchanged (0.4.9)
+
 ## v0.5.3 — Dashboard Error State Polish (unreleased)
 
-- Added 9 new helper functions: Get-QuestSafeProperty, Get-QuestSafeBoolean, Get-QuestSafeArray, Get-QuestDashboardTimestamp, Test-QuestDashboardReportShape, Get-QuestDashboardReportWarnings, Format-QuestDashboardWarningBox, Write-QuestDashboardErrorPage
+- Added 8 new helper functions: Get-QuestSafeProperty, Get-QuestSafeBoolean, Get-QuestSafeArray, Get-QuestDashboardTimestamp, Test-QuestDashboardReportShape, Get-QuestDashboardReportWarnings, Format-QuestDashboardWarningBox, Write-QuestDashboardErrorPage
 - Safe error pages written on missing report (exit 2) and malformed report (exit 3) — self-contained HTML with suggested fixes, no raw JSON or secrets
 - Report shape validation warns about missing top-level fields (`total_servers`, `passed_checks`, `failed_checks`) with inferred defaults
 - Per-server field warnings for missing optional check fields (`network_ok`, `logs_ok`, `resources_ok`, `network_checks`, `log_checks`, `resource_checks`)

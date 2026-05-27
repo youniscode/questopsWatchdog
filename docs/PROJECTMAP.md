@@ -90,7 +90,10 @@ questops-watchdog/
 |   |   |-- DASHBOARD_UI_WIREFRAME.md                # ASCII layout wireframe
 |   |   |-- DASHBOARD_SECURITY_NOTES.md              # No secrets, local-only, no telemetry
 |   |   |-- DASHBOARD_IMPLEMENTATION_OPTIONS.md      # Compares 4 approaches
-|   |   `-- DASHBOARD_TEST_PLAN.md                   # 12 manual validation scenarios
+|   |   |-- DASHBOARD_TEST_PLAN.md                   # 12 manual validation scenarios
+|   |   |-- DASHBOARD_RELEASE_READINESS_CHECKLIST.md # Release QA checklist
+|   |   |-- DASHBOARD_SCREENSHOT_PASS.md             # Screenshot capture plan
+|   |   `-- DASHBOARD_FINAL_VALIDATION_COMMANDS.md   # One-page validation commands
 |   |-- business/
 |   |   |-- PAID_AUDIT_OFFER.md           # Pricing and scope for paid audits
 |   |   |-- LANDING_PAGE_COPY.md           # Marketing copy reference
@@ -209,7 +212,10 @@ questops-watchdog/
 | `docs/launch/` | Internal outreach and beta audit workflow docs — not included in client tool package. |
 | `docs/release/` | Internal release preparation docs — not included in client tool package. |
 | `docs/qa/` | Internal quality assurance review checklists — not included in client tool package. |
-| `docs/dashboard/` | Internal v0.5 dashboard planning docs — not included in client tool package. |
+| `docs/dashboard/` | Internal v0.5 dashboard planning, release readiness, screenshot pass, and validation docs — not included in client tool package. |
+| `docs/dashboard/DASHBOARD_RELEASE_READINESS_CHECKLIST.md` | Dashboard release QA checklist — scope, scenarios, security, package, browser, screenshot, sign-off. |
+| `docs/dashboard/DASHBOARD_SCREENSHOT_PASS.md` | Dashboard screenshot capture plan — 10 screenshots, naming convention, safe demo data, redaction. |
+| `docs/dashboard/DASHBOARD_FINAL_VALIDATION_COMMANDS.md` | One-page dashboard validation commands — copy/paste reference for the entire dashboard. |
 | `docs/audit/` | Internal beta audit reporting template docs — not included in client tool package. |
 | `docs/website/` | Public-facing website copy, wireframe, snippets, and SEO guidance. |
 | `docs/DASHBOARD_GUIDE.md` | Local dashboard user guide — generation, data sources, security, troubleshooting. |
@@ -804,6 +810,15 @@ Expected: dashboard generated and opened in default browser.
 ```
 Expected: no results (empty output).
 
+### Dashboard final validation
+
+See `docs/dashboard/DASHBOARD_FINAL_VALIDATION_COMMANDS.md` for the complete one-page validation command reference covering:
+- Safe scan, HTML audit export, dashboard export
+- Trend label check, status filter check, no external dependency check
+- Missing report error page, malformed report error page, partial report warning box
+- Package export, package count check, generated files exclusion check
+- VERSION check, git status check
+
 ### Dashboard error state - missing report test (expect exit 2, error page)
 ```powershell
 powershell -NoProfile -ExecutionPolicy Bypass -File scripts\export_questops_dashboard.ps1 -ReportPath reports\nonexistent.json
@@ -994,3 +1009,5 @@ These rules bind every AI agent that modifies this repository.
 2026-05-27 - v0.5.2: Improved local dashboard history trend polish with pass/fail counts, pass/fail rates, failures by category, current/longest streaks, PASS/FAIL timeline pills, repeated failure insights, and normalized timeline deduplication by scan_timestamp_utc. Added dashboard trend helper functions. Updated DASHBOARD_GUIDE, SAMPLE_DASHBOARD_PREVIEW, README, PROJECTMAP, TASKS, ROADMAP, CHANGELOG. Package count unchanged at 56 files. VERSION unchanged (0.4.9).
 
 2026-05-27 - v0.5.3: Improved local dashboard error-state handling with safe error pages for missing/malformed reports, report shape validation, safe field accessors, consolidated warning box, inferred defaults for missing fields, and graceful optional field handling. Updated DASHBOARD_GUIDE, SAMPLE_DASHBOARD_PREVIEW, README, PROJECTMAP, TASKS, ROADMAP, CHANGELOG. Package count unchanged at 56 files. VERSION unchanged (0.4.9).
+
+2026-05-27 - v0.5.4: Added dashboard release readiness checklist, screenshot pass plan, and final validation commands. Created DASHBOARD_RELEASE_READINESS_CHECKLIST, DASHBOARD_SCREENSHOT_PASS, DASHBOARD_FINAL_VALIDATION_COMMANDS. Updated README, DASHBOARD_GUIDE, assets README, PROJECTMAP, TASKS, ROADMAP, CHANGELOG. Package count unchanged at 56 files. VERSION unchanged (0.4.9).

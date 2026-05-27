@@ -27,6 +27,13 @@ This folder contains screenshots, images, and media assets used in documentation
 - [Demo script](SCREENSHOT_DEMO_SCRIPT.md) — step-by-step PowerShell commands for each capture
 - [Review checklist](SCREENSHOT_REVIEW_CHECKLIST.md) — pre-publication review checklist
 
+## Dashboard screenshots
+
+Dashboard screenshots should follow the v0.5.4 screenshot pass plan at:
+[docs/dashboard/DASHBOARD_SCREENSHOT_PASS.md](../dashboard/DASHBOARD_SCREENSHOT_PASS.md)
+
+All dashboard screenshots must use only fictional demo data, follow the redaction guide, and be stored in `screenshots/` with the naming convention defined in the screenshot pass doc.
+
 ## Screenshot placeholders
 
 Placeholder documents that describe future screenshots. No actual images here yet — these are planning references for what each screenshot should show and what data it must avoid.

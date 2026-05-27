@@ -235,4 +235,11 @@
 - [x] Updated docs (DASHBOARD_GUIDE, SAMPLE_DASHBOARD_PREVIEW, README, PROJECTMAP, TASKS, ROADMAP, CHANGELOG)
 - [x] Package count unchanged (56 files), VERSION unchanged (0.4.9)
 
-## v0.5.4 — Dashboard release readiness and screenshot pass (upcoming)
+## v0.5.4 — Dashboard release readiness and screenshot pass (shipped)
+- [x] Created DASHBOARD_RELEASE_READINESS_CHECKLIST.md — QA checklist for scope, scenarios, security, package, browser, and screenshot readiness
+- [x] Created DASHBOARD_SCREENSHOT_PASS.md — 10-dashboard-screenshot capture plan with safe data conventions, naming, and redaction
+- [x] Created DASHBOARD_FINAL_VALIDATION_COMMANDS.md — one-page copy/paste validation command reference
+- [x] Updated README, DASHBOARD_GUIDE, docs/assets/README, PROJECTMAP, TASKS, ROADMAP, CHANGELOG
+- [x] Package count unchanged (56 files), VERSION unchanged (0.4.9)
+
+## v0.5.5 — Dashboard release candidate package review (upcoming)

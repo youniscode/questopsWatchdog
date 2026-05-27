@@ -162,3 +162,11 @@ Some history files may be malformed. They are skipped — the dashboard is still
 ### "Failed server details are empty"
 
 The server must have `passed = false` in the JSON report. Check that optional checks (network, logs, resources) are configured in your server config.
+
+## Release readiness and screenshots
+
+The dashboard feature includes release readiness documentation for final QA, screenshot capture planning, and validation commands:
+
+- [Release readiness checklist](dashboard/DASHBOARD_RELEASE_READINESS_CHECKLIST.md) — scope, scenarios, security, package, and browser review
+- [Screenshot pass plan](dashboard/DASHBOARD_SCREENSHOT_PASS.md) — 10 screenshots to capture, safe data conventions, naming, redaction
+- [Final validation commands](dashboard/DASHBOARD_FINAL_VALIDATION_COMMANDS.md) — one-page copy/paste validation for the entire dashboard

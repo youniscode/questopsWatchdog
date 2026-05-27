@@ -208,6 +208,14 @@
 | Done   | - Package count unchanged (56 files), VERSION unchanged (0.4.9) |
 | Done   | - Added 8 new functions to dashboard script (total 15 helpers) |
 
+| Done   | v0.5.4 - Dashboard release readiness and screenshot pass |
+| Done   | - Created DASHBOARD_RELEASE_READINESS_CHECKLIST.md (QA checklist: scope, scenarios, security, package, browser, screenshots, sign-off) |
+| Done   | - Created DASHBOARD_SCREENSHOT_PASS.md (10 screenshot capture plan, naming, redaction, safe data requirements) |
+| Done   | - Created DASHBOARD_FINAL_VALIDATION_COMMANDS.md (one-page copy/paste validation commands) |
+| Done   | - Updated README, DASHBOARD_GUIDE, docs/assets/README, PROJECTMAP, ROADMAP, CHANGELOG with new doc links |
+| Done   | - Package count unchanged (56 files), VERSION unchanged (0.4.9) |
+| Done   | - docs/dashboard/ remains excluded from client package |
+
 ## Upcoming
 
-- v0.5.4 - Dashboard release readiness and screenshot pass
+- v0.5.5 - Dashboard release candidate package review

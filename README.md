@@ -13,7 +13,7 @@ Free, open-source, no cloud, no telemetry.
 ## Current status
 
 **Current tagged release:** v0.4.9
-**Latest repository milestone:** v0.5.3 — Dashboard Error State Polish
+**Latest repository milestone:** v0.5.4 — Dashboard Release Readiness and Screenshot Pass
 
 The `VERSION` file stays at 0.4.9 until the next tagged release. Repository milestones track unreleased work-in-progress.
 
@@ -758,6 +758,7 @@ powershell -NoProfile -ExecutionPolicy Bypass -File scripts\uninstall_questops_t
 | v0.5.1 | Dashboard visual polish and status filters **(shipped)** |
 | v0.5.2 | Dashboard history trend polish **(shipped)** |
 | v0.5.3 | Dashboard error state polish **(shipped)** |
+| v0.5.4 | Dashboard release readiness and screenshot pass **(shipped)** |
 
 Full details in `docs/ROADMAP.md`.
 
@@ -789,6 +790,9 @@ The dashboard includes safe error pages: if the JSON report is missing or malfor
 - [Dashboard guide](docs/DASHBOARD_GUIDE.md) — full documentation
 - [Sample dashboard preview](docs/demo/SAMPLE_DASHBOARD_PREVIEW.md) — fictional layout example
 - [Dashboard planning brief](docs/dashboard/V0_5_DASHBOARD_PLANNING_BRIEF.md) — design rationale
+- [Release readiness checklist](docs/dashboard/DASHBOARD_RELEASE_READINESS_CHECKLIST.md) — QA checklist for dashboard release
+- [Screenshot pass plan](docs/dashboard/DASHBOARD_SCREENSHOT_PASS.md) — dashboard screenshot capture plan
+- [Final validation commands](docs/dashboard/DASHBOARD_FINAL_VALIDATION_COMMANDS.md) — one-page dashboard validation
 
 ## Repository hygiene
 
