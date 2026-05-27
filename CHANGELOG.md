@@ -1,5 +1,16 @@
 # QuestOps Watchdog — Changelog
 
+## v0.5.1 — Dashboard Visual Polish and Status Filters (unreleased)
+
+- Improved dashboard visual polish: better spacing, section hierarchy, summary cards, PASS/FAIL badges, failed-row styling, table readability, empty-state messages, warning box styling, system fonts
+- Added CSS-only radio tab status filters (All Servers / Passing / Failing) with server counts — no JavaScript
+- Added empty-state messages when a filter has no matching servers
+- Added responsive layout: overflow-x table scroll, compact cards on smaller screens
+- Added print layout refinements: hidden filter controls, page-break avoidance, black/white contrast
+- Updated DASHBOARD_GUIDE.md, SAMPLE_DASHBOARD_PREVIEW.md, README.md, PROJECTMAP.md, TASKS.md, ROADMAP.md, CHANGELOG.md
+- Package count unchanged (56 files)
+- VERSION unchanged (0.4.9)
+
 ## v0.5.0 — Local HTML Dashboard MVP (unreleased)
 
 - Created `scripts/export_questops_dashboard.ps1` — local static HTML dashboard exporter

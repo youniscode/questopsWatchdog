@@ -7,18 +7,23 @@ The local HTML dashboard is a self-contained static HTML page that gives you a v
 The dashboard includes:
 - Overall PASS / FAIL status badge
 - Summary cards (total servers, passed, failed, failed server count, history loaded)
-- A server status table (folder, disk, process, network, logs, resources per server)
-- Failed server detail section (explanations per failed category)
+- Visual polish with improved spacing, section hierarchy, and card styling
+- Status filter tabs — **All Servers**, **Passing**, and **Failing** — CSS-only radio tabs, no JavaScript
+- A server status table (folder, disk, process, network, logs, resources per server) shown under the active filter
+- Empty-state messages when a filter has no servers
+- Failed server detail section (explanations per failed category), filtered by active view
 - History summary (last N report timestamps with pass/fail status)
 - Trend summary (count of PASS/FAIL reports, most recent failure timestamp)
 - Links to the latest JSON report and HTML report
+- Responsive layout with overflow-x table scroll and stacked cards on smaller screens
+- Print-friendly layout with hidden filter controls, page-break avoidance, and monochrome-friendly contrast
 
 ## What it is not
 
 - Not a web application — no server, no backend, no database
 - Not a live-updating dashboard — it is a static snapshot
 - Not a replacement for the JSON report or the HTML audit report
-- No JavaScript — the dashboard is purely HTML + CSS
+- No JavaScript — the dashboard is purely HTML + CSS (filters use CSS-only radio tabs)
 - No external dependencies, no CDN, no fonts
 
 ## How to generate it
@@ -110,11 +115,10 @@ The `-MaxHistory` parameter limits how many historical reports are loaded (defau
 
 ## Limitations
 
-- No JavaScript — the dashboard is static. No sorting, filtering, or interactive features in v0.5.0
 - No charts — the trend summary is text-based. Charts may come in a later version
 - No live updates — regenerate the dashboard after each scan to see new data
 - History depends on `questops_run.ps1` — standalone `questops_scan.ps1` does not create history copies
-- No mobile-responsive design beyond basic table wrapping
+- Filters are CSS-only radio tabs — all three views exist in the HTML; only one is shown at a time. All data is loaded on page generation, not dynamically.
 
 ## Troubleshooting
 

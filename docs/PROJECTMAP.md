@@ -157,7 +157,7 @@ questops-watchdog/
 | `scripts/export_questops_audit_package.ps1` | Creates a clean zip package of client-safe files. Runs a preflight safety scan. Exit codes 0/1/2/3. |
 | `scripts/export_questops_audit_results.ps1` | Creates an audit results bundle zip of scan outputs (JSON report, HTML report, optional config/log) for client review. Runs safety scan. Exit codes 0/1/2/3/4. |
 | `scripts/export_questops_html_report.ps1` | HTML audit report exporter. Reads a JSON scan report and generates a standalone HTML file with inline CSS. No JS, no external deps. Exit codes 0/2/3/4. |
-| `scripts/export_questops_dashboard.ps1` | Local HTML dashboard exporter. Reads a JSON scan report and optional history, generates a self-contained static HTML dashboard with summary cards, server table, failed details, history summary, and trend summary. Inline CSS only. Exit codes 0/2/3/4/5. |
+| `scripts/export_questops_dashboard.ps1` | Local HTML dashboard exporter. Reads a JSON scan report and optional history, generates a self-contained static HTML dashboard with polished summary cards, CSS-only status filter tabs (All / Passing / Failing), server table with per-check badges, failed details, history summary, trend summary, responsive layout, and print-friendly styling. Inline CSS only. Exit codes 0/2/3/4/5. |
 | `scripts/build_questops_client_release.ps1` | Release build orchestrator. Runs config validation, scan, exports, checksums, and writes release manifest. Parameters: `-Version`, `-OutputDir`, `-Force`, `-AllowDirty`. Exit codes 0/1/2/3/4. |
 | `docs/CLIENT_AUDIT_GUIDE.md` | Client-facing guide - explains setup, scanning, alerts, scheduled tasks, exit codes, and what to send for an audit. |
 | `docs/CLIENT_HANDOFF_CHECKLIST.md` | Pre/post-delivery checklist - export, verify, security reminders, troubleshooting. |
@@ -790,6 +790,22 @@ Expected: dashboard generated and opened in default browser.
 ```
 Expected: no results (empty output).
 
+### Visual polish and status filter validation
+```powershell
+# Check dashboard contains filter labels / sections
+Select-String -Path reports\questops-dashboard.html -Pattern "All Servers|Passing|Failing|filter|print|@media print"
+
+# Confirm no external dependencies
+Select-String -Path reports\questops-dashboard.html -Pattern "https://|http://|script src|cdn|fonts.googleapis"
+
+# Check empty states exist in HTML
+Select-String -Path reports\questops-dashboard.html -Pattern "No passing servers|All servers passing"
+
+# Confirm CSS-only radio tabs (no JS)
+Select-String -Path reports\questops-dashboard.html -Pattern "<script"
+```
+Expected: filter labels present, no external URLs found, empty-state messages present, no `<script>` tags found.
+
 ### Check dashboard docs exist
 ```powershell
 Test-Path docs\DASHBOARD_GUIDE.md
@@ -918,3 +934,5 @@ These rules bind every AI agent that modifies this repository.
 2026-05-26 - v0.4.20: Created docs/dashboard/ with 7 internal dashboard planning docs (V0_5_DASHBOARD_PLANNING_BRIEF, DASHBOARD_MVP_REQUIREMENTS, DASHBOARD_DATA_MODEL, DASHBOARD_UI_WIREFRAME, DASHBOARD_SECURITY_NOTES, DASHBOARD_IMPLEMENTATION_OPTIONS, DASHBOARD_TEST_PLAN). Updated README with v0.5 dashboard planning section. Updated PROJECTMAP, TASKS, ROADMAP, CHANGELOG. VERSION unchanged (0.4.9). docs/dashboard/ excluded from export script (internal planning only).
 
 2026-05-26 - v0.5.0: Created scripts/export_questops_dashboard.ps1 (local HTML dashboard exporter with summary cards, server table, failed details, history summary, trend summary). Created docs/DASHBOARD_GUIDE.md (dashboard user guide). Created docs/demo/SAMPLE_DASHBOARD_PREVIEW.md (fictional ASCII preview). Updated README with Local dashboard section. Updated client package to 56 files (added dashboard script + 2 docs). Updated PROJECTMAP, TASKS, ROADMAP, CHANGELOG, CLIENT_HANDOFF_CHECKLIST, RELEASE_CHECKLIST, export script. VERSION unchanged (0.4.9).
+
+2026-05-27 - v0.5.1: Improved local dashboard visual polish with better spacing, section hierarchy, summary cards, PASS/FAIL badges, table readability, empty states, CSS-only All/Passing/Failing filters, responsive table behavior, and print layout refinements. Updated DASHBOARD_GUIDE, SAMPLE_DASHBOARD_PREVIEW, README, PROJECTMAP, TASKS, ROADMAP, CHANGELOG. Package count unchanged at 56 files. VERSION unchanged (0.4.9).

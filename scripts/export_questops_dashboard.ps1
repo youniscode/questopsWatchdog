@@ -103,10 +103,15 @@ function Get-QuestFailedCategoryList {
 # Helper: build server table rows HTML
 # ---------------------------------------------------------------------------
 function Format-QuestDashboardServerRows {
-    param([object[]]$Results)
+    param([object[]]$Results, [string]$Filter = "all")
     $rows = ""
 
-    foreach ($svr in $Results) {
+    $filtered = @($Results)
+    if ($Filter -eq "passing") { $filtered = @($Results | Where-Object { $_.passed }) }
+    if ($Filter -eq "failing") { $filtered = @($Results | Where-Object { -not $_.passed }) }
+    if ($filtered.Count -eq 0) { return "" }
+
+    foreach ($svr in $filtered) {
         $svrPassed = if ($svr.passed) { $true } else { $false }
         $name = ConvertTo-QuestHtmlEncoded -Value (Get-QuestSafeString -Value $svr.server_name)
         $folder = ConvertTo-QuestHtmlEncoded -Value (Get-QuestSafeString -Value $svr.folder)
@@ -138,6 +143,99 @@ function Format-QuestDashboardServerRows {
     }
 
     return $rows
+}
+
+# ---------------------------------------------------------------------------
+# Helper: generate empty-state HTML for a filter view
+# ---------------------------------------------------------------------------
+function Get-QuestEmptyState {
+    param([string]$Filter)
+    if ($Filter -eq "passing") {
+        return '<div class="empty-state"><strong>No passing servers</strong><br>All servers have one or more failed checks.</div>'
+    }
+    if ($Filter -eq "failing") {
+        return '<div class="empty-state"><strong>All servers passing</strong><br>No servers have failed checks.</div>'
+    }
+    return ""
+}
+
+# ---------------------------------------------------------------------------
+# Helper: build failed server details HTML from a results array
+# ---------------------------------------------------------------------------
+function Format-QuestDashboardFailedDetails {
+    param([object[]]$Results)
+    $html = ""
+
+    foreach ($svr in $Results) {
+        $svrPassed = if ($svr.passed) { $true } else { $false }
+        if ($svrPassed) { continue }
+
+        $name = ConvertTo-QuestHtmlEncoded -Value (Get-QuestSafeString -Value $svr.server_name)
+        $failedCats = Get-QuestFailedCategoryList -Server $svr
+        $catList = ConvertTo-QuestHtmlEncoded -Value ($failedCats -join ", ")
+
+        $html += @"
+    <div class="fail-section">
+        <h3 class="fail-server-name">$name <span class="badge badge-fail">FAIL</span></h3>
+        <p><strong>Failed categories:</strong> $catList</p>
+        <ul class="fail-details">
+"@
+
+        if ($svr.PSObject.Properties.Name -contains "folder_exists" -and -not $svr.folder_exists) {
+            $folderPath = ConvertTo-QuestHtmlEncoded -Value (Get-QuestSafeString -Value $svr.folder)
+            $html += "<li><strong>Folder:</strong> Not found \u2014 $folderPath</li>`n"
+        }
+
+        if ($svr.PSObject.Properties.Name -contains "disk_ok" -and -not $svr.disk_ok) {
+            $free = Get-QuestSafeString -Value $svr.disk_free_human
+            $threshold = Get-QuestSafeString -Value $svr.disk_threshold
+            $html += "<li><strong>Disk:</strong> Free space $free is below threshold of $threshold GB</li>`n"
+        }
+
+        if ($svr.PSObject.Properties.Name -contains "process_running" -and -not $svr.process_running) {
+            $procName = ConvertTo-QuestHtmlEncoded -Value (Get-QuestSafeString -Value $svr.process)
+            $html += "<li><strong>Process:</strong> Not running \u2014 $procName</li>`n"
+        }
+
+        if ($svr.PSObject.Properties.Name -contains "network_ok" -and -not $svr.network_ok -and $svr.network_checks) {
+            foreach ($nc in $svr.network_checks) {
+                if ($nc.passed) { continue }
+                $ncName = ConvertTo-QuestHtmlEncoded -Value (Get-QuestSafeString -Value $nc.name)
+                $ncHost = ConvertTo-QuestHtmlEncoded -Value (Get-QuestSafeString -Value $nc.host)
+                $ncPort = Get-QuestSafeString -Value $nc.port
+                $ncError = ConvertTo-QuestHtmlEncoded -Value (Get-QuestSafeString -Value $nc.error)
+                $html += "<li><strong>Network:</strong> $ncName ($ncHost`:$ncPort) \u2014 $ncError</li>`n"
+            }
+        }
+
+        if ($svr.PSObject.Properties.Name -contains "logs_ok" -and -not $svr.logs_ok -and $svr.log_checks) {
+            foreach ($lc in $svr.log_checks) {
+                if ($lc.passed) { continue }
+                $lcName = ConvertTo-QuestHtmlEncoded -Value (Get-QuestSafeString -Value $lc.name)
+                $lcPath = ConvertTo-QuestHtmlEncoded -Value (Get-QuestSafeString -Value $lc.path)
+                $lcAge = Get-QuestSafeString -Value $lc.age_minutes
+                $lcMaxAge = Get-QuestSafeString -Value $lc.max_age_minutes
+                $html += "<li><strong>Logs:</strong> $lcName \u2014 $lcPath \u2014 Age $lcAge min (max $lcMaxAge min)</li>`n"
+            }
+        }
+
+        if ($svr.PSObject.Properties.Name -contains "resources_ok" -and -not $svr.resources_ok -and $svr.resource_checks) {
+            foreach ($rc in $svr.resource_checks) {
+                if ($rc.passed) { continue }
+                $rcName = ConvertTo-QuestHtmlEncoded -Value (Get-QuestSafeString -Value $rc.name)
+                $rcProc = ConvertTo-QuestHtmlEncoded -Value (Get-QuestSafeString -Value $rc.process)
+                $mem = Get-QuestSafeString -Value $rc.total_memory_mb
+                $maxMem = Get-QuestSafeString -Value $rc.max_memory_mb
+                $cpu = Get-QuestSafeString -Value $rc.total_cpu_percent
+                $maxCpu = Get-QuestSafeString -Value $rc.max_cpu_percent
+                $html += "<li><strong>Resources:</strong> $rcName ($rcProc) \u2014 Mem: $mem / $maxMem MB, CPU: $cpu / $maxCpu%</li>`n"
+            }
+        }
+
+        $html += "        </ul>`n    </div>`n"
+    }
+
+    return $html
 }
 
 # ---------------------------------------------------------------------------
@@ -273,85 +371,25 @@ if ($report.results) {
 }
 $historyCount = $historyReports.Count
 
-# --- Latest server table ---
-$serverTableRows = Format-QuestDashboardServerRows -Results $results
+# --- Build data for filter sections ---
+$totalCount = $results.Count
+$passingServers = @($results | Where-Object { $_.passed })
+$failingServers = @($results | Where-Object { -not $_.passed })
+$passingCount = $passingServers.Count
+$failingCount = $failingServers.Count
 
-# --- Failed server details ---
-$failedDetails = ""
-foreach ($svr in $results) {
-    $svrPassed = if ($svr.passed) { $true } else { $false }
-    if ($svrPassed) { continue }
+# --- Server table rows for each filter ---
+$allServerRows = Format-QuestDashboardServerRows -Results $results
+$passingServerRows = Format-QuestDashboardServerRows -Results $results -Filter "passing"
+$failingServerRows = Format-QuestDashboardServerRows -Results $results -Filter "failing"
 
-    $name = ConvertTo-QuestHtmlEncoded -Value (Get-QuestSafeString -Value $svr.server_name)
-    $failedCats = Get-QuestFailedCategoryList -Server $svr
-    $catList = ConvertTo-QuestHtmlEncoded -Value ($failedCats -join ", ")
+# --- Empty states ---
+$passingEmpty = if ($passingCount -eq 0) { Get-QuestEmptyState -Filter "passing" } else { "" }
+$failingEmpty = if ($failingCount -eq 0) { Get-QuestEmptyState -Filter "failing" } else { "" }
 
-    $failedDetails += @"
-    <div class="fail-section">
-        <h3 class="fail-server-name">$name <span class="badge badge-fail">FAIL</span></h3>
-        <p><strong>Failed categories:</strong> $catList</p>
-        <ul class="fail-details">
-"@
-
-    # Folder
-    if ($svr.PSObject.Properties.Name -contains "folder_exists" -and -not $svr.folder_exists) {
-        $folderPath = ConvertTo-QuestHtmlEncoded -Value (Get-QuestSafeString -Value $svr.folder)
-        $failedDetails += "<li><strong>Folder:</strong> Not found â€” $folderPath</li>`n"
-    }
-
-    # Disk
-    if ($svr.PSObject.Properties.Name -contains "disk_ok" -and -not $svr.disk_ok) {
-        $free = Get-QuestSafeString -Value $svr.disk_free_human
-        $threshold = Get-QuestSafeString -Value $svr.disk_threshold
-        $failedDetails += "<li><strong>Disk:</strong> Free space $free is below threshold of $threshold GB</li>`n"
-    }
-
-    # Process
-    if ($svr.PSObject.Properties.Name -contains "process_running" -and -not $svr.process_running) {
-        $procName = ConvertTo-QuestHtmlEncoded -Value (Get-QuestSafeString -Value $svr.process)
-        $failedDetails += "<li><strong>Process:</strong> Not running â€” $procName</li>`n"
-    }
-
-    # Network
-    if ($svr.PSObject.Properties.Name -contains "network_ok" -and -not $svr.network_ok -and $svr.network_checks) {
-        foreach ($nc in $svr.network_checks) {
-            if ($nc.passed) { continue }
-            $ncName = ConvertTo-QuestHtmlEncoded -Value (Get-QuestSafeString -Value $nc.name)
-            $ncHost = ConvertTo-QuestHtmlEncoded -Value (Get-QuestSafeString -Value $nc.host)
-            $ncPort = Get-QuestSafeString -Value $nc.port
-            $ncError = ConvertTo-QuestHtmlEncoded -Value (Get-QuestSafeString -Value $nc.error)
-            $failedDetails += "<li><strong>Network:</strong> $ncName ($ncHost`:$ncPort) â€” $ncError</li>`n"
-        }
-    }
-
-    # Logs
-    if ($svr.PSObject.Properties.Name -contains "logs_ok" -and -not $svr.logs_ok -and $svr.log_checks) {
-        foreach ($lc in $svr.log_checks) {
-            if ($lc.passed) { continue }
-            $lcName = ConvertTo-QuestHtmlEncoded -Value (Get-QuestSafeString -Value $lc.name)
-            $lcPath = ConvertTo-QuestHtmlEncoded -Value (Get-QuestSafeString -Value $lc.path)
-            $lcAge = Get-QuestSafeString -Value $lc.age_minutes
-            $lcMaxAge = Get-QuestSafeString -Value $lc.max_age_minutes
-            $failedDetails += "<li><strong>Logs:</strong> $lcName â€” $lcPath â€” Age $lcAge min (max $lcMaxAge min)</li>`n"
-        }
-    }
-
-    # Resources
-    if ($svr.PSObject.Properties.Name -contains "resources_ok" -and -not $svr.resources_ok -and $svr.resource_checks) {
-        foreach ($rc in $svr.resource_checks) {
-            if ($rc.passed) { continue }
-            $rcName = ConvertTo-QuestHtmlEncoded -Value (Get-QuestSafeString -Value $rc.name)
-            $rcProc = ConvertTo-QuestHtmlEncoded -Value (Get-QuestSafeString -Value $rc.process)
-            $mem = Get-QuestSafeString -Value $rc.total_memory_mb
-            $maxMem = Get-QuestSafeString -Value $rc.max_memory_mb
-            $cpu = Get-QuestSafeString -Value $rc.total_cpu_percent
-            $maxCpu = Get-QuestSafeString -Value $rc.max_cpu_percent
-            $failedDetails += "<li><strong>Resources:</strong> $rcName ($rcProc) â€” Mem: $mem / $maxMem MB, CPU: $cpu / $maxCpu%</li>`n"
-        }
-    }
-
-    $failedDetails += "        </ul>`n    </div>`n"
-}
+# --- Failed server details (for all and failing views) ---
+$failedDetailsAll = Format-QuestDashboardFailedDetails -Results $results
+$failedDetailsFailing = Format-QuestDashboardFailedDetails -Results $failingServers
 
 # --- History summary section ---
 $historyRows = ""
@@ -359,7 +397,6 @@ $passCount = 0
 $failCount = 0
 $mostRecentFailTimestamp = $null
 
-# Include the latest report in history trend if history exists
 $allReports = @()
 $allReports += $historyReports
 
@@ -375,13 +412,11 @@ foreach ($hr in $allReports) {
     }
 }
 
-# Also count latest report
 $latestPassed = if ($report.overall_pass) { $true } else { $false }
 if ($historyReports.Count -eq 0) {
     if ($latestPassed) { $passCount = 1 } else { $failCount = 1 }
 }
 
-# History summary table rows
 foreach ($hr in $historyReports) {
     $hrPassed = if ($hr.overall_pass) { $true } else { $false }
     $ts = ConvertTo-QuestHtmlEncoded -Value (Get-QuestSafeString -Value $hr.scan_timestamp_utc)
@@ -435,7 +470,6 @@ if (Test-Path -LiteralPath $latestHtmlPath) {
 $safeTitle = ConvertTo-QuestHtmlEncoded -Value $Title
 $overallBadge = Get-QuestStatusBadge -Value $overallPass
 
-# History warning section
 $historyWarningHtml = ""
 if ($historyWarnings.Count -gt 0) {
     $historyWarningHtml = @"
@@ -459,66 +493,105 @@ $html = @"
 <title>$safeTitle</title>
 <style>
 * { margin: 0; padding: 0; box-sizing: border-box; }
-body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif; background: #f5f7fa; color: #1a1a2e; line-height: 1.6; padding: 20px; }
+body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; background: #f0f2f5; color: #1a1a2e; line-height: 1.6; padding: 24px; }
 .container { max-width: 1200px; margin: 0 auto; }
-h1 { font-size: 1.6em; margin-bottom: 4px; color: #1a1a2e; }
-h2 { font-size: 1.2em; margin: 20px 0 10px; color: #1a1a2e; }
-h3 { font-size: 1em; margin: 0 0 8px; color: #444; }
-.header-meta { font-size: 0.85em; color: #666; margin-bottom: 20px; }
-.header-meta p { margin: 2px 0; }
+h1 { font-size: 1.5em; margin-bottom: 2px; color: #111; font-weight: 700; }
+h2 { font-size: 1.1em; margin: 24px 0 12px; color: #222; border-bottom: 2px solid #e0e3e8; padding-bottom: 6px; }
+h3 { font-size: 1em; margin: 0 0 8px; color: #444; font-weight: 600; }
+.header-meta { font-size: 0.82em; color: #777; margin-bottom: 24px; }
+.header-meta p { margin: 1px 0; }
 .overall-row { display: flex; align-items: center; gap: 12px; margin-bottom: 24px; }
-.overall-row h2 { margin: 0; }
+.overall-row h2 { margin: 0; border: none; padding: 0; }
 .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 12px; margin-bottom: 28px; }
-.stat-card { background: #fff; border: 1px solid #e0e3e8; border-radius: 8px; padding: 16px; text-align: center; }
+.stat-card { background: #fff; border: 1px solid #e0e3e8; border-radius: 10px; padding: 18px 14px; text-align: center; box-shadow: 0 1px 3px rgba(0,0,0,0.04); }
 .stat-card .stat-value { font-size: 1.8em; font-weight: 700; line-height: 1.2; }
-.stat-card .stat-label { font-size: 0.78em; color: #666; margin-top: 4px; text-transform: uppercase; letter-spacing: 0.5px; }
+.stat-card .stat-label { font-size: 0.75em; color: #777; margin-top: 6px; text-transform: uppercase; letter-spacing: 0.5px; font-weight: 600; }
 .stat-pass .stat-value { color: #1a7f37; }
 .stat-fail .stat-value { color: #cf222e; }
-.badge { display: inline-block; padding: 2px 10px; border-radius: 4px; font-size: 0.78em; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; vertical-align: middle; }
+.badge { display: inline-block; padding: 2px 10px; border-radius: 4px; font-size: 0.78em; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; vertical-align: middle; line-height: 1.4; }
 .badge-pass { background: #dafbe1; color: #1a7f37; border: 1px solid #a6e3b1; }
 .badge-fail { background: #ffebe9; color: #cf222e; border: 1px solid #ffb8b0; }
-.server-table { width: 100%; border-collapse: collapse; font-size: 0.88em; margin-bottom: 20px; background: #fff; border: 1px solid #e0e3e8; border-radius: 8px; overflow: hidden; }
-.server-table th { background: #f0f2f5; text-align: left; padding: 10px 12px; font-weight: 600; border-bottom: 2px solid #d0d4dc; font-size: 0.85em; text-transform: uppercase; letter-spacing: 0.3px; }
+.filter-controls { margin-bottom: 16px; }
+.filter-radio { position: absolute; opacity: 0; width: 0; height: 0; }
+.filter-tabs { display: flex; gap: 4px; flex-wrap: wrap; }
+.filter-tabs label { display: inline-block; padding: 8px 20px; font-size: 0.88em; font-weight: 600; border: 1px solid #d0d4dc; border-radius: 6px 6px 0 0; background: #f5f7fa; color: #555; cursor: pointer; user-select: none; }
+.filter-tabs label:hover { background: #e8eaed; }
+.filter-content { display: none; }
+#filter-all:checked ~ .filter-tabs label[for="filter-all"],
+#filter-passing:checked ~ .filter-tabs label[for="filter-passing"],
+#filter-failing:checked ~ .filter-tabs label[for="filter-failing"] { background: #fff; color: #111; border-bottom-color: #fff; }
+#filter-all:checked ~ .filter-sections .filter-section[data-filter="all"],
+#filter-passing:checked ~ .filter-sections .filter-section[data-filter="passing"],
+#filter-failing:checked ~ .filter-sections .filter-section[data-filter="failing"] { display: block; }
+.table-wrapper { overflow-x: auto; margin-bottom: 20px; border-radius: 8px; border: 1px solid #e0e3e8; background: #fff; }
+.server-table { width: 100%; border-collapse: collapse; font-size: 0.85em; border: none; }
+.server-table th { background: #f0f2f5; text-align: left; padding: 10px 12px; font-weight: 600; border-bottom: 2px solid #d0d4dc; font-size: 0.8em; text-transform: uppercase; letter-spacing: 0.3px; color: #444; white-space: nowrap; }
 .server-table td { padding: 10px 12px; border-bottom: 1px solid #e8eaed; vertical-align: middle; }
 .server-table tr:last-child td { border-bottom: none; }
-.server-table .cell-server { min-width: 180px; }
-.server-table .cell-server .badge { float: right; }
+.server-table .cell-server { min-width: 180px; font-weight: 600; }
+.server-table .cell-server .badge { float: right; margin-top: 1px; }
 .server-pass td { background: #f6fdf8; }
-.server-fail td { background: #fff8f8; }
+.server-fail td { background: #fff5f5; }
 .server-fail .cell-server { border-left: 3px solid #cf222e; }
 .server-pass .cell-server { border-left: 3px solid #1a7f37; }
-.server-table td .badge { font-size: 0.75em; }
-.fail-section { background: #fff; border: 1px solid #e0e3e8; border-radius: 8px; padding: 14px 18px; margin-bottom: 12px; border-left: 3px solid #cf222e; }
-.fail-server-name { font-size: 1em; margin-bottom: 6px; }
+.server-table td .badge { font-size: 0.72em; }
+.filter-section h2 .badge { font-size: 0.75em; vertical-align: middle; margin-left: 6px; }
+.fail-section { background: #fff; border: 1px solid #e0e3e8; border-radius: 8px; padding: 14px 18px; margin-bottom: 12px; border-left: 3px solid #cf222e; box-shadow: 0 1px 3px rgba(0,0,0,0.04); }
+.fail-server-name { font-size: 1em; margin-bottom: 6px; color: #cf222e; }
 .fail-server-name .badge { font-size: 0.7em; vertical-align: middle; margin-left: 6px; }
 .fail-details { margin: 8px 0 0 18px; font-size: 0.88em; }
 .fail-details li { margin-bottom: 4px; color: #333; }
+.fail-details li strong { color: #111; }
 .history-section { margin-bottom: 20px; }
-.history-table { width: 100%; border-collapse: collapse; font-size: 0.85em; background: #fff; border: 1px solid #e0e3e8; border-radius: 8px; overflow: hidden; }
-.history-table th { background: #f0f2f5; text-align: left; padding: 8px 10px; font-weight: 600; border-bottom: 2px solid #d0d4dc; font-size: 0.82em; text-transform: uppercase; letter-spacing: 0.3px; }
+.history-wrapper { overflow-x: auto; border-radius: 8px; border: 1px solid #e0e3e8; background: #fff; }
+.history-table { width: 100%; border-collapse: collapse; font-size: 0.83em; border: none; }
+.history-table th { background: #f0f2f5; text-align: left; padding: 8px 10px; font-weight: 600; border-bottom: 2px solid #d0d4dc; font-size: 0.78em; text-transform: uppercase; letter-spacing: 0.3px; color: #444; white-space: nowrap; }
 .history-table td { padding: 8px 10px; border-bottom: 1px solid #e8eaed; }
 .history-table tr:last-child td { border-bottom: none; }
 .history-pass td { background: #f6fdf8; }
-.history-fail td { background: #fff8f8; }
-.history-table .badge { font-size: 0.7em; }
+.history-fail td { background: #fff5f5; }
+.history-table .badge { font-size: 0.68em; }
 .trend-section { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px; margin-bottom: 20px; }
-.trend-card { background: #fff; border: 1px solid #e0e3e8; border-radius: 8px; padding: 16px; }
-.trend-card h3 { font-size: 0.95em; margin-bottom: 10px; color: #555; }
-.trend-table { width: 100%; border-collapse: collapse; font-size: 0.88em; }
+.trend-card { background: #fff; border: 1px solid #e0e3e8; border-radius: 8px; padding: 16px; box-shadow: 0 1px 3px rgba(0,0,0,0.04); }
+.trend-card h3 { font-size: 0.92em; margin-bottom: 10px; color: #555; border: none; padding: 0; }
+.trend-table { width: 100%; border-collapse: collapse; font-size: 0.85em; }
 .trend-table th { text-align: left; padding: 5px 8px; font-weight: 600; border-bottom: 1px solid #e0e3e8; background: #fafbfc; }
 .trend-table td { padding: 5px 8px; border-bottom: 1px solid #e8eaed; }
 .trend-table tr:last-child td { border-bottom: none; }
 .trend-pass { color: #1a7f37; font-weight: 700; }
 .trend-fail { color: #cf222e; font-weight: 700; }
-.references { font-size: 0.85em; color: #555; border-top: 1px solid #e0e3e8; padding-top: 14px; margin-top: 10px; }
+.references { font-size: 0.83em; color: #666; border-top: 1px solid #e0e3e8; padding-top: 16px; margin-top: 14px; }
 .references p { margin: 3px 0; }
-.references code { background: #f0f2f5; padding: 1px 5px; border-radius: 3px; font-size: 0.92em; }
+.references code { background: #f0f2f5; padding: 1px 5px; border-radius: 3px; font-size: 0.9em; }
 .warning-section { background: #fff8e1; border: 1px solid #f0c000; border-radius: 8px; padding: 12px 16px; margin-bottom: 16px; }
-.warning-section h3 { color: #8a6d00; margin-bottom: 6px; }
+.warning-section h3 { color: #8a6d00; margin-bottom: 6px; font-size: 0.95em; border: none; padding: 0; }
 .warning-section ul { margin-left: 18px; font-size: 0.88em; }
 .warning-section li { margin-bottom: 3px; color: #5a4a00; }
-@media print { body { background: #fff; padding: 10px; } .server-table { break-inside: avoid; } .fail-section { break-inside: avoid; } }
-@media (max-width: 768px) { .stats-grid { grid-template-columns: repeat(2, 1fr); } .server-table { font-size: 0.78em; } .server-table th, .server-table td { padding: 6px 8px; } .server-table .cell-server { min-width: 120px; } }
+.empty-state { text-align: center; padding: 28px 16px; color: #777; font-size: 0.9em; background: #fafbfc; border: 1px dashed #d0d4dc; border-radius: 8px; margin-bottom: 20px; }
+.empty-state strong { color: #555; }
+@media print {
+  body { background: #fff; padding: 10px; font-size: 11pt; }
+  .filter-controls { display: none !important; }
+  .filter-content { display: block !important; }
+  .stats-grid { break-inside: avoid; page-break-inside: avoid; }
+  .table-wrapper { break-inside: avoid; page-break-inside: avoid; border: 1px solid #ccc; }
+  .fail-section { break-inside: avoid; page-break-inside: avoid; }
+  .history-wrapper { break-inside: avoid; page-break-inside: avoid; }
+  .trend-section { break-inside: avoid; page-break-inside: avoid; }
+  .overall-row { break-inside: avoid; page-break-inside: avoid; }
+  .warning-section { display: none !important; }
+  .empty-state { border: 1px solid #ccc; }
+}
+@media (max-width: 768px) {
+  body { padding: 12px; }
+  .stats-grid { grid-template-columns: repeat(2, 1fr); gap: 8px; }
+  .stat-card { padding: 12px 10px; }
+  .stat-card .stat-value { font-size: 1.4em; }
+  .server-table { font-size: 0.75em; }
+  .server-table th, .server-table td { padding: 6px 6px; }
+  .server-table .cell-server { min-width: 100px; }
+  .filter-tabs label { padding: 6px 12px; font-size: 0.8em; }
+}
 </style>
 </head>
 <body>
@@ -560,35 +633,66 @@ h3 { font-size: 1em; margin: 0 0 8px; color: #444; }
 
 $historyWarningHtml
 
-<h2>Latest Server Status</h2>
-<table class="server-table">
-    <tr>
-        <th>Server</th>
-        <th>Folder</th>
-        <th>Disk</th>
-        <th>Process</th>
-        <th>Network</th>
-        <th>Logs</th>
-        <th>Resources</th>
-    </tr>
-$serverTableRows
-</table>
+<div class="filter-controls">
+<input type="radio" name="filter" id="filter-all" class="filter-radio" checked>
+<input type="radio" name="filter" id="filter-passing" class="filter-radio">
+<input type="radio" name="filter" id="filter-failing" class="filter-radio">
 
-<h2>Failed Server Details</h2>
-$failedDetails
+<div class="filter-tabs">
+    <label for="filter-all">All Servers ($totalCount)</label>
+    <label for="filter-passing">Passing ($passingCount)</label>
+    <label for="filter-failing">Failing ($failingCount)</label>
+</div>
+
+<div class="filter-sections">
+
+<div class="filter-section filter-content" data-filter="all">
+    <h2>All Servers</h2>
+    <div class="table-wrapper">
+    <table class="server-table">
+        <tr><th>Server</th><th>Folder</th><th>Disk</th><th>Process</th><th>Network</th><th>Logs</th><th>Resources</th></tr>
+$allServerRows
+    </table>
+    </div>
+    <h2>Failed Server Details</h2>
+$failedDetailsAll
+</div>
+
+<div class="filter-section filter-content" data-filter="passing">
+    <h2>Passing Servers <span class="badge badge-pass">PASS</span></h2>
+$passingEmpty
+    <div class="table-wrapper">
+    <table class="server-table">
+        <tr><th>Server</th><th>Folder</th><th>Disk</th><th>Process</th><th>Network</th><th>Logs</th><th>Resources</th></tr>
+$passingServerRows
+    </table>
+    </div>
+</div>
+
+<div class="filter-section filter-content" data-filter="failing">
+    <h2>Failing Servers <span class="badge badge-fail">FAIL</span></h2>
+$failingEmpty
+    <div class="table-wrapper">
+    <table class="server-table">
+        <tr><th>Server</th><th>Folder</th><th>Disk</th><th>Process</th><th>Network</th><th>Logs</th><th>Resources</th></tr>
+$failingServerRows
+    </table>
+    </div>
+    <h2>Failed Server Details</h2>
+$failedDetailsFailing
+</div>
+
+</div>
+</div>
 
 <h2>History Summary</h2>
 <div class="history-section">
+<div class="history-wrapper">
 <table class="history-table">
-    <tr>
-        <th>Timestamp</th>
-        <th>Status</th>
-        <th>Servers</th>
-        <th>Failed Checks</th>
-        <th>Failed Servers</th>
-    </tr>
+    <tr><th>Timestamp</th><th>Status</th><th>Servers</th><th>Failed Checks</th><th>Failed Servers</th></tr>
 $historyRows
 </table>
+</div>
 </div>
 
 <h2>Trend Summary</h2>

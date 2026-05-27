@@ -211,8 +211,12 @@
 - [x] Create docs/demo/SAMPLE_DASHBOARD_PREVIEW.md — fictional ASCII layout preview
 - [x] Update client package to include dashboard script and docs (56 files)
 
-## v0.5.1 — Dashboard Visual Polish and Status Filters (upcoming)
-- [ ] Visual polish: improved table styling, colour contrast, spacing
-- [ ] Status filter tabs (All / Pass / Fail) without JavaScript
-- [ ] Responsive improvements for smaller screens
-- [ ] Print layout refinements
+## v0.5.1 — Dashboard Visual Polish and Status Filters (shipped)
+- [x] Visual polish: improved spacing, hierarchy, summary cards, PASS/FAIL badges, section separation
+- [x] CSS-only radio tab status filters (All Servers / Passing / Failing) without JavaScript
+- [x] Responsive layout (overflow-x table scroll, smaller screens)
+- [x] Print layout refinements (hidden controls, page-break avoidance, black/white contrast)
+- [x] Empty-state messages for filters with no results
+- [x] Updated dashboard docs and project docs
+
+## v0.5.2 — Dashboard History Trend Polish (upcoming)

@@ -179,6 +179,15 @@
 | Done   | - Update package references from 53 to 56 files |
 | Done   | - Update export_questops_audit_package.ps1 (include dashboard script + 2 docs) |
 
+| Done   | v0.5.1 - Dashboard visual polish and status filters |
+| Done   | - Visual polish: improved spacing, hierarchy, summary cards, PASS/FAIL badges, section separation |
+| Done   | - CSS-only radio tab status filters (All Servers / Passing / Failing) without JavaScript |
+| Done   | - Responsive layout (overflow-x table scroll, smaller screens) |
+| Done   | - Print layout refinements (hidden controls, page-break avoidance, black/white contrast) |
+| Done   | - Empty-state messages for filters with no results |
+| Done   | - Updated DASHBOARD_GUIDE.md, SAMPLE_DASHBOARD_PREVIEW.md, README.md, PROJECTMAP.md, ROADMAP.md, CHANGELOG.md |
+| Done   | - Package count unchanged (56 files) |
+
 ## Upcoming
 
-- v0.5.1 - Dashboard visual polish and status filters
+- v0.5.2 - Dashboard history trend polish

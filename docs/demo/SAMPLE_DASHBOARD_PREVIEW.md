@@ -21,7 +21,13 @@ Below is a fictional example showing what the dashboard looks like with sample d
 │  │    2     │ │    1    │ │    1    │ │    1    │ │    5    │       │
 │  └─────────┘ └─────────┘ └─────────┘ └─────────┘ └─────────┘       │
 │                                                                      │
-│  Latest Server Status                                               │
+│  ┌─────────────────────────────────────────────────────────────┐    │
+│  │  [ All Servers (2) ]  [ Passing (1) ]  [ Failing (1) ]     │    │
+│  └─────────────────────────────────────────────────────────────┘    │
+│                                                                      │
+│  (Showing All Servers view)                                         │
+│                                                                      │
+│  All Servers                                                        │
 │  ┌───────────────┬───────┬──────┬───────┬───────┬──────┬──────────┐ │
 │  │ Server        │Folder │Disk  │Process│Netwk  │Logs  │Resources │ │
 │  ├───────────────┼───────┼──────┼───────┼───────┼──────┼──────────┤ │
@@ -72,14 +78,28 @@ Below is a fictional example showing what the dashboard looks like with sample d
 
 ## Summary cards
 
-Five cards at the top show:
+Five polished cards at the top show:
 - **Total Servers** — number of servers configured
 - **Passed** — number of servers where all checks passed
 - **Failed** — number of servers where one or more checks failed
 - **Failed Servers** — distinct count of failing servers
 - **History Loaded** — number of historical reports loaded for the history/trend sections
 
-## Latest server table
+Cards use soft shadows, rounded corners, and color-coded values for quick scanning.
+
+## Status filter tabs
+
+Below the summary cards, three CSS-only radio tab filters let you switch between views without JavaScript:
+
+| Tab | Shows |
+|-----|-------|
+| **All Servers (N)** | All servers, all failed details |
+| **Passing (N)** | Passing servers only, empty state if none |
+| **Failing (N)** | Failing servers only, failed details, empty state if none |
+
+Each tab label shows the server count. Clicking a tab instantly switches the displayed view using CSS `:checked` and sibling selectors. All three views exist in the HTML; only one is visible at a time.
+
+## Server table (per filter view)
 
 Seven-column table showing each server's check statuses:
 - Server name with PASS/FAIL badge
@@ -90,11 +110,17 @@ Seven-column table showing each server's check statuses:
 - Logs (log file freshness)
 - Resources (process CPU/memory)
 
-Failed rows have a red left border and light red background.
+Failed rows have a red left border and light red background. Passing rows have a green left border.
+
+## Empty states
+
+When a filter has no matching servers, a clear message is shown:
+- **All servers passing** — shown when no servers have failed checks (Failing tab)
+- **No passing servers** — shown when all servers have one or more failed checks (Passing tab)
 
 ## Failed server details
 
-Each failing server has its own section showing:
+Each failing server has its own section (shown under All and Failing views) with:
 - Which categories failed (folder, disk, process, network, logs, resources)
 - Explanation per category:
   - Folder not found with the path
@@ -122,7 +148,17 @@ Text-based trend section showing:
 - Count of FAIL reports in history
 - Timestamp of the most recent failure
 
-No charts in v0.5.0 — charts may come in a future version.
+No charts in v0.5.x — charts may come in a future version.
+
+## Print-friendly layout
+
+When printed or saved as PDF:
+- Filter tabs are hidden
+- All server views show together (no toggling needed)
+- Page breaks are avoided inside cards, tables, and sections
+- Warning boxes are hidden
+- High-contrast black/white text for readability
+- Tables and cards have visible borders for monochrome printing
 
 ## Notes
 
