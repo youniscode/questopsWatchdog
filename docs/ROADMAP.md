@@ -242,4 +242,11 @@
 - [x] Updated README, DASHBOARD_GUIDE, docs/assets/README, PROJECTMAP, TASKS, ROADMAP, CHANGELOG
 - [x] Package count unchanged (56 files), VERSION unchanged (0.4.9)
 
-## v0.5.5 — Dashboard release candidate package review (upcoming)
+## v0.5.5 — Dashboard release candidate package review (shipped)
+- [x] Created DASHBOARD_RELEASE_CANDIDATE_REVIEW.md — release candidate checklist with scope, validation scenarios, package review, GitHub readiness, release decision
+- [x] Created DASHBOARD_RC_PACKAGE_CONTENTS.md — expected 56 files, included/excluded categories, inspect commands
+- [x] Created DASHBOARD_RC_SIGNOFF_NOTES.md — review date, reviewer, pass/fail, known limitations, next decision
+- [x] Updated README, PROJECTMAP, TASKS, ROADMAP, CHANGELOG
+- [x] Package count unchanged (56 files), VERSION unchanged (0.4.9)
+
+## v0.5.6 — Dashboard release notes preparation (upcoming)

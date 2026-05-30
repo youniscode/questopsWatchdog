@@ -216,6 +216,15 @@
 | Done   | - Package count unchanged (56 files), VERSION unchanged (0.4.9) |
 | Done   | - docs/dashboard/ remains excluded from client package |
 
+| Done   | v0.5.5 - Dashboard release candidate package review |
+| Done   | - Created DASHBOARD_RELEASE_CANDIDATE_REVIEW.md (release candidate checklist: scope, validation, package, GitHub readiness, release decision) |
+| Done   | - Created DASHBOARD_RC_PACKAGE_CONTENTS.md (expected 56 files, included/excluded categories, inspect commands) |
+| Done   | - Created DASHBOARD_RC_SIGNOFF_NOTES.md (review date, reviewer, pass/fail, known limitations, next decision) |
+| Done   | - Updated README with link to DASHBOARD_RELEASE_CANDIDATE_REVIEW.md in Local dashboard section |
+| Done   | - Updated PROJECTMAP, TASKS, ROADMAP, CHANGELOG |
+| Done   | - Package count unchanged (56 files), VERSION unchanged (0.4.9) |
+| Done   | - docs/release/ remains excluded from client package |
+
 ## Upcoming
 
-- v0.5.5 - Dashboard release candidate package review
+- v0.5.6 - Dashboard release notes preparation

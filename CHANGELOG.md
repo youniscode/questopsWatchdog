@@ -1,5 +1,16 @@
 # QuestOps Watchdog — Changelog
 
+## v0.5.5 — Dashboard Release Candidate Package Review (unreleased)
+
+- Added DASHBOARD_RELEASE_CANDIDATE_REVIEW.md — release candidate review checklist with scope, validation scenarios, package review, GitHub readiness, and release decision
+- Added DASHBOARD_RC_PACKAGE_CONTENTS.md — expected 56-file package contents review with included/excluded category tables and inspect commands
+- Added DASHBOARD_RC_SIGNOFF_NOTES.md — sign-off document with review date, reviewer, pass/fail, known limitations, and next decision
+- Updated README.md with link to DASHBOARD_RELEASE_CANDIDATE_REVIEW.md in Local dashboard section
+- Updated PROJECTMAP.md, TASKS.md, ROADMAP.md, CHANGELOG.md
+- Package count unchanged (56 files)
+- VERSION unchanged (0.4.9)
+- docs/release/ remains excluded from client package
+
 ## v0.5.4 — Dashboard Release Readiness and Screenshot Pass (unreleased)
 
 - Created DASHBOARD_RELEASE_READINESS_CHECKLIST.md — QA checklist covering scope, scenarios, security, package, browser, and screenshot readiness

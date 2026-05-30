@@ -210,12 +210,15 @@ questops-watchdog/
 | `docs/assets/` | Screenshots, images, and media assets for documentation. |
 | `docs/assets/placeholders/` | Screenshot placeholder docs — describe future screenshots without real images. |
 | `docs/launch/` | Internal outreach and beta audit workflow docs — not included in client tool package. |
-| `docs/release/` | Internal release preparation docs — not included in client tool package. |
+| `docs/release/` | Internal release preparation docs and dashboard release candidate review docs — not included in client tool package. |
 | `docs/qa/` | Internal quality assurance review checklists — not included in client tool package. |
 | `docs/dashboard/` | Internal v0.5 dashboard planning, release readiness, screenshot pass, and validation docs — not included in client tool package. |
 | `docs/dashboard/DASHBOARD_RELEASE_READINESS_CHECKLIST.md` | Dashboard release QA checklist — scope, scenarios, security, package, browser, screenshot, sign-off. |
 | `docs/dashboard/DASHBOARD_SCREENSHOT_PASS.md` | Dashboard screenshot capture plan — 10 screenshots, naming convention, safe demo data, redaction. |
 | `docs/dashboard/DASHBOARD_FINAL_VALIDATION_COMMANDS.md` | One-page dashboard validation commands — copy/paste reference for the entire dashboard. |
+| `docs/release/DASHBOARD_RELEASE_CANDIDATE_REVIEW.md` | Dashboard release candidate review checklist — scope, validation, package, GitHub readiness, release decision. |
+| `docs/release/DASHBOARD_RC_PACKAGE_CONTENTS.md` | Dashboard RC package contents review — expected 56 files, included/excluded categories, inspect commands. |
+| `docs/release/DASHBOARD_RC_SIGNOFF_NOTES.md` | Dashboard RC sign-off notes — review date, reviewer, pass/fail, known limitations, next decision. |
 | `docs/audit/` | Internal beta audit reporting template docs — not included in client tool package. |
 | `docs/website/` | Public-facing website copy, wireframe, snippets, and SEO guidance. |
 | `docs/DASHBOARD_GUIDE.md` | Local dashboard user guide — generation, data sources, security, troubleshooting. |
@@ -1011,3 +1014,5 @@ These rules bind every AI agent that modifies this repository.
 2026-05-27 - v0.5.3: Improved local dashboard error-state handling with safe error pages for missing/malformed reports, report shape validation, safe field accessors, consolidated warning box, inferred defaults for missing fields, and graceful optional field handling. Updated DASHBOARD_GUIDE, SAMPLE_DASHBOARD_PREVIEW, README, PROJECTMAP, TASKS, ROADMAP, CHANGELOG. Package count unchanged at 56 files. VERSION unchanged (0.4.9).
 
 2026-05-27 - v0.5.4: Added dashboard release readiness checklist, screenshot pass plan, and final validation commands. Created DASHBOARD_RELEASE_READINESS_CHECKLIST, DASHBOARD_SCREENSHOT_PASS, DASHBOARD_FINAL_VALIDATION_COMMANDS. Updated README, DASHBOARD_GUIDE, assets README, PROJECTMAP, TASKS, ROADMAP, CHANGELOG. Package count unchanged at 56 files. VERSION unchanged (0.4.9).
+
+2026-05-27 - v0.5.5: Added dashboard release candidate review docs. Created DASHBOARD_RELEASE_CANDIDATE_REVIEW, DASHBOARD_RC_PACKAGE_CONTENTS, DASHBOARD_RC_SIGNOFF_NOTES under docs/release/. Updated README, PROJECTMAP, TASKS, ROADMAP, CHANGELOG. Package count unchanged at 56 files. VERSION unchanged (0.4.9). docs/release/ remains excluded from client package.
