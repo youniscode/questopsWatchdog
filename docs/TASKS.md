@@ -225,6 +225,15 @@
 | Done   | - Package count unchanged (56 files), VERSION unchanged (0.4.9) |
 | Done   | - docs/release/ remains excluded from client package |
 
+| Done   | v0.5.6 - Dashboard release notes preparation |
+| Done   | - Created DASHBOARD_RELEASE_NOTES_DRAFT_v0.5.md (draft release notes: summary, highlights, limitations, validation checklist, tagging note) |
+| Done   | - Created DASHBOARD_PUBLIC_ANNOUNCEMENT_DRAFT.md (GitHub release, Discord, LinkedIn, forum, CTA drafts) |
+| Done   | - Created DASHBOARD_RELEASE_NOTES_CHECKLIST.md (pre-release, git/tag, GitHub release, post-release checklist) |
+| Done   | - Updated README with link to DASHBOARD_RELEASE_NOTES_DRAFT_v0.5.md in Local dashboard section |
+| Done   | - Updated PROJECTMAP, TASKS, ROADMAP, CHANGELOG |
+| Done   | - Package count unchanged (56 files), VERSION unchanged (0.4.9) |
+| Done   | - docs/release/ remains excluded from client package |
+
 ## Upcoming
 
-- v0.5.6 - Dashboard release notes preparation
+- v0.5.7 - Dashboard release build dry run

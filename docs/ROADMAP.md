@@ -249,4 +249,11 @@
 - [x] Updated README, PROJECTMAP, TASKS, ROADMAP, CHANGELOG
 - [x] Package count unchanged (56 files), VERSION unchanged (0.4.9)
 
-## v0.5.6 — Dashboard release notes preparation (upcoming)
+## v0.5.6 — Dashboard release notes preparation (shipped)
+- [x] Created DASHBOARD_RELEASE_NOTES_DRAFT_v0.5.md — draft release notes covering all dashboard milestones v0.5.0–v0.5.5
+- [x] Created DASHBOARD_PUBLIC_ANNOUNCEMENT_DRAFT.md — GitHub release, Discord, LinkedIn, and forum announcement templates
+- [x] Created DASHBOARD_RELEASE_NOTES_CHECKLIST.md — pre-release validation, git/tag, GitHub release, and post-release checklist
+- [x] Updated README, PROJECTMAP, TASKS, ROADMAP, CHANGELOG
+- [x] Package count unchanged (56 files), VERSION unchanged (0.4.9)
+
+## v0.5.7 — Dashboard release build dry run (upcoming)

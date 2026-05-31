@@ -1,5 +1,16 @@
 # QuestOps Watchdog — Changelog
 
+## v0.5.6 — Dashboard Release Notes Preparation (unreleased)
+
+- Added DASHBOARD_RELEASE_NOTES_DRAFT_v0.5.md — draft release notes for a future dashboard release, covering v0.5.0 through v0.5.5 with summary, highlights, known limitations, and tagging note
+- Added DASHBOARD_PUBLIC_ANNOUNCEMENT_DRAFT.md — public announcement templates for GitHub release, Discord, LinkedIn, and forum posts
+- Added DASHBOARD_RELEASE_NOTES_CHECKLIST.md — checklist for turning draft notes into a real tagged release (validation, git, GitHub, post-release)
+- Updated README.md with link to DASHBOARD_RELEASE_NOTES_DRAFT_v0.5.md in Local dashboard section
+- Updated PROJECTMAP.md, TASKS.md, ROADMAP.md, CHANGELOG.md
+- Package count unchanged (56 files)
+- VERSION unchanged (0.4.9)
+- docs/release/ remains excluded from client package
+
 ## v0.5.5 — Dashboard Release Candidate Package Review (unreleased)
 
 - Added DASHBOARD_RELEASE_CANDIDATE_REVIEW.md — release candidate review checklist with scope, validation scenarios, package review, GitHub readiness, and release decision
