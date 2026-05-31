@@ -234,6 +234,15 @@
 | Done   | - Package count unchanged (56 files), VERSION unchanged (0.4.9) |
 | Done   | - docs/release/ remains excluded from client package |
 
+| Done   | v0.5.7 - Dashboard release build dry run |
+| Done   | - Created DASHBOARD_RELEASE_BUILD_DRY_RUN.md (dry-run guide: validation steps, expected results, troubleshooting) |
+| Done   | - Created DASHBOARD_RELEASE_BUILD_DRY_RUN_RESULTS.md (fill-in results template) |
+| Done   | - Created DASHBOARD_RELEASE_BUILD_PRECHECKS.md (pre-build precheck list) |
+| Done   | - Updated README with link to DASHBOARD_RELEASE_BUILD_DRY_RUN.md in Local dashboard section |
+| Done   | - Updated PROJECTMAP, TASKS, ROADMAP, CHANGELOG |
+| Done   | - Package count unchanged (56 files), VERSION unchanged (0.4.9) |
+| Done   | - docs/release/ remains excluded from client package |
+
 ## Upcoming
 
-- v0.5.7 - Dashboard release build dry run
+- v0.5.8 - Dashboard release decision and version planning

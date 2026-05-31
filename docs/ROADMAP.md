@@ -256,4 +256,11 @@
 - [x] Updated README, PROJECTMAP, TASKS, ROADMAP, CHANGELOG
 - [x] Package count unchanged (56 files), VERSION unchanged (0.4.9)
 
-## v0.5.7 — Dashboard release build dry run (upcoming)
+## v0.5.7 — Dashboard release build dry run (shipped)
+- [x] Created DASHBOARD_RELEASE_BUILD_DRY_RUN.md — dry-run guide with validation steps, expected results, troubleshooting
+- [x] Created DASHBOARD_RELEASE_BUILD_DRY_RUN_RESULTS.md — fill-in results template
+- [x] Created DASHBOARD_RELEASE_BUILD_PRECHECKS.md — pre-build precheck list
+- [x] Updated README, PROJECTMAP, TASKS, ROADMAP, CHANGELOG
+- [x] Package count unchanged (56 files), VERSION unchanged (0.4.9)
+
+## v0.5.8 — Dashboard release decision and version planning (upcoming)

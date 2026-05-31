@@ -13,7 +13,7 @@ Free, open-source, no cloud, no telemetry.
 ## Current status
 
 **Current tagged release:** v0.4.9
-**Latest repository milestone:** v0.5.6 — Dashboard Release Notes Preparation
+**Latest repository milestone:** v0.5.7 — Dashboard Release Build Dry Run
 
 The `VERSION` file stays at 0.4.9 until the next tagged release. Repository milestones track unreleased work-in-progress.
 
@@ -761,6 +761,7 @@ powershell -NoProfile -ExecutionPolicy Bypass -File scripts\uninstall_questops_t
 | v0.5.4 | Dashboard release readiness and screenshot pass **(shipped)** |
 | v0.5.5 | Dashboard release candidate package review **(shipped)** |
 | v0.5.6 | Dashboard release notes preparation **(shipped)** |
+| v0.5.7 | Dashboard release build dry run **(shipped)** |
 
 Full details in `docs/ROADMAP.md`.
 
@@ -797,6 +798,7 @@ The dashboard includes safe error pages: if the JSON report is missing or malfor
 - [Final validation commands](docs/dashboard/DASHBOARD_FINAL_VALIDATION_COMMANDS.md) — one-page dashboard validation
 - [Dashboard release candidate review](docs/release/DASHBOARD_RELEASE_CANDIDATE_REVIEW.md) — internal/operator release review (not required for normal usage)
 - [Dashboard release notes draft](docs/release/DASHBOARD_RELEASE_NOTES_DRAFT_v0.5.md) — draft release notes for a future dashboard release (not required for normal usage)
+- [Dashboard release build dry run](docs/release/DASHBOARD_RELEASE_BUILD_DRY_RUN.md) — internal/operator release-build dry-run guide (not required for normal usage)
 
 ## Repository hygiene
 

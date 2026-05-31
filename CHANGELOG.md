@@ -1,5 +1,16 @@
 # QuestOps Watchdog — Changelog
 
+## v0.5.7 — Dashboard Release Build Dry Run (unreleased)
+
+- Added DASHBOARD_RELEASE_BUILD_DRY_RUN.md — dry-run guide for validating the dashboard release build pipeline
+- Added DASHBOARD_RELEASE_BUILD_DRY_RUN_RESULTS.md — fill-in template for recording one dry-run result
+- Added DASHBOARD_RELEASE_BUILD_PRECHECKS.md — precheck list before running the release build
+- Updated README.md with link to DASHBOARD_RELEASE_BUILD_DRY_RUN.md in Local dashboard section
+- Updated PROJECTMAP.md, TASKS.md, ROADMAP.md, CHANGELOG.md
+- Package count unchanged (56 files)
+- VERSION unchanged (0.4.9)
+- docs/release/ remains excluded from client package
+
 ## v0.5.6 — Dashboard Release Notes Preparation (unreleased)
 
 - Added DASHBOARD_RELEASE_NOTES_DRAFT_v0.5.md — draft release notes for a future dashboard release, covering v0.5.0 through v0.5.5 with summary, highlights, known limitations, and tagging note

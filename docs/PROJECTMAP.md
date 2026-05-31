@@ -222,6 +222,9 @@ questops-watchdog/
 | `docs/release/DASHBOARD_RELEASE_NOTES_DRAFT_v0.5.md` | Draft release notes for a future dashboard release — summary, highlights, known limitations, tagging note. |
 | `docs/release/DASHBOARD_PUBLIC_ANNOUNCEMENT_DRAFT.md` | Draft public announcement templates — GitHub release, Discord, LinkedIn, forum, CTA. |
 | `docs/release/DASHBOARD_RELEASE_NOTES_CHECKLIST.md` | Checklist for turning draft release notes into a real tagged release — validation, git, GitHub, post-release. |
+| `docs/release/DASHBOARD_RELEASE_BUILD_DRY_RUN.md` | Dashboard release build dry-run guide — validation steps, troubleshooting, expected results. |
+| `docs/release/DASHBOARD_RELEASE_BUILD_DRY_RUN_RESULTS.md` | Template for recording one dry-run result — date, reviewer, pass/hold, notes. |
+| `docs/release/DASHBOARD_RELEASE_BUILD_PRECHECKS.md` | Precheck list before running the release build — repo, security, package, environment checks. |
 | `docs/audit/` | Internal beta audit reporting template docs — not included in client tool package. |
 | `docs/website/` | Public-facing website copy, wireframe, snippets, and SEO guidance. |
 | `docs/DASHBOARD_GUIDE.md` | Local dashboard user guide — generation, data sources, security, troubleshooting. |
@@ -1021,3 +1024,5 @@ These rules bind every AI agent that modifies this repository.
 2026-05-27 - v0.5.5: Added dashboard release candidate review docs. Created DASHBOARD_RELEASE_CANDIDATE_REVIEW, DASHBOARD_RC_PACKAGE_CONTENTS, DASHBOARD_RC_SIGNOFF_NOTES under docs/release/. Updated README, PROJECTMAP, TASKS, ROADMAP, CHANGELOG. Package count unchanged at 56 files. VERSION unchanged (0.4.9). docs/release/ remains excluded from client package.
 
 2026-05-30 - v0.5.6: Added dashboard release notes preparation docs. Created DASHBOARD_RELEASE_NOTES_DRAFT_v0.5, DASHBOARD_PUBLIC_ANNOUNCEMENT_DRAFT, DASHBOARD_RELEASE_NOTES_CHECKLIST under docs/release/. Updated README, PROJECTMAP, TASKS, ROADMAP, CHANGELOG. Package count unchanged at 56 files. VERSION unchanged (0.4.9). docs/release/ remains excluded from client package.
+
+2026-05-30 - v0.5.7: Added dashboard release build dry-run docs. Created DASHBOARD_RELEASE_BUILD_DRY_RUN, DASHBOARD_RELEASE_BUILD_DRY_RUN_RESULTS, DASHBOARD_RELEASE_BUILD_PRECHECKS under docs/release/. Updated README, PROJECTMAP, TASKS, ROADMAP, CHANGELOG. Package count unchanged at 56 files. VERSION unchanged (0.4.9). docs/release/ remains excluded from client package.
