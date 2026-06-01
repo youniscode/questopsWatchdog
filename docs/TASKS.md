@@ -243,6 +243,15 @@
 | Done   | - Package count unchanged (56 files), VERSION unchanged (0.4.9) |
 | Done   | - docs/release/ remains excluded from client package |
 
+| Done   | v0.5.8 - Dashboard release decision and version planning |
+| Done   | - Created DASHBOARD_RELEASE_DECISION_PLAN.md (decision document: 4 options, recommended path, pre-tagging checklist) |
+| Done   | - Created DASHBOARD_VERSION_STRATEGY.md (version numbering explanation; recommends v0.5.0 as first dashboard release) |
+| Done   | - Created DASHBOARD_RELEASE_DECISION_MATRIX.md (comparison table; recommends continue to v0.5.9 then tag v0.5.0) |
+| Done   | - Updated README with link to DASHBOARD_RELEASE_DECISION_PLAN.md in Local dashboard section |
+| Done   | - Updated PROJECTMAP, TASKS, ROADMAP, CHANGELOG |
+| Done   | - Package count unchanged (56 files), VERSION unchanged (0.4.9) |
+| Done   | - docs/release/ remains excluded from client package |
+
 ## Upcoming
 
-- v0.5.8 - Dashboard release decision and version planning
+- v0.5.9 - Dashboard final release preparation

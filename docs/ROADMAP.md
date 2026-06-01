@@ -263,4 +263,11 @@
 - [x] Updated README, PROJECTMAP, TASKS, ROADMAP, CHANGELOG
 - [x] Package count unchanged (56 files), VERSION unchanged (0.4.9)
 
-## v0.5.8 — Dashboard release decision and version planning (upcoming)
+## v0.5.8 — Dashboard release decision and version planning (shipped)
+- [x] Created DASHBOARD_RELEASE_DECISION_PLAN.md — decision document with 4 options, recommended path, pre-tagging checklist
+- [x] Created DASHBOARD_VERSION_STRATEGY.md — version numbering: git commits vs milestones vs VERSION vs tags vs GitHub releases; recommends v0.5.0 as first official dashboard release
+- [x] Created DASHBOARD_RELEASE_DECISION_MATRIX.md — comparison table; recommends continue to v0.5.9 then tag v0.5.0
+- [x] Updated README, PROJECTMAP, TASKS, ROADMAP, CHANGELOG
+- [x] Package count unchanged (56 files), VERSION unchanged (0.4.9)
+
+## v0.5.9 — Dashboard final release preparation (upcoming)

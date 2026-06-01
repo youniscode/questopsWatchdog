@@ -252,6 +252,9 @@ questops-watchdog/
 | `docs/audit/BETA_AUDIT_INTERNAL_REVIEW_CHECKLIST.md` | Pre-delivery quality review checklist for audit reports. |
 | `docs/audit/BETA_AUDIT_DELIVERY_MESSAGE_POLISHED.md` | Refined delivery message template for sending audit results. |
 | `README.md` | Public-facing project overview and usage. |
+| `docs/release/DASHBOARD_RELEASE_DECISION_PLAN.md` | Decision document for whether/how to turn dashboard work into official release — 4 options, recommended path, pre-tagging checklist. |
+| `docs/release/DASHBOARD_VERSION_STRATEGY.md` | Explains version numbering: git commits vs milestones vs VERSION vs tags vs GitHub releases; recommends v0.5.0 as first official dashboard release. |
+| `docs/release/DASHBOARD_RELEASE_DECISION_MATRIX.md` | Comparison table of release options; recommends continuing to v0.5.9 then tagging v0.5.0. |
 
 ## Config files
 

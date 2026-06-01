@@ -1,5 +1,16 @@
 # QuestOps Watchdog — Changelog
 
+## v0.5.8 — Dashboard Release Decision and Version Planning (unreleased)
+
+- Added DASHBOARD_RELEASE_DECISION_PLAN.md — decision document with 4 options, recommended path (continue to v0.5.9 then tag v0.5.0), and pre-tagging checklist
+- Added DASHBOARD_VERSION_STRATEGY.md — explains version numbering: git commits vs milestones vs VERSION vs tags vs GitHub releases; recommends v0.5.0 as first official dashboard release
+- Added DASHBOARD_RELEASE_DECISION_MATRIX.md — comparison table of release options; recommends continuing to v0.5.9 for final prep
+- Updated README.md with link to DASHBOARD_RELEASE_DECISION_PLAN.md in Local dashboard section
+- Updated PROJECTMAP.md, TASKS.md, ROADMAP.md, CHANGELOG.md
+- Package count unchanged (56 files)
+- VERSION unchanged (0.4.9)
+- docs/release/ remains excluded from client package
+
 ## v0.5.7 — Dashboard Release Build Dry Run (unreleased)
 
 - Added DASHBOARD_RELEASE_BUILD_DRY_RUN.md — dry-run guide for validating the dashboard release build pipeline
