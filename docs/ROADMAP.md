@@ -270,4 +270,11 @@
 - [x] Updated README, PROJECTMAP, TASKS, ROADMAP, CHANGELOG
 - [x] Package count unchanged (56 files), VERSION unchanged (0.4.9)
 
-## v0.5.9 — Dashboard final release preparation (upcoming)
+## v0.5.9 — Dashboard final release preparation (shipped)
+- [x] Created DASHBOARD_FINAL_RELEASE_PREP.md — final pre-release checklist with readiness criteria, blockers, handoff
+- [x] Created DASHBOARD_V0_5_0_RELEASE_EXECUTION_PLAN.md — future execution plan for v0.5.0 release
+- [x] Created DASHBOARD_V0_5_0_RELEASE_NOTES_FINAL_DRAFT.md — near-final release notes draft for v0.5.0
+- [x] Updated README, PROJECTMAP, TASKS, ROADMAP, CHANGELOG
+- [x] Package count unchanged (56 files), VERSION unchanged (0.4.9)
+
+## Official v0.5.0 — Dashboard release execution (upcoming)

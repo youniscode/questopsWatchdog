@@ -255,6 +255,11 @@ questops-watchdog/
 | `docs/release/DASHBOARD_RELEASE_DECISION_PLAN.md` | Decision document for whether/how to turn dashboard work into official release — 4 options, recommended path, pre-tagging checklist. |
 | `docs/release/DASHBOARD_VERSION_STRATEGY.md` | Explains version numbering: git commits vs milestones vs VERSION vs tags vs GitHub releases; recommends v0.5.0 as first official dashboard release. |
 | `docs/release/DASHBOARD_RELEASE_DECISION_MATRIX.md` | Comparison table of release options; recommends continuing to v0.5.9 then tagging v0.5.0. |
+| `docs/release/DASHBOARD_FINAL_RELEASE_PREP.md` | Final pre-release checklist before executing the official v0.5.0 dashboard release — readiness criteria, blockers, handoff. |
+| `docs/release/DASHBOARD_V0_5_0_RELEASE_EXECUTION_PLAN.md` | Step-by-step future execution plan for the official v0.5.0 release — VERSION bump, commit, tag, GitHub release, rollback notes. |
+| `docs/release/DASHBOARD_V0_5_0_RELEASE_NOTES_FINAL_DRAFT.md` | Near-final release notes draft for the official v0.5.0 dashboard release — what is new, security, limitations, upgrade notes. |
+
+**Last updated:** v0.5.9
 
 ## Config files
 

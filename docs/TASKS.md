@@ -252,6 +252,15 @@
 | Done   | - Package count unchanged (56 files), VERSION unchanged (0.4.9) |
 | Done   | - docs/release/ remains excluded from client package |
 
+| Done   | v0.5.9 - Dashboard final release preparation |
+| Done   | - Created DASHBOARD_FINAL_RELEASE_PREP.md (final pre-release checklist: readiness criteria, blockers, handoff) |
+| Done   | - Created DASHBOARD_V0_5_0_RELEASE_EXECUTION_PLAN.md (future execution plan: VERSION bump, commit, tag, GitHub release, rollback) |
+| Done   | - Created DASHBOARD_V0_5_0_RELEASE_NOTES_FINAL_DRAFT.md (near-final release notes draft for v0.5.0) |
+| Done   | - Updated README with link to DASHBOARD_FINAL_RELEASE_PREP.md in Local dashboard section |
+| Done   | - Updated PROJECTMAP, TASKS, ROADMAP, CHANGELOG |
+| Done   | - Package count unchanged (56 files), VERSION unchanged (0.4.9) |
+| Done   | - docs/release/ remains excluded from client package |
+
 ## Upcoming
 
-- v0.5.9 - Dashboard final release preparation
+- Official v0.5.0 - Dashboard release execution
