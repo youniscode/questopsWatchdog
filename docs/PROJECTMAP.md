@@ -68,6 +68,8 @@ questops-watchdog/
 |   |   |-- SCREENSHOT_SHOT_LIST.md         # Planned screenshots
 |   |   |-- SCREENSHOT_DEMO_SCRIPT.md       # Demo capture script
 |   |   |-- SCREENSHOT_REVIEW_CHECKLIST.md  # Review checklist
+|   |   |-- SCREENSHOT_CAPTURE_PLAN_v0.5.0.md    # v0.5.0-focused screenshot capture plan
+|   |   |-- SCREENSHOT_CAPTURE_RESULTS_v0.5.0.md  # v0.5.0 screenshot capture results template
 |   |   `-- placeholders/
 |   |       |-- README_HERO_SCREENSHOT_PLACEHOLDER.md    # README hero placeholder
 |   |       |-- HTML_REPORT_SCREENSHOT_PLACEHOLDER.md    # HTML report placeholder
@@ -260,6 +262,10 @@ questops-watchdog/
 | `docs/release/DASHBOARD_FINAL_RELEASE_PREP.md` | Final pre-release checklist before executing the official v0.5.0 dashboard release — readiness criteria, blockers, handoff. |
 | `docs/release/DASHBOARD_V0_5_0_RELEASE_EXECUTION_PLAN.md` | Step-by-step future execution plan for the official v0.5.0 release — VERSION bump, commit, tag, GitHub release, rollback notes. |
 | `docs/release/DASHBOARD_V0_5_0_RELEASE_NOTES_FINAL_DRAFT.md` | Near-final release notes draft for the official v0.5.0 dashboard release — what is new, security, limitations, upgrade notes. |
+| `docs/release/POST_RELEASE_VERIFICATION_v0.5.0.md` | Post-release verification checklist for the official v0.5.0 GitHub release — release identity, git, GitHub, docs, package, build checks. |
+| `docs/release/POST_RELEASE_VERIFICATION_RESULTS_v0.5.0.md` | Fill-in results template for recording one post-release verification pass. |
+| `docs/assets/SCREENSHOT_CAPTURE_PLAN_v0.5.0.md` | Focused v0.5.0 screenshot capture plan — 9 recommended shots, safety rules, naming convention, redaction workflow. |
+| `docs/assets/SCREENSHOT_CAPTURE_RESULTS_v0.5.0.md` | Fill-in results template for tracking v0.5.0 screenshot capture/review status. |
 
 ## Config files
 
@@ -1005,8 +1011,6 @@ These rules bind every AI agent that modifies this repository.
 
 ## Last updated
 
-2026-05-26 - v0.4.14: Added docs/assets/placeholders/ with 6 placeholder docs (README hero, HTML report, Discord alert, PowerShell scan, package zip, landing page). Updated README layout polish — moved Screenshots near Demo, updated milestone, added placeholders section. Updated package to 52 files. Updated PROJECTMAP, TASKS, ROADMAP, CHANGELOG, CLIENT_HANDOFF_CHECKLIST, RELEASE_CHECKLIST, export script.
-
 2026-05-26 - v0.4.15: Created docs/launch/ with 7 internal launch docs (OUTREACH_LAUNCH_CHECKLIST, FIRST_BETA_AUDIT_WORKFLOW, BETA_AUDIT_INTAKE_FORM, BETA_AUDIT_DELIVERY_TEMPLATE, OUTREACH_TRACKER_TEMPLATE, BETA_FEEDBACK_FORM, LAUNCH_MESSAGE_PACK). Updated README with Launch / beta audit workflow section. Updated PROJECTMAP, TASKS, ROADMAP, CHANGELOG. VERSION unchanged (0.4.9). docs/launch/ excluded from export script (internal-only).
 
 2026-05-26 - v0.4.16: Created docs/release/ with 6 release prep docs (GITHUB_RELEASE_DRAFT_v0.4.9, PUBLIC_LAUNCH_CHECKLIST, PUBLIC_ANNOUNCEMENT_COPY, RELEASE_ASSET_CHECKLIST, FIRST_WEEK_FEEDBACK_TRACKER, PUBLIC_REPO_REVIEW_CHECKLIST). Updated README with Public release preparation section. Updated PROJECTMAP, TASKS, ROADMAP, CHANGELOG. VERSION unchanged (0.4.9). docs/release/ excluded from export script (internal-only).
@@ -1040,3 +1044,5 @@ These rules bind every AI agent that modifies this repository.
 2026-06-01 - v0.5.9: Added dashboard final release preparation docs. Created DASHBOARD_FINAL_RELEASE_PREP, DASHBOARD_V0_5_0_RELEASE_EXECUTION_PLAN, DASHBOARD_V0_5_0_RELEASE_NOTES_FINAL_DRAFT under docs/release/. Updated README, PROJECTMAP, TASKS, ROADMAP, CHANGELOG. Package count unchanged at 56 files. VERSION unchanged (0.4.9). docs/release/ remains excluded from client package.
 
 2026-06-01 - Official v0.5.0: Executed official Local Dashboard Release preparation. Updated VERSION to 0.5.0. Created docs/RELEASE_NOTES_v0.5.0. Updated client package to include v0.5.0 release notes instead of v0.4.9 release notes while keeping package count at 56 files. Updated README, CHANGELOG, PROJECTMAP, TASKS, ROADMAP, CLIENT_HANDOFF_CHECKLIST, RELEASE_CHECKLIST, and export script. docs/release/, docs/dashboard/, docs/launch/, docs/qa/, docs/audit/, generated reports, logs, and dist outputs remain excluded from the client package.
+
+2026-06-01 - v0.5.10: Added post-release verification and screenshot capture planning docs for the official v0.5.0 dashboard release. Created POST_RELEASE_VERIFICATION_v0.5.0 and POST_RELEASE_VERIFICATION_RESULTS_v0.5.0 under docs/release/. Created SCREENSHOT_CAPTURE_PLAN_v0.5.0 and SCREENSHOT_CAPTURE_RESULTS_v0.5.0 under docs/assets/. Updated README, CHANGELOG, PROJECTMAP, TASKS, ROADMAP. Package count unchanged at 56 files. VERSION unchanged (0.5.0). docs/release/ remains excluded from the client package. The new v0.5.0 screenshot planning docs remain internal/not added to the client package; existing packaged docs/assets screenshot docs remain unchanged.

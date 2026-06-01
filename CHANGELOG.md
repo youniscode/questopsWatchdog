@@ -1,5 +1,17 @@
 # QuestOps Watchdog — Changelog
 
+## v0.5.10 — Post-release verification and screenshot capture planning (unreleased)
+
+- Added POST_RELEASE_VERIFICATION_v0.5.0.md — post-release verification checklist for the official v0.5.0 release
+- Added POST_RELEASE_VERIFICATION_RESULTS_v0.5.0.md — fill-in template for recording post-release verification results
+- Added SCREENSHOT_CAPTURE_PLAN_v0.5.0.md — focused v0.5.0 screenshot capture plan (9 recommended shots, safety rules, naming convention, redaction workflow)
+- Added SCREENSHOT_CAPTURE_RESULTS_v0.5.0.md — fill-in results template for tracking screenshot capture/review status
+- Updated README.md with v0.5.10 milestone reference and capture plan links
+- Updated PROJECTMAP.md, TASKS.md, ROADMAP.md, CHANGELOG.md
+- Package count unchanged (56 files)
+- VERSION unchanged (0.5.0)
+- docs/release/ remains excluded from the client package. The new v0.5.0 screenshot planning docs remain internal/not added to the client package; existing packaged docs/assets screenshot docs remain unchanged.
+
 ## v0.5.0 — Local Dashboard Release
 
 - Official dashboard release

@@ -13,9 +13,9 @@ Free, open-source, no cloud, no telemetry.
 ## Current status
 
 **Current tagged release:** v0.5.0
-**Latest repository milestone:** Official v0.5.0 — Dashboard Release Execution
+**Latest repository milestone:** v0.5.10 — Post-release verification and screenshot capture planning
 
-The `VERSION` file is now 0.5.0. Repository milestones v0.5.0–v0.5.9 were work-in-progress development history that led to this official release.
+The `VERSION` file is now 0.5.0. Repository milestones v0.5.0–v0.5.9 were work-in-progress development history that led to the official v0.5.0 release. Milestone v0.5.10 covers post-release verification and screenshot capture planning.
 
 ## Try it in 5 minutes
 
@@ -102,6 +102,8 @@ Real screenshots are planned but not yet captured. The following planning docume
 - [Demo script](docs/assets/SCREENSHOT_DEMO_SCRIPT.md) — step-by-step PowerShell commands for each capture
 - [Review checklist](docs/assets/SCREENSHOT_REVIEW_CHECKLIST.md) — pre-publication review checklist
 - [README hero placeholder](docs/assets/placeholders/README_HERO_SCREENSHOT_PLACEHOLDER.md) — intended hero image for README
+- [v0.5.0 screenshot capture plan](docs/assets/SCREENSHOT_CAPTURE_PLAN_v0.5.0.md) — focused capture plan for the official v0.5.0 release (9 recommended shots, safety rules, naming convention, redaction workflow)
+- [v0.5.0 screenshot capture results](docs/assets/SCREENSHOT_CAPTURE_RESULTS_v0.5.0.md) — fill-in results template for tracking v0.5.0 screenshot capture/review status
 
 All screenshot placeholders are in `docs/assets/placeholders/`. See [docs/assets/README.md](docs/assets/README.md) for the naming convention and redaction rules.
 

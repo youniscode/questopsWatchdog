@@ -271,8 +271,17 @@
 | Done   | - docs/release/, docs/dashboard/, docs/launch/, docs/qa/, docs/audit/ remain excluded |
 | Done   | - Generated reports and dashboard files remain excluded |
 
+| Done   | v0.5.10 - Post-release verification and screenshot capture planning |
+| Done   | - Created POST_RELEASE_VERIFICATION_v0.5.0.md (post-release checklist) |
+| Done   | - Created POST_RELEASE_VERIFICATION_RESULTS_v0.5.0.md (fill-in template) |
+| Done   | - Created SCREENSHOT_CAPTURE_PLAN_v0.5.0.md (v0.5.0-focused capture plan, 9 shots) |
+| Done   | - Created SCREENSHOT_CAPTURE_RESULTS_v0.5.0.md (fill-in results template) |
+| Done   | - Updated README, CHANGELOG, PROJECTMAP, TASKS, ROADMAP |
+| Done   | - Package count unchanged (56 files), VERSION unchanged (0.5.0) |
+| Done   | - docs/release/ and docs/assets/ remain excluded from client package |
+
 ## Upcoming
 
 | Status | Task |
 |--------|------|
-| Pending | v0.5.10 - Post-release verification and screenshot capture planning |
+| Pending | v0.5.11 - Screenshot capture execution and README image polish |

@@ -287,4 +287,13 @@
 - [x] docs/release/, docs/dashboard/, docs/launch/, docs/qa/, docs/audit/ remain excluded
 - [x] Generated reports and dashboard files remain excluded
 
-## v0.5.10 — Post-release verification and screenshot capture planning (upcoming)
+## v0.5.10 — Post-release verification and screenshot capture planning (shipped)
+- [x] Create POST_RELEASE_VERIFICATION_v0.5.0.md — post-release verification checklist
+- [x] Create POST_RELEASE_VERIFICATION_RESULTS_v0.5.0.md — fill-in template for verification results
+- [x] Create SCREENSHOT_CAPTURE_PLAN_v0.5.0.md — focused v0.5.0 screenshot capture plan
+- [x] Create SCREENSHOT_CAPTURE_RESULTS_v0.5.0.md — fill-in results template for screenshot tracking
+- [x] Update README, CHANGELOG, PROJECTMAP, TASKS, ROADMAP
+- [x] Package count unchanged (56 files), VERSION unchanged (0.5.0)
+- [x] docs/release/ and docs/assets/ remain excluded from client package
+
+## v0.5.11 — Screenshot capture execution and README image polish (upcoming)
