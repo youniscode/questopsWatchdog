@@ -1,6 +1,17 @@
 # QuestOps Watchdog — Changelog
 
-## v0.5.9 — Dashboard Final Release Preparation (unreleased)
+## v0.5.0 — Local Dashboard Release
+
+- Official dashboard release
+- VERSION updated to 0.5.0
+- Added client-facing docs/RELEASE_NOTES_v0.5.0.md
+- Client package now includes v0.5.0 release notes instead of v0.4.9 release notes
+- Dashboard features from repository milestones v0.5.0–v0.5.9 are included
+- Package count remains 56 files
+- docs/release/, docs/dashboard/, docs/launch/, docs/qa/, docs/audit/ remain excluded
+- Generated reports and dashboard files remain excluded
+
+## v0.5.9 — Dashboard Final Release Preparation
 
 - Added DASHBOARD_FINAL_RELEASE_PREP.md — final pre-release checklist with readiness criteria, blockers, and handoff to release execution
 - Added DASHBOARD_V0_5_0_RELEASE_EXECUTION_PLAN.md — step-by-step future execution plan for the official v0.5.0 dashboard release (VERSION bump, commit, tag, GitHub release, rollback notes)

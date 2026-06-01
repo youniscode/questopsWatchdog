@@ -53,6 +53,7 @@ questops-watchdog/
 |   |-- CLIENT_HANDOFF_CHECKLIST.md # Pre/post-delivery checklist
 |   |-- RELEASE_NOTES_v0.4.8.md    # Client-facing release notes (v0.4.8)
 |   |-- RELEASE_NOTES_v0.4.9.md    # Client-facing release notes (v0.4.9)
+|   |-- RELEASE_NOTES_v0.5.0.md    # Client-facing release notes (v0.5.0)
 |   |-- RELEASE_CHECKLIST.md       # Internal pre-release validation checklist
 |   |-- demo/
 |   |   |-- SAMPLE_HEALTH_REPORT_JSON.md        # Fictional health report JSON example
@@ -166,6 +167,7 @@ questops-watchdog/
 | `docs/CLIENT_HANDOFF_CHECKLIST.md` | Pre/post-delivery checklist - export, verify, security reminders, troubleshooting. |
 | `docs/RELEASE_NOTES_v0.4.8.md` | Client-facing release notes for v0.4.8. |
 | `docs/RELEASE_NOTES_v0.4.9.md` | Client-facing release notes for v0.4.9. |
+| `docs/RELEASE_NOTES_v0.5.0.md` | Client-facing release notes for v0.5.0 — Local Dashboard Release. |
 | `docs/RELEASE_CHECKLIST.md` | Internal pre-release validation checklist (not included in client tool package). |
 | `docs/business/PAID_AUDIT_OFFER.md` | Paid audit pricing, scope, and what's included. |
 | `docs/business/LANDING_PAGE_COPY.md` | Marketing copy reference for landing page or service announcement. |
@@ -258,8 +260,6 @@ questops-watchdog/
 | `docs/release/DASHBOARD_FINAL_RELEASE_PREP.md` | Final pre-release checklist before executing the official v0.5.0 dashboard release — readiness criteria, blockers, handoff. |
 | `docs/release/DASHBOARD_V0_5_0_RELEASE_EXECUTION_PLAN.md` | Step-by-step future execution plan for the official v0.5.0 release — VERSION bump, commit, tag, GitHub release, rollback notes. |
 | `docs/release/DASHBOARD_V0_5_0_RELEASE_NOTES_FINAL_DRAFT.md` | Near-final release notes draft for the official v0.5.0 dashboard release — what is new, security, limitations, upgrade notes. |
-
-**Last updated:** v0.5.9
 
 ## Config files
 
@@ -958,26 +958,26 @@ Expected: no results (empty output).
 ```powershell
 $toolZip = Get-ChildItem dist -Filter "questops-watchdog-audit-package-*.zip" | Sort-Object LastWriteTime -Descending | Select-Object -First 1
 [System.IO.Compression.ZipFile]::OpenRead($toolZip.FullName).Entries | Where-Object {
-    $_.FullName -match '^VERSION$|^CHANGELOG\.md$|docs/RELEASE_NOTES_v0\.4\.9\.md'
+    $_.FullName -match '^VERSION$|^CHANGELOG\.md$|docs/RELEASE_NOTES_v0\.5\.0\.md'
 } | Select-Object FullName
 ```
-Expected: three results (VERSION, CHANGELOG.md, docs/RELEASE_NOTES_v0.4.9.md).
+Expected: three results (VERSION, CHANGELOG.md, docs/RELEASE_NOTES_v0.5.0.md).
 
 ### Run release build
 ```powershell
 powershell -NoProfile -ExecutionPolicy Bypass -File scripts\build_questops_client_release.ps1 -AllowDirty -Force
 ```
-Expected: exits 0. Output shows release path under `dist\questops-watchdog-v0.4.9\`, package and results filenames, SHA256 checksums.
+Expected: exits 0. Output shows release path under `dist\questops-watchdog-v0.5.0\`, package and results filenames, SHA256 checksums.
 
 ### Inspect release output
 ```powershell
-Get-ChildItem dist\questops-watchdog-v0.4.9 -Recurse | Select-Object FullName, Length, LastWriteTime
+Get-ChildItem dist\questops-watchdog-v0.5.0 -Recurse | Select-Object FullName, Length, LastWriteTime
 ```
 Expected: lists package zip, results zip, two .sha256 files, and release-manifest.json.
 
 ### Inspect release manifest
 ```powershell
-Get-Content dist\questops-watchdog-v0.4.9\release-manifest.json -Raw | ConvertFrom-Json
+Get-Content dist\questops-watchdog-v0.5.0\release-manifest.json -Raw | ConvertFrom-Json
 ```
 Expected: valid JSON with product, version, timestamps, checksums, git info, warnings.
 
@@ -1034,3 +1034,9 @@ These rules bind every AI agent that modifies this repository.
 2026-05-30 - v0.5.6: Added dashboard release notes preparation docs. Created DASHBOARD_RELEASE_NOTES_DRAFT_v0.5, DASHBOARD_PUBLIC_ANNOUNCEMENT_DRAFT, DASHBOARD_RELEASE_NOTES_CHECKLIST under docs/release/. Updated README, PROJECTMAP, TASKS, ROADMAP, CHANGELOG. Package count unchanged at 56 files. VERSION unchanged (0.4.9). docs/release/ remains excluded from client package.
 
 2026-05-30 - v0.5.7: Added dashboard release build dry-run docs. Created DASHBOARD_RELEASE_BUILD_DRY_RUN, DASHBOARD_RELEASE_BUILD_DRY_RUN_RESULTS, DASHBOARD_RELEASE_BUILD_PRECHECKS under docs/release/. Updated README, PROJECTMAP, TASKS, ROADMAP, CHANGELOG. Package count unchanged at 56 files. VERSION unchanged (0.4.9). docs/release/ remains excluded from client package.
+
+2026-05-30 - v0.5.8: Added dashboard release decision and version planning docs. Created DASHBOARD_RELEASE_DECISION_PLAN, DASHBOARD_VERSION_STRATEGY, DASHBOARD_RELEASE_DECISION_MATRIX under docs/release/. Updated README, PROJECTMAP, TASKS, ROADMAP, CHANGELOG. Package count unchanged at 56 files. VERSION unchanged (0.4.9). docs/release/ remains excluded from client package.
+
+2026-06-01 - v0.5.9: Added dashboard final release preparation docs. Created DASHBOARD_FINAL_RELEASE_PREP, DASHBOARD_V0_5_0_RELEASE_EXECUTION_PLAN, DASHBOARD_V0_5_0_RELEASE_NOTES_FINAL_DRAFT under docs/release/. Updated README, PROJECTMAP, TASKS, ROADMAP, CHANGELOG. Package count unchanged at 56 files. VERSION unchanged (0.4.9). docs/release/ remains excluded from client package.
+
+2026-06-01 - Official v0.5.0: Executed official Local Dashboard Release preparation. Updated VERSION to 0.5.0. Created docs/RELEASE_NOTES_v0.5.0. Updated client package to include v0.5.0 release notes instead of v0.4.9 release notes while keeping package count at 56 files. Updated README, CHANGELOG, PROJECTMAP, TASKS, ROADMAP, CLIENT_HANDOFF_CHECKLIST, RELEASE_CHECKLIST, and export script. docs/release/, docs/dashboard/, docs/launch/, docs/qa/, docs/audit/, generated reports, logs, and dist outputs remain excluded from the client package.

@@ -21,7 +21,7 @@ Use this checklist when preparing and sending the audit package to a client.
 - [ ] Confirm version, release notes, and business docs are present:
   ```powershell
   [System.IO.Compression.ZipFile]::OpenRead($zip.FullName).Entries | Where-Object {
-      $_.FullName -match '^VERSION$|^CHANGELOG\.md$|^docs/QUICK_START\.md$|docs/RELEASE_NOTES_v0\.4\.9\.md|docs/business/|docs/demo/|docs/assets/|docs/website/|docs/DASHBOARD_GUIDE\.md'
+      $_.FullName -match '^VERSION$|^CHANGELOG\.md$|^docs/QUICK_START\.md$|docs/RELEASE_NOTES_v0\.5\.0\.md|docs/business/|docs/demo/|docs/assets/|docs/website/|docs/DASHBOARD_GUIDE\.md'
   } | Select-Object FullName
   ```
   Expected: 33 results: VERSION, CHANGELOG.md, release notes, 6 packaged business docs, 6 demo docs (added SAMPLE_DASHBOARD_PREVIEW.md), 6 assets docs (README + 5 screenshot docs), 6 placeholder docs, 4 website docs, and DASHBOARD_GUIDE.md.

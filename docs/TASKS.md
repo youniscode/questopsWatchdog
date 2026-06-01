@@ -261,6 +261,18 @@
 | Done   | - Package count unchanged (56 files), VERSION unchanged (0.4.9) |
 | Done   | - docs/release/ remains excluded from client package |
 
+| Done   | Official v0.5.0 - Dashboard release execution |
+| Done   | - Updated VERSION to 0.5.0 |
+| Done   | - Created docs/RELEASE_NOTES_v0.5.0.md (client-facing release notes) |
+| Done   | - Updated client package to include v0.5.0 release notes instead of v0.4.9 |
+| Done   | - Updated README, CHANGELOG, PROJECTMAP, TASKS, ROADMAP, CLIENT_HANDOFF_CHECKLIST, RELEASE_CHECKLIST |
+| Done   | - Updated export_questops_audit_package.ps1 (replaced release notes reference) |
+| Done   | - Package count remains 56 files |
+| Done   | - docs/release/, docs/dashboard/, docs/launch/, docs/qa/, docs/audit/ remain excluded |
+| Done   | - Generated reports and dashboard files remain excluded |
+
 ## Upcoming
 
-- Official v0.5.0 - Dashboard release execution
+| Status | Task |
+|--------|------|
+| Pending | v0.5.10 - Post-release verification and screenshot capture planning |

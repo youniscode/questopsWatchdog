@@ -11,6 +11,8 @@ Use this checklist when preparing a new release.
 - [ ] `docs/RELEASE_NOTES_v*.md` exists and is up to date
 - [ ] All doc version references (README, PROJECTMAP, ROADMAP, TASKS) are updated
 - [ ] Client package file counts are consistent everywhere (56 for v0.5.0)
+- [ ] `docs/RELEASE_NOTES_v0.5.0.md` is the current release notes file
+- [ ] `dist\questops-watchdog-v0.5.0` is the expected release output folder
 
 ## Validation commands
 
@@ -57,7 +59,7 @@ $entries | Where-Object {
 
 # Confirm version/release notes/docs/demo/website/dashboard docs present
 $entries | Where-Object {
-    $_.FullName -match '^VERSION$|^CHANGELOG\.md$|^docs/QUICK_START\.md$|docs/RELEASE_NOTES_v0\.4\.9\.md|docs/business/|docs/demo/|docs/assets/|docs/website/|docs/DASHBOARD_GUIDE\.md'
+    $_.FullName -match '^VERSION$|^CHANGELOG\.md$|^docs/QUICK_START\.md$|docs/RELEASE_NOTES_v0\.5\.0\.md|docs/business/|docs/demo/|docs/assets/|docs/website/|docs/DASHBOARD_GUIDE\.md'
 } | Select-Object FullName
 ```
 
@@ -83,10 +85,10 @@ Get-ChildItem dist\questops-watchdog-v<VERSION> -Filter *.sha256 | ForEach-Objec
 git add -A
 
 # Commit
-git commit -m "v0.5.0 - Local HTML Dashboard MVP"
+git commit -m "v0.5.0 - Local HTML Dashboard Release"
 
 # Tag
-git tag -a v0.5.0 -m "QuestOps Watchdog v0.5.0 - Local HTML Dashboard MVP"
+git tag -a v0.5.0 -m "QuestOps Watchdog v0.5.0 - Local HTML Dashboard Release"
 
 # Push
 git push origin main --tags

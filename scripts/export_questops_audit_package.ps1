@@ -65,7 +65,7 @@ $includeRelative = @(
     "docs\TASKS.md",
     "docs\CLIENT_AUDIT_GUIDE.md",
     "docs\CLIENT_HANDOFF_CHECKLIST.md",
-    "docs\RELEASE_NOTES_v0.4.9.md",
+    "docs\RELEASE_NOTES_v0.5.0.md",
     "docs\business\PAID_AUDIT_OFFER.md",
     "docs\business\LANDING_PAGE_COPY.md",
     "docs\business\OUTREACH_MESSAGES.md",

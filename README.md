@@ -12,10 +12,10 @@ Free, open-source, no cloud, no telemetry.
 
 ## Current status
 
-**Current tagged release:** v0.4.9
-**Latest repository milestone:** v0.5.9 — Dashboard Final Release Preparation
+**Current tagged release:** v0.5.0
+**Latest repository milestone:** Official v0.5.0 — Dashboard Release Execution
 
-The `VERSION` file stays at 0.4.9 until the next tagged release. Repository milestones track unreleased work-in-progress.
+The `VERSION` file is now 0.5.0. Repository milestones v0.5.0–v0.5.9 were work-in-progress development history that led to this official release.
 
 ## Try it in 5 minutes
 
@@ -179,7 +179,7 @@ The package is written to `dist\questops-watchdog-audit-package-YYYYMMDD-HHMMSS.
 ### What is included (56 files)
 
 - **Version & changelog:** VERSION, CHANGELOG.md
-- **Documentation:** README.md, docs/QUICK_START.md, docs/PROJECTMAP.md, docs/ROADMAP.md, docs/AGENT_RULES.md, docs/TASKS.md, docs/CLIENT_AUDIT_GUIDE.md, docs/CLIENT_HANDOFF_CHECKLIST.md, docs/RELEASE_NOTES_v0.4.9.md
+- **Documentation:** README.md, docs/QUICK_START.md, docs/PROJECTMAP.md, docs/ROADMAP.md, docs/AGENT_RULES.md, docs/TASKS.md, docs/CLIENT_AUDIT_GUIDE.md, docs/CLIENT_HANDOFF_CHECKLIST.md, docs/RELEASE_NOTES_v0.5.0.md
 - **Business docs:** docs/business/PAID_AUDIT_OFFER.md, docs/business/LANDING_PAGE_COPY.md, docs/business/OUTREACH_MESSAGES.md, docs/business/SAMPLE_CLIENT_PROPOSAL.md, docs/business/SAMPLE_AUDIT_SUMMARY.md, docs/business/PRICING_NOTES.md
 - **Demo docs:** docs/demo/SAMPLE_HEALTH_REPORT_JSON.md, docs/demo/SAMPLE_HTML_REPORT_PREVIEW.md, docs/demo/SAMPLE_DISCORD_ALERT.md, docs/demo/SAMPLE_AUDIT_RESULTS_MANIFEST.md, docs/demo/SAMPLE_CLIENT_BEFORE_AFTER.md, docs/assets/README.md
 - **Screenshot docs:** docs/assets/SCREENSHOT_CAPTURE_CHECKLIST.md, docs/assets/SCREENSHOT_REDACTION_GUIDE.md, docs/assets/SCREENSHOT_SHOT_LIST.md, docs/assets/SCREENSHOT_DEMO_SCRIPT.md, docs/assets/SCREENSHOT_REVIEW_CHECKLIST.md
@@ -754,7 +754,7 @@ powershell -NoProfile -ExecutionPolicy Bypass -File scripts\uninstall_questops_t
 | v0.4.17 | Beta audit reporting template polish **(shipped)** |
 | v0.4.18 | Public README quick-start polish |
 | v0.4.20 | Dashboard planning brief |
-| v0.5.0 | Local HTML Dashboard MVP |
+| v0.5.0 | Local HTML Dashboard Release **(shipped)** |
 | v0.5.1 | Dashboard visual polish and status filters **(shipped)** |
 | v0.5.2 | Dashboard history trend polish **(shipped)** |
 | v0.5.3 | Dashboard error state polish **(shipped)** |
@@ -764,6 +764,7 @@ powershell -NoProfile -ExecutionPolicy Bypass -File scripts\uninstall_questops_t
 | v0.5.7 | Dashboard release build dry run **(shipped)** |
 | v0.5.8 | Dashboard release decision and version planning **(shipped)** |
 | v0.5.9 | Dashboard final release preparation **(shipped)** |
+| Official v0.5.0 | Dashboard release execution **(shipped)** |
 
 Full details in `docs/ROADMAP.md`.
 
