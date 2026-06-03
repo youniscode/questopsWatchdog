@@ -47,6 +47,10 @@ Placeholder documents that describe future screenshots. No actual images here ye
 
 Placeholders are documentation-only. They describe intended screenshots but do not contain or reference any actual images. The naming convention and redaction rules above apply to all future screenshots.
 
+## Screenshot assets
+
+Committed screenshot images are stored in the [screenshots/](screenshots/) subfolder. See [screenshots/README.md](screenshots/README.md) for the asset index, naming convention, and safety rules.
+
 ## Current contents
 
-*(No image assets yet — only planning, reference, and placeholder documents.)*
+*(No image assets yet — only planning, reference, and placeholder documents. The screenshots/ folder is ready for committed images.)*
