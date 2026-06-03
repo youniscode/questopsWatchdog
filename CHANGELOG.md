@@ -1,5 +1,17 @@
 # QuestOps Watchdog — Changelog
 
+## v0.5.11 — Screenshot Capture Execution and README Image Polish (unreleased)
+
+- Prepared docs/assets/screenshots/ for safe v0.5.0 screenshots
+- Added screenshot asset index (docs/assets/screenshots/README.md)
+- Updated screenshot capture results for v0.5.0 (manual capture required — headless/text-only environment limitation)
+- Updated README screenshot section with planning links only (no broken image links; actual screenshots require manual capture)
+- Updated README, PROJECTMAP, TASKS, ROADMAP, CHANGELOG
+- VERSION unchanged at 0.5.0
+- Package count unchanged at 56 files
+- No package export changes
+- No tag created
+
 ## v0.5.10 — Post-release verification and screenshot capture planning (unreleased)
 
 - Added POST_RELEASE_VERIFICATION_v0.5.0.md — post-release verification checklist for the official v0.5.0 release

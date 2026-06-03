@@ -70,6 +70,8 @@ questops-watchdog/
 |   |   |-- SCREENSHOT_REVIEW_CHECKLIST.md  # Review checklist
 |   |   |-- SCREENSHOT_CAPTURE_PLAN_v0.5.0.md    # v0.5.0-focused screenshot capture plan
 |   |   |-- SCREENSHOT_CAPTURE_RESULTS_v0.5.0.md  # v0.5.0 screenshot capture results template
+|   |   |-- screenshots/
+|   |   |   `-- README.md        # Screenshot asset index for committed images
 |   |   `-- placeholders/
 |   |       |-- README_HERO_SCREENSHOT_PLACEHOLDER.md    # README hero placeholder
 |   |       |-- HTML_REPORT_SCREENSHOT_PLACEHOLDER.md    # HTML report placeholder
@@ -266,6 +268,7 @@ questops-watchdog/
 | `docs/release/POST_RELEASE_VERIFICATION_RESULTS_v0.5.0.md` | Fill-in results template for recording one post-release verification pass. |
 | `docs/assets/SCREENSHOT_CAPTURE_PLAN_v0.5.0.md` | Focused v0.5.0 screenshot capture plan — 9 recommended shots, safety rules, naming convention, redaction workflow. |
 | `docs/assets/SCREENSHOT_CAPTURE_RESULTS_v0.5.0.md` | Fill-in results template for tracking v0.5.0 screenshot capture/review status. |
+| `docs/assets/screenshots/README.md` | Screenshot asset index for committed images — naming convention, safety rules, package exclusion note. |
 
 ## Config files
 
@@ -1046,3 +1049,5 @@ These rules bind every AI agent that modifies this repository.
 2026-06-01 - Official v0.5.0: Executed official Local Dashboard Release preparation. Updated VERSION to 0.5.0. Created docs/RELEASE_NOTES_v0.5.0. Updated client package to include v0.5.0 release notes instead of v0.4.9 release notes while keeping package count at 56 files. Updated README, CHANGELOG, PROJECTMAP, TASKS, ROADMAP, CLIENT_HANDOFF_CHECKLIST, RELEASE_CHECKLIST, and export script. docs/release/, docs/dashboard/, docs/launch/, docs/qa/, docs/audit/, generated reports, logs, and dist outputs remain excluded from the client package.
 
 2026-06-01 - v0.5.10: Added post-release verification and screenshot capture planning docs for the official v0.5.0 dashboard release. Created POST_RELEASE_VERIFICATION_v0.5.0 and POST_RELEASE_VERIFICATION_RESULTS_v0.5.0 under docs/release/. Created SCREENSHOT_CAPTURE_PLAN_v0.5.0 and SCREENSHOT_CAPTURE_RESULTS_v0.5.0 under docs/assets/. Updated README, CHANGELOG, PROJECTMAP, TASKS, ROADMAP. Package count unchanged at 56 files. VERSION unchanged (0.5.0). docs/release/ remains excluded from the client package. The new v0.5.0 screenshot planning docs remain internal/not added to the client package; existing packaged docs/assets screenshot docs remain unchanged.
+
+2026-06-01 - v0.5.11: Executed safe screenshot capture/readiness and README image polish for the official v0.5.0 dashboard release. Added docs/assets/screenshots/ and screenshot asset index (screenshots require manual capture — headless/text-only environment limitation). Updated SCREENSHOT_CAPTURE_RESULTS_v0.5.0, README, CHANGELOG, PROJECTMAP, TASKS, ROADMAP. VERSION unchanged (0.5.0). Package count unchanged at 56 files. Client package contents unchanged. No v0.5.11 tag created.

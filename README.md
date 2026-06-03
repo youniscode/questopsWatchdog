@@ -13,9 +13,9 @@ Free, open-source, no cloud, no telemetry.
 ## Current status
 
 **Current tagged release:** v0.5.0
-**Latest repository milestone:** v0.5.10 — Post-release verification and screenshot capture planning
+**Latest repository milestone:** v0.5.11 — Screenshot Capture Execution and README Image Polish
 
-The `VERSION` file is now 0.5.0. Repository milestones v0.5.0–v0.5.9 were work-in-progress development history that led to the official v0.5.0 release. Milestone v0.5.10 covers post-release verification and screenshot capture planning.
+The `VERSION` file is now 0.5.0. Repository milestones v0.5.0–v0.5.9 were work-in-progress development history that led to the official v0.5.0 release. Milestones v0.5.10 and v0.5.11 cover post-release verification, screenshot capture planning, and screenshot asset readiness.
 
 ## Try it in 5 minutes
 

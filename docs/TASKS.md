@@ -278,10 +278,16 @@
 | Done   | - Created SCREENSHOT_CAPTURE_RESULTS_v0.5.0.md (fill-in results template) |
 | Done   | - Updated README, CHANGELOG, PROJECTMAP, TASKS, ROADMAP |
 | Done   | - Package count unchanged (56 files), VERSION unchanged (0.5.0) |
-| Done   | - docs/release/ and docs/assets/ remain excluded from client package |
+| Done   | - docs/release/ remains excluded from the client package. The new v0.5.0 screenshot planning docs remain internal/not added to the client package; existing packaged docs/assets screenshot docs remain unchanged. |
+
+| Done   | v0.5.11 - Screenshot capture execution and README image polish |
+| Done   | - Created docs/assets/screenshots/ folder and screenshot asset index |
+| Done   | - Updated SCREENSHOT_CAPTURE_RESULTS_v0.5.0.md (marked all 9 shots as manual capture required) |
+| Done   | - Updated README, CHANGELOG, PROJECTMAP, TASKS, ROADMAP |
+| Done   | - No package export changes; VERSION unchanged (0.5.0); no tag created |
 
 ## Upcoming
 
 | Status | Task |
 |--------|------|
-| Pending | v0.5.11 - Screenshot capture execution and README image polish |
+| Pending | v0.5.12 - Release page screenshot follow-up and public polish |
